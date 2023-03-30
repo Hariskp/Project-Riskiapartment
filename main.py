@@ -1,7 +1,5 @@
 from tkinter import*
 import sqlite3
-from tkinter import ttk
-from tkinter import messagebox
 
 #Create Main Window
 def mainwindow() : 
