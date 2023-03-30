@@ -10,7 +10,7 @@ def mainwindow() :
     root.config(bg='#EBFCE0')
     root.title("Riski Apartment : Login")
     root.option_add("*font", "Verdana 16 bold")
-    root.resizable(False, False)
+    #root.resizable(False, False)
     root.rowconfigure((0,1,2,3), weight=1)
     root.columnconfigure((0,1,2,3),weight=1)
     return root
@@ -29,17 +29,16 @@ def login_fn() :
     bg = Label(login_frame, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h)
 
-
 #Program resolution
 # w = 1300
 # h = 700
-w = 1506
-h = 840
+w = 1920
+h = 1080
 
 root = mainwindow()
 #Image import
 
 #Background
-bg_login = PhotoImage(file = 'img/img_login.png').subsample(2,2)
+bg_login = PhotoImage(file = 'img/img_login.png')#.subsample(2,2)
 login_fn()
 root.mainloop()
