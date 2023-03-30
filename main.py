@@ -15,7 +15,6 @@ def mainwindow() :
     root.resizable(False, False)
     root.rowconfigure((0,1,2,3), weight=1)
     root.columnconfigure((0,1,2,3),weight=1)
-    login_fn()
     return root
 
 def createconnection() : #Create Connection to sqlite3 (สร้างรอไว้ก่อน)
@@ -30,17 +29,19 @@ def login_fn() :
     login_frame.rowconfigure((0,1,2,3), weight=1)
     login_frame.columnconfigure((0,1,2,3), weight=1)
     bg = Label(login_frame, image=bg_login)
+    bg.place(x=0,y=0,width=w,height=h)
 
 
 #Program resolution
 # w = 1300
 # h = 700
-w = 1500
-h = 800
+w = 1506
+h = 840
 
+root = mainwindow()
 #Image import
 
 #Background
-bg_login = PhotoImage('file = img/img_login.png')
-root = mainwindow()
+bg_login = PhotoImage(file = 'img/img_login.png').subsample(2,2)
+login_fn()
 root.mainloop()
