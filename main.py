@@ -30,6 +30,8 @@ def login_fn() :
     bg = Label(login_frame, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h)
 
+def riskiaprt() : 
+
 #Program resolution
 w = 1920
 h = 1080
