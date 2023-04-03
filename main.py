@@ -23,7 +23,6 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     cursor = conn.cursor()
 
 def login_fn() :
-    
     login_frame = Frame(root, bg='red')
     login_frame.place(x=0, y=0, width = w, height = h)
     login_frame.rowconfigure((0,1,2,3), weight=1)
@@ -32,8 +31,6 @@ def login_fn() :
     bg.place(x=0,y=0,width=w,height=h)
 
 #Program resolution
-# w = 1300
-# h = 700
 w = 1920
 h = 1080
 
