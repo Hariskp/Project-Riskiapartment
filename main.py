@@ -37,6 +37,6 @@ root = mainwindow()
 #Image import
 
 #Background
-bg_login = PhotoImage(file = 'img/img_login.png').subsample(2,2)
+bg_login = PhotoImage(file = 'img/img_login.png')
 login_fn()
 root.mainloop()
