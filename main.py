@@ -33,7 +33,6 @@ def login_fn() :
 #Program resolution
 w = 1920
 h = 1080
-
 root = mainwindow()
 #Image import
 
