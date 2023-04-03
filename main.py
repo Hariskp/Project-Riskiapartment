@@ -23,11 +23,11 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     cursor = conn.cursor()
 
 def login_fn() :
-    login_frame = Frame(root, bg='red')
-    login_frame.place(x=0, y=0, width = w, height = h)
-    login_frame.rowconfigure((0,1,2,3), weight=1)
-    login_frame.columnconfigure((0,1,2,3), weight=1)
-    bg = Label(login_frame, image=bg_login)
+    frm_login = Frame(root, bg='red')
+    frm_login.place(x=0, y=0, width = w, height = h)
+    frm_login.rowconfigure((0,1,2,3), weight=1)
+    frm_login.columnconfigure((0,1,2,3), weight=1)
+    bg = Label(frm_login, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h)
 
 
