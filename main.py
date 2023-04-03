@@ -33,11 +33,11 @@ def login_fn() :
 #Program resolution
 w = 1920
 h = 1080
-# I Love U
+
 root = mainwindow()
 #Image import
 
 #Background
-bg_login = PhotoImage(file = 'img/img_login.png')#.subsample(2,2)
+bg_login = PhotoImage(file = 'img/img_login.png').subsample(2,2)
 login_fn()
 root.mainloop()
