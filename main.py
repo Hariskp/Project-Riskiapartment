@@ -1,6 +1,10 @@
 from tkinter import*
 import sqlite3
+<<<<<<< Updated upstream
 from tkinter import ttk 
+=======
+from tkinter import ttk
+>>>>>>> Stashed changes
 from tkinter import messagebox
 
 #Create Main Window
