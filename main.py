@@ -41,7 +41,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
 
     #FRAME RIGHT
     frm_right_login = Frame(frm_main_login, bg='#084235', bd=10)
-    frm_right_login.rowconfigure((0,1,2,3,4,5,6,7,8,9), weight=0) #1
+    frm_right_login.rowconfigure((0,1,2,3,4,5,6,7,8,9), weight=1) #1
     frm_right_login.columnconfigure((0,1,2,3), weight=1)
     frm_right_login.grid(column=1, row=1, sticky='news')
 
@@ -57,7 +57,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     
     #RIGHT
     Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1, sticky='n')
-    Label(frm_right_login, text='Welcome Back!', font = 'Calibri 40 bold', bg='#084235', fg='white').grid(row=1,column=1, sticky='n')
+    Label(frm_right_login, text='Welcome Back!', font = 'Calibri 40 bold', bg='#084235', fg='white').grid(row=0,column=1, sticky='n')
     Label(frm_right_login, text='to keep connected with us please\n login your personal info', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=2,column=1, sticky='n')
     Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
     Label(frm_right_login, image=img_phonenumber).grid(row=4,column=1, sticky='n')
