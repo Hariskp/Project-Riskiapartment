@@ -87,6 +87,7 @@ def home_fn() :
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
+
 def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
     root.title("Riski Apartment : Check In/Out")
