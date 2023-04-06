@@ -87,6 +87,9 @@ def home_fn() :
 
     #LEFT
     Label(frm_left_home, image=img_riskilogos, bg='#084235').grid(row=0, column=0, sticky='nw')
+    Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235').grid(row=1, column=0)
+    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').grid(row=2, column=0)
+
 
 
 #Program resolution
@@ -100,6 +103,8 @@ img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
 
 #Button import
 btn_login = PhotoImage(file='button/btn_login.png')
+btn_checkinout = PhotoImage(file='button/btn_check-in-out.png')
+btn_inforeport = PhotoImage(file='button/btn_info-report.png')
 
 #Background
 bg_login = PhotoImage(file = 'img/img_bglogin.png')
