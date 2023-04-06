@@ -28,8 +28,8 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     frm_login.place(x=0, y=0, width = w, height = h)
     frm_login.rowconfigure((0,1,2,3), weight=1)
     frm_login.columnconfigure((0,1,2,3), weight=1)
-    #bg = Label(frm_login, image=bg_login)
-    #bg.place(x=0,y=0,width=w,height=h)
+    bg = Label(frm_login, image=bg_login)
+    bg.place(x=0,y=0,width=w,height=h)
 
 
 #Program resolution
