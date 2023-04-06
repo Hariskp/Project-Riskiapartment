@@ -75,7 +75,7 @@ def home_fn() :
     
     #FRAME LEFT
     frm_left_home = Frame(frm_main_home,bg='#084235',bd=10)
-    frm_left_home.rowconfigure((0,1,2,3,4,5,6), weight=1)
+    frm_left_home.rowconfigure((0,1,2,3,4,5,6), weight=0)
     frm_left_home.columnconfigure((0,1), weight=1)
     frm_left_home.grid(row=0, column=0,sticky='news', rowspan=2)
 
@@ -87,8 +87,32 @@ def home_fn() :
 
     #LEFT
     Label(frm_left_home, image=img_riskilogos, bg='#084235').grid(row=0, column=0, sticky='nw')
-    Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235').grid(row=1, column=0)
-    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').grid(row=2, column=0)
+    Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).grid(row=1, column=0, pady=20)
+    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').grid(row=2, column=0, pady=20)
+    Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235').grid(row=3, column=0, pady=20)
+    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235').grid(row=4, column=0, pady=20)
+    Button(frm_left_home, image=btn_service, bd=0, bg='#084235').grid(row=5, column=0, pady=20)
+    Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).grid(row=6, column=0, pady=320, sticky='w', padx=20)
+
+def checkinout_fn() :
+    #MAIN
+    root.title("Riski Apartment : Check In/Out")
+    frm_main_inout = Frame(root, bg='#084235')
+    frm_main_inout.place(x=0, y=0, width = w, height = h)
+    frm_main_inout.rowconfigure((0,1), weight=1)
+    frm_main_inout.columnconfigure((0,1,2), weight=1)
+
+    #FRAME LEFT
+    frm_left_inout = Frame(frm_main_inout,bg='#084235',bd=10)
+    frm_left_inout.rowconfigure((0,1,2,3,4,5,6), weight=0)
+    frm_left_inout.columnconfigure((0,1), weight=1)
+    frm_left_inout.grid(row=0, column=0,sticky='news', rowspan=2)
+
+    #FRAME RIGHT
+    frm_right_inout = Frame(frm_main_inout,bg='white',bd=10)
+    frm_right_inout.rowconfigure((0,1,2,3,4,5,6), weight=1)
+    frm_right_inout.columnconfigure((0,1), weight=1)
+    frm_right_inout.grid(row=0, column=1,sticky='news', rowspan=3,columnspan=2)
 
 
 
@@ -101,10 +125,17 @@ img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
 img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
 
+
+
 #Button import
 btn_login = PhotoImage(file='button/btn_login.png')
 btn_checkinout = PhotoImage(file='button/btn_check-in-out.png')
 btn_inforeport = PhotoImage(file='button/btn_info-report.png')
+btn_accmanage = PhotoImage(file='button/btn_accountmanage.png')
+btn_roommanage = PhotoImage(file='button/btn_roommanage.png')
+btn_service = PhotoImage(file='button/btn_service.png')
+btn_signout = PhotoImage(file='button/btn_signout.png')
+
 
 #Background
 bg_login = PhotoImage(file = 'img/img_bglogin.png')
