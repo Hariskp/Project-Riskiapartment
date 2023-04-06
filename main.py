@@ -79,24 +79,60 @@ def home_fn() :
 
 def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-    root.title("Riski Apartment : Check In/Out")
-    frm_main_inout = Frame(root, bg='#084235')
+    root.title("Riski Apartment : Home")
+    frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
-    frm_main_inout.rowconfigure((0,1), weight=1)
-    frm_main_inout.columnconfigure((0,1,2), weight=1)
 
     #FRAME LEFT
-    frm_left_inout = Frame(frm_main_inout,bg='#084235',bd=10)
-    frm_left_inout.rowconfigure((0,1,2,3,4,5,6), weight=0)
-    frm_left_inout.columnconfigure((0,1), weight=1)
-    frm_left_inout.grid(row=0, column=0,sticky='news', rowspan=2)
+    frm_left_inout = Frame(frm_main_inout, bg='#084235')
+    frm_left_inout.place(x=0, y=0, width=650, height=1080)
 
     #FRAME RIGHT
-    frm_right_inout = Frame(frm_main_inout,bg='white',bd=10)
-    frm_right_inout.rowconfigure((0,1,2,3,4,5,6), weight=1)
-    frm_right_inout.columnconfigure((0,1), weight=1)
-    frm_right_inout.grid(row=0, column=1,sticky='news', rowspan=3,columnspan=2)
+    frm_right_inout = Frame(frm_main_inout, bg='white')
+    frm_right_inout.place(x=651,y=0, width= 1269, height=1080)
 
+    #LOGO
+    Button(frm_left_inout, image=img_riskilogos, bd=0 , bg='#084235').place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_inout, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+    Button(frm_left_inout, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+    Button(frm_left_inout, image=btn_checkout, bd=0, bg='#084235').place(x=198, y=380)
+    Button(frm_left_inout, image=btn_home, bd=0, bg='#084235').place(x=30, y=900)
+
+def checkin_fn() :
+    #MAIN
+    root.title("Riski Apartment : Home")
+    frm_main_checkin = Frame(root, bg='black')
+    frm_main_checkin.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_checkin = Frame(frm_main_checkin, bg='#084235')
+    frm_left_checkin.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_checkin = Frame(frm_main_checkin, bg='white')
+    frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_checkin, image=img_riskilogos, bd=0 , bg='#084235').place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_checkin, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+    Button(frm_left_checkin, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+    Button(frm_left_checkin, image=btn_checkout, bd=0, bg='#084235').place(x=198, y=380)
+    Button(frm_left_checkin, image=btn_home, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
+    frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
+    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
+    Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
+    entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
+    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=194, y=180)
+    roomtype = OptionMenu(frm_right_checkin_bg).place(x=350, y=180)
 
 
 #Program resolution
@@ -118,6 +154,9 @@ btn_accmanage = PhotoImage(file='button/btn_accountmanage.png')
 btn_roommanage = PhotoImage(file='button/btn_roommanage.png')
 btn_service = PhotoImage(file='button/btn_service.png')
 btn_signout = PhotoImage(file='button/btn_signout.png')
+btn_checkin = PhotoImage(file='button/btn_checkin.png')
+btn_checkout = PhotoImage(file='button/btn_checkout.png')
+btn_home = PhotoImage(file='button/btn_home.png')
 
 
 #Background
