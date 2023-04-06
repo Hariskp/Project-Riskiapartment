@@ -41,7 +41,7 @@ def login_fn() :
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=480)
-    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
+    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*")
     frm_left_login_entry_password.place(x=380, y=580, height=50)
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).place(x=480, y=680)
 
