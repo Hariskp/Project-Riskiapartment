@@ -32,31 +32,35 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     bg = Label(frm_main_login, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h) 
 
-    #LEFT
+    #FRAME LEFT
     frm_left_login = Frame(frm_main_login, bg='white', bd=10)
     frm_left_login.rowconfigure((0,1,2,3,4), weight=1)
-    frm_left_login.columnconfigure((0,1,2,3), weight=1)
+    frm_left_login.columnconfigure((0,1,2,3,), weight=1)
     frm_left_login.option_add("*font", "Verdana 16")
     frm_left_login.grid(column=0, row=1, sticky='news', ipadx=20, ipady=500)
 
-    #RIGHT
+    #FRAME RIGHT
     frm_right_login = Frame(frm_main_login, bg='#084235', bd=10)
-    frm_right_login.rowconfigure((0,1,2,3,4,5,6), weight=1)
+    frm_right_login.rowconfigure((0,1,2,3,4,5,6), weight=0)
     frm_right_login.columnconfigure((0,1,2,3), weight=1)
     frm_right_login.grid(column=1, row=1, sticky='news')
 
-
+    #LEFT
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').grid(row=0, column=0, sticky='news')
-    Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=1, column=0,sticky='nws', padx=200)
-    Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=2, column=0,sticky='nws', padx=200)
-    frm_left_login_entry_user = Entry(frm_left_login, width=10)
+    Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=1, column=0,sticky='w', padx=200)
+    Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=2, column=0,sticky='w', padx=200)
+    frm_left_login_entry_user = Entry(frm_left_login, width=10, bg='#E6E6E6')
     frm_left_login_entry_user.grid(row=1, column=0,sticky='e', ipadx=100, ipady=5)
-    frm_left_login_entry_pass = Entry(frm_left_login, width=10)
+    frm_left_login_entry_pass = Entry(frm_left_login, width=10, bg='#E6E6E6')
     frm_left_login_entry_pass.grid(row=2, column=0,sticky='e', ipadx=100, ipady=5)
-    #Button(frm_left_login, image=btn_login, bd=0, bg='white').grid(row=3, column=0, sticky='news')
-    Button(frm_left_login,bd=0, bg='white').grid(row=3, column=0, sticky='news')
-
-    Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1)
+    Button(frm_left_login, image=btn_login, bd=0, bg='white').grid(row=3, column=0)
+    
+    #RIGHT
+    Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1, sticky='n')
+    Label(frm_right_login, text='Welcome Back!', font = 'Calibri 40 bold', bg='#084235', fg='white').grid(row=1,column=1, sticky='n')
+    Label(frm_right_login, text='to keep connected with us please\n login your personal info', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=2,column=1, sticky='n')
+    Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
+    Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').grid(row=4,column=1, sticky='n')
     
 
 #Program resolution
@@ -66,7 +70,7 @@ root = mainwindow()
 #Image import
 img_rikilogo = PhotoImage(file='img/img_riskilogo.png')
 
-#Buttom import
+#Button import
 btn_login = PhotoImage(file='button/btn_login.png')
 
 #Background
