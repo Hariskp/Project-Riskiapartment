@@ -92,7 +92,7 @@ def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโด
     frm_right_inout.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
-    Button(frm_left_inout, image=img_riskilogos, bd=0 , bg='#084235').place(x=30, y=30)
+    Button(frm_left_inout, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
     Button(frm_left_inout, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
@@ -115,7 +115,7 @@ def checkin_fn() :
     frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
-    Button(frm_left_checkin, image=img_riskilogos, bd=0 , bg='#084235').place(x=30, y=30)
+    Button(frm_left_checkin, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
     Button(frm_left_checkin, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
@@ -135,6 +135,55 @@ def checkin_fn() :
     #room type
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
     roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
+    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=269, y= 240)
+    entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
+    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=256, y= 300)
+    entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
+    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkdate).place(x=480, y=450)
+
+def checkdate() :
+    #MAIN
+    root.title("Riski Apartment : Home")
+    frm_main_checkdate = Frame(root, bg='black')
+    frm_main_checkdate.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_checkdate = Frame(frm_main_checkdate, bg='#084235')
+    frm_left_checkdate.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_checkdate = Frame(frm_main_checkdate, bg='white')
+    frm_right_checkdate.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_checkdate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_checkdate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+    Button(frm_left_checkdate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+    Button(frm_left_checkdate, image=btn_checkout, bd=0, bg='#084235').place(x=198, y=380)
+    Button(frm_left_checkdate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_checkdate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    frm_right_checkdate_bg = Frame(frm_right_checkdate, bg='#DDDDDD')
+    frm_right_checkdate_bg.place(x=276, y=258, width=750, height=500)
+    Label(frm_right_checkdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=60)
+    Label(frm_right_checkdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
+    Label(frm_right_checkdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=120)
+    Label(frm_right_checkdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_checkdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
+    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=180)
+    Button(frm_right_checkdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
+    Button(frm_right_checkdate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
+    Button(frm_right_checkdate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
+
+
+
+    
+
 
 
 #Program resolution
@@ -159,6 +208,10 @@ btn_signout = PhotoImage(file='button/btn_signout.png')
 btn_checkin = PhotoImage(file='button/btn_checkin.png')
 btn_checkout = PhotoImage(file='button/btn_checkout.png')
 btn_home = PhotoImage(file='button/btn_home.png')
+btn_next = PhotoImage(file='button/btn_next.png')
+btn_back = PhotoImage(file='button/btn_back.png')
+btn_finish = PhotoImage(file='button/btn_finish.png')
+btn_paperform = PhotoImage(file='button/btn_paperform.png')
 
 
 #Background
