@@ -47,12 +47,12 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
 
     #LEFT
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').grid(row=0, column=0, sticky='news', padx=150)
-    Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 20 ').place(x=300, y=400, width=300, height=40)
-    Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 20 ').place(x=300, y=600, width=300, height=40)
+    Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 40 ').place(x=300, y=400, width=300, height=40)
+    Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 40 ').place(x=300, y=600, width=300, height=40)
     frm_left_login_entry_user = Entry(frm_left_login, width=10, bg='#E6E6E6')
-    frm_left_login_entry_user.place(x=550, y=400, width=300, height=40)
+    frm_left_login_entry_user.place(x=650, y=400, width=300, height=40)
     frm_left_login_entry_pass = Entry(frm_left_login, width=10, bg='#E6E6E6')
-    frm_left_login_entry_pass.place(x=550, y=600, width=300, height=40)
+    frm_left_login_entry_pass.place(x=650, y=600, width=300, height=40)
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).place(x=550, y=800, width=200, height=70)
     
     #RIGHT
