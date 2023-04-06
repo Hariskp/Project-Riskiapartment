@@ -241,7 +241,7 @@ def accountmanage_fn() :
     #LEFT
     Button(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_accmanage, image=btn_editempinfo, bd=0 , bg='#084235').place(x=180, y=350)
+    Button(frm_left_accmanage, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Button(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
     Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
@@ -267,7 +267,7 @@ def addempaccount_fn() :
     #LEFT
     Button(frm_left_addempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_addempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_addempaccount, image=btn_editempinfo, bd=0 , bg='#084235').place(x=180, y=350)
+    Button(frm_left_addempaccount, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Button(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
     Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
@@ -288,6 +288,50 @@ def addempaccount_fn() :
     Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
+
+def editempaccount_fn() :
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_editempaccount = Frame(root, bg='black')
+    frm_main_editempaccount.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_editempaccount = Frame(frm_main_editempaccount, bg='#084235')
+    frm_left_editempaccount.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_editempaccount = Frame(frm_main_editempaccount, bg='white')
+    frm_right_editempaccount.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_editempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_editempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_editempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_editempaccount, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Button(frm_left_editempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
+    frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
+    Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=50, width=230)
+    Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=50, width=230)
+    Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=120, width=230)
+    Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=120, width=230)
+    Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=190, width=230)
+    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=220)
+    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=220)
+
 
 
     
@@ -325,6 +369,8 @@ btn_editcusinfo = PhotoImage(file='button/btn_editcusinfo.png')
 btn_cusmanage = PhotoImage(file='button/btn_cusmanage.png')
 btn_addcusinfo = PhotoImage(file='button/btn_addcusinfo.png')
 btn_save = PhotoImage(file='button/btn_save.png')
+btn_delete = PhotoImage(file='button/btn_delete.png')
+btn_edit = PhotoImage(file='button/btn_edit.png')
 
 
 #Background
