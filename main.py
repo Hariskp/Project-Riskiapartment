@@ -66,6 +66,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
 
 def home_fn() :
     #MAIN
+    root.title("Riski Apartment : Home")
     global entry_user, entry_pwd 
     frm_main_home = Frame(root, bg='#084235')
     frm_main_home.place(x=0, y=0, width = w, height = h)
