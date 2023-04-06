@@ -132,7 +132,9 @@ def checkin_fn() :
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=194, y=180)
-    roomtype = OptionMenu(frm_right_checkin_bg).place(x=350, y=180)
+    #room type
+    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
+    roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
 
 
 #Program resolution
