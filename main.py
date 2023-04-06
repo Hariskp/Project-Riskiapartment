@@ -56,7 +56,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).grid(row=3, column=0)
     
     #RIGHT
-    Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1, sticky='n', pady=30)
+    Label(frm_right_login, image=img_riskilogo, bg='#084235').grid(row=0,column=1, sticky='n', pady=30)
     Label(frm_right_login, text='Welcome Back!', font = 'Calibri 50 bold', bg='#084235', fg='white').grid(row=1,column=1, sticky='n')
     Label(frm_right_login, text='to keep connected with us please\n login your personal info', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=2,column=1, sticky='n')
     Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
@@ -70,21 +70,33 @@ def home_fn() :
     global entry_user, entry_pwd 
     frm_main_home = Frame(root, bg='#084235')
     frm_main_home.place(x=0, y=0, width = w, height = h)
-    frm_main_home.rowconfigure((0), weight=0)
-    frm_main_home.columnconfigure((0,1), weight=1)
-    bg = Label(frm_main_home, image=bg_login)
-    bg.place(x=0,y=0,width=w,height=h)
+    frm_main_home.rowconfigure((0,1), weight=1)
+    frm_main_home.columnconfigure((0,1,2), weight=1)
+    
+    #FRAME LEFT
+    frm_left_home = Frame(frm_main_home,bg='#084235',bd=10)
+    frm_left_home.rowconfigure((0,1,2,3,4,5,6), weight=1)
+    frm_left_home.columnconfigure((0,1), weight=1)
+    frm_left_home.grid(row=0, column=0,sticky='news', rowspan=2)
+
+    #FRAME RIGHT
+    frm_right_home = Frame(frm_main_home,bg='white',bd=10)
+    frm_right_home.rowconfigure((0,1,2,3,4,5,6), weight=1)
+    frm_right_home.columnconfigure((0,1), weight=1)
+    frm_right_home.grid(row=0, column=1,sticky='news', rowspan=3,columnspan=2)
 
     #LEFT
-    #RIGHT    
+    Label(frm_left_home, image=img_riskilogos, bg='#084235').grid(row=0, column=0, sticky='nw')
+
 
 #Program resolution
 w = 1920
 h = 1080
 root = mainwindow()
 #Image import
-img_rikilogo = PhotoImage(file='img/img_riskilogo.png')
+img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
+img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
 
 #Button import
 btn_login = PhotoImage(file='button/btn_login.png')
