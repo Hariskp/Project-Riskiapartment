@@ -53,7 +53,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     frm_left_login_entry_user.grid(row=1, column=0,sticky='e', ipadx=100, ipady=5)
     frm_left_login_entry_pass = Entry(frm_left_login, width=10, bg='#E6E6E6')
     frm_left_login_entry_pass.grid(row=2, column=0,sticky='e', ipadx=100, ipady=5)
-    Button(frm_left_login, image=btn_login, bd=0, bg='white').grid(row=3, column=0)
+    Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).grid(row=3, column=0)
     
     #RIGHT
     Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1, sticky='n')
