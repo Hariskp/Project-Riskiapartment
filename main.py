@@ -24,6 +24,7 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
 
 def login_fn() :
     #MAIN
+    root.title("Riski Apartment : Login")
     frm_main_login = Frame(root, bg='black')
     frm_main_login.place(x=0, y=0, width = w, height = h)
 
@@ -72,14 +73,14 @@ def home_fn() :
     Button(frm_left_home, image=img_riskilogos, bg='#084235', command=home_fn, bd=0).place(x=30, y=30)
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
     Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
-    Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235').place(x=180, y=380)
+    Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235').place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
 def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-    root.title("Riski Apartment : Home")
+    root.title("Riski Apartment : Check In/Out")
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
@@ -102,7 +103,7 @@ def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโด
 
 def checkin_fn() :
     #MAIN
-    root.title("Riski Apartment : Home")
+    root.title("Riski Apartment : Check In")
     frm_main_checkin = Frame(root, bg='black')
     frm_main_checkin.place(x=0, y=0, width = w, height = h)
 
@@ -139,11 +140,11 @@ def checkin_fn() :
     entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
     entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
-    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkdate).place(x=480, y=450)
+    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
 
-def checkdate() :
+def checkin_date() :
     #MAIN
-    root.title("Riski Apartment : Home")
+    root.title("Riski Apartment : Check In")
     frm_main_checkdate = Frame(root, bg='black')
     frm_main_checkdate.place(x=0, y=0, width = w, height = h)
 
@@ -182,7 +183,7 @@ def checkdate() :
 
 def checkout_fn() :
     #MAIN
-    root.title("Riski Apartment : Home")
+    root.title("Riski Apartment : Check Out")
     frm_main_checkout = Frame(root, bg='black')
     frm_main_checkout.place(x=0, y=0, width = w, height = h)
 
@@ -201,7 +202,7 @@ def checkout_fn() :
     Button(frm_left_checkout, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
     Button(frm_left_checkout, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
     Button(frm_left_checkout, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
-    Button(frm_left_checkout, image=btn_home, bd=0, bg='#084235').place(x=30, y=900)
+    Button(frm_left_checkout, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
     
     #RIGHT
     Label(frm_right_checkout, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
@@ -220,11 +221,76 @@ def checkout_fn() :
     entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD').place(x=480, y=450)
 
+def accountmanage_fn() :
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_accmanage = Frame(root, bg='black')
+    frm_main_accmanage.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_accmanage = Frame(frm_main_accmanage, bg='#084235')
+    frm_left_accmanage.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_accmanage = Frame(frm_main_accmanage, bg='white')
+    frm_right_accmanage.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_accmanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_accmanage, image=btn_editempinfo, bd=0 , bg='#084235').place(x=180, y=350)
+    Button(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+def addempaccount_fn() :
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_addempaccount = Frame(root, bg='black')
+    frm_main_addempaccount.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_addempaccount = Frame(frm_main_addempaccount, bg='#084235')
+    frm_left_addempaccount.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_addempaccount = Frame(frm_main_addempaccount, bg='white')
+    frm_right_addempaccount.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_addempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_addempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_addempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_addempaccount, image=btn_editempinfo, bd=0 , bg='#084235').place(x=180, y=350)
+    Button(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
+    frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
+    Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    entry_name_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=50, width=230)
+    Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=50, width=230)
+    Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    entry_username_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=120, width=230)
+    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    entry_password_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=120, width=230)
+    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
+    Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
+
 
     
-
-
-
 #Program resolution
 w = 1920
 h = 1080
@@ -252,6 +318,13 @@ btn_back = PhotoImage(file='button/btn_back.png')
 btn_finish = PhotoImage(file='button/btn_finish.png')
 btn_paperform = PhotoImage(file='button/btn_paperform.png')
 btn_confirm = PhotoImage(file='button/btn_confirm.png')
+btn_empmanage = PhotoImage(file='button/btn_empmanage.png')
+btn_addempacc = PhotoImage(file='button/btn_addempacc.png')
+btn_editempinfo = PhotoImage(file='button/btn_editempinfo.png')
+btn_editcusinfo = PhotoImage(file='button/btn_editcusinfo.png')
+btn_cusmanage = PhotoImage(file='button/btn_cusmanage.png')
+btn_addcusinfo = PhotoImage(file='button/btn_addcusinfo.png')
+btn_save = PhotoImage(file='button/btn_save.png')
 
 
 #Background
