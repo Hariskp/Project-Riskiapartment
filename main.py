@@ -24,12 +24,20 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
 
 def login_fn() : #โค้ดนี้กำลังแก้ไขโดย ริส 06/04/2023 เวลา 11:30
     global entry_user, entry_pwd 
-    frm_login = Frame(root, bg='green')
-    frm_login.place(x=0, y=0, width = w, height = h)
-    frm_login.rowconfigure((0,1,2,3), weight=1)
-    frm_login.columnconfigure((0,1,2,3), weight=1)
-    #bg = Label(frm_login, image=bg_login) เฟรมรูปภาพ
-    #bg.place(x=0,y=0,width=w,height=h) place รูปภาพ
+    frm_main_login = Frame(root, bg='green')
+    frm_main_login.place(x=0, y=0, width = w, height = h)
+    frm_main_login.rowconfigure((0,1,2,3), weight=1)
+    frm_main_login.columnconfigure((0,1,2,3), weight=1)
+    bg = Label(frm_main_login, image=bg_login)
+    bg.place(x=0,y=0,width=w,height=h) 
+
+    frm_left_login = Frame(frm_main_login, bg='white', bd=10)
+    frm_left_login.rowconfigure((0,1,2,3,4), weight=1)
+    frm_left_login.columnconfigure((0,1), weight=1)
+    frm_left_login.option_add("*font", "Verdana 16")
+    frm_left_login.grid(column=0, row=1, sticky='news', ipadx=300, ipady=500)
+
+    
 
 
 #Program resolution
@@ -39,6 +47,6 @@ root = mainwindow()
 #Image import
 
 #Background
-bg_login = PhotoImage(file = 'img/img_login.png')
+bg_login = PhotoImage(file = 'img/img_bglogin.png')
 login_fn()
 root.mainloop()
