@@ -26,8 +26,8 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     global entry_user, entry_pwd 
     frm_main_login = Frame(root, bg='green')
     frm_main_login.place(x=0, y=0, width = w, height = h)
-    frm_main_login.rowconfigure((0,1,2,3), weight=1)
-    frm_main_login.columnconfigure((0,1,2,3), weight=1)
+    frm_main_login.rowconfigure((0), weight=0)
+    frm_main_login.columnconfigure((0,1), weight=1)
     bg = Label(frm_main_login, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h) 
 
@@ -37,7 +37,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     frm_left_login.option_add("*font", "Verdana 16")
     frm_left_login.grid(column=0, row=1, sticky='news', ipadx=300, ipady=500)
 
-    
+    Label(frm_left_login, text='Sign in to Riski Apartment').grid(row=0, column=0, sticky='news')
 
 
 #Program resolution
