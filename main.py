@@ -94,7 +94,7 @@ def home_fn() :
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').grid(row=5, column=0, pady=20)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).grid(row=6, column=0, pady=320, sticky='w', padx=20)
 
-def checkinout_fn() :
+def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
     root.title("Riski Apartment : Check In/Out")
     frm_main_inout = Frame(root, bg='#084235')
