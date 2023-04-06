@@ -72,7 +72,10 @@ def home_fn() :
     frm_main_home.rowconfigure((0), weight=0)
     frm_main_home.columnconfigure((0,1), weight=1)
     bg = Label(frm_main_home, image=bg_login)
-    bg.place(x=0,y=0,width=w,height=h)     
+    bg.place(x=0,y=0,width=w,height=h) 
+
+    #LEFT
+    #RIGHT    
 
 #Program resolution
 w = 1920
