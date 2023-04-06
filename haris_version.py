@@ -22,48 +22,6 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     conn = sqlite3.connect('input database right here')
     cursor = conn.cursor()
 
-# def login_fn() : #โค้ดนี้กำลังแก้ไขโดย ริส 06/04/2023 เวลา 11:30
-#     #MAIN
-#     global entry_user, entry_pwd 
-#     frm_main_login = Frame(root, bg='green')
-#     frm_main_login.place(x=0, y=0, width = w, height = h)
-#     frm_main_login.rowconfigure((0), weight=0)
-#     frm_main_login.columnconfigure((0,1), weight=1)
-#     bg = Label(frm_main_login, image=bg_login)
-#     bg.place(x=0,y=0,width=w,height=h) 
-
-#     #FRAME LEFT
-#     frm_left_login = Frame(frm_main_login, bg='white', bd=10)
-#     frm_left_login.rowconfigure((0,1,2,3,4), weight=1)
-#     frm_left_login.columnconfigure((0,1,2,3), weight=1)
-#     frm_left_login.option_add("*font", "Verdana 16")
-#     frm_left_login.grid(column=0, row=1, sticky='news', ipadx=20, ipady=500)
-
-#     #FRAME RIGHT
-#     frm_right_login = Frame(frm_main_login, bg='#084235', bd=10)
-#     frm_right_login.rowconfigure((0,1,2,3,4,5,6,7,8,9), weight=1) #1
-#     frm_right_login.columnconfigure((0,1,2,3), weight=1)
-#     frm_right_login.grid(column=1, row=1, sticky='news')
-
-#     #LEFT
-#     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').grid(row=0, column=0, sticky='news', padx=150)
-#     Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=1, column=0,sticky='w', padx=150)
-#     Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 20 ').grid(row=2, column=0,sticky='w', padx=150)
-#     frm_left_login_entry_user = Entry(frm_left_login, width=10, bg='#E6E6E6')
-#     frm_left_login_entry_user.grid(row=1, column=0, ipadx=100, ipady=5)
-#     frm_left_login_entry_pass = Entry(frm_left_login, width=10, bg='#E6E6E6')
-#     frm_left_login_entry_pass.grid(row=2, column=0, ipadx=100, ipady=5)
-#     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).grid(row=3, column=0)
-    
-#     #RIGHT
-#     Label(frm_right_login, image=img_riskilogo, bg='#084235').grid(row=0,column=1, sticky='n', pady=30)
-#     Label(frm_right_login, text='Welcome Back!', font = 'Calibri 50 bold', bg='#084235', fg='white').grid(row=1,column=1, sticky='n')
-#     Label(frm_right_login, text='to keep connected with us please\n login your personal info', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=2,column=1, sticky='n')
-#     Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
-#     Label(frm_right_login, image=img_phonenumber).grid(row=4,column=1, sticky='n')
-#     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').grid(row=5,column=1, sticky='n')
-#     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').grid(row=9,column=1, sticky='n')
-
 def login_fn() :
     #MAIN
     frm_main_login = Frame(root, bg='black')
@@ -96,7 +54,6 @@ def login_fn() :
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').place(x=230, y=840)
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
-
 def home_fn() :
     #MAIN
     root.title("Riski Apartment : Home")
@@ -119,7 +76,6 @@ def home_fn() :
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235').place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
-
 
 def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
