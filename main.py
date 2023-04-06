@@ -35,7 +35,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     #FRAME LEFT
     frm_left_login = Frame(frm_main_login, bg='white', bd=10)
     frm_left_login.rowconfigure((0,1,2,3,4), weight=1)
-    frm_left_login.columnconfigure((0,1,2,3,), weight=1)
+    frm_left_login.columnconfigure((0,1,2), weight=1)
     frm_left_login.option_add("*font", "Verdana 16")
     frm_left_login.grid(column=0, row=1, sticky='news', ipadx=20, ipady=500)
 
@@ -62,7 +62,7 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
     Label(frm_right_login, image=img_phonenumber).grid(row=4,column=1, sticky='n')
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').grid(row=5,column=1, sticky='n')
-    
+    Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').grid(row=9,column=1, sticky='n')
 
 #Program resolution
 w = 1920
