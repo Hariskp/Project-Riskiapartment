@@ -1,10 +1,6 @@
 from tkinter import*
 import sqlite3
-<<<<<<< Updated upstream
 from tkinter import ttk 
-=======
-from tkinter import ttk
->>>>>>> Stashed changes
 from tkinter import messagebox
 
 #Create Main Window
@@ -26,7 +22,8 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     conn = sqlite3.connect('input database right here')
     cursor = conn.cursor()
 
-def login_fn() :
+def login_fn() : #โค้ดนี้กำลังแก้ไขโดย ริส 06/04/2023 เวลา 11:30
+    global entry_user, entry_pwd 
     frm_login = Frame(root, bg='green')
     frm_login.place(x=0, y=0, width = w, height = h)
     frm_login.rowconfigure((0,1,2,3), weight=1)
