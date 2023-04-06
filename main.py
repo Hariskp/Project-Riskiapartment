@@ -62,10 +62,8 @@ def login_fn() :
     Label(frm_right_login, text='contact', font = 'Calibri 20 bold', bg='#084235', fg='white').grid(row=3,column=1, sticky='n')
     Label(frm_right_login, image=img_phonenumber).grid(row=4,column=1, sticky='n')
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').grid(row=5,column=1, sticky='n')
-<<<<<<< HEAD
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').grid(row=9,column=1, sticky='n')
-=======
-    
+
 def home_fn() :
     #MAIN
     global entry_user, entry_pwd 
@@ -75,7 +73,6 @@ def home_fn() :
     frm_main_home.columnconfigure((0,1), weight=1)
     bg = Label(frm_main_home, image=bg_login)
     bg.place(x=0,y=0,width=w,height=h)     
->>>>>>> d18708aacb8d92b14298a5c814f8fbd0841a50b8
 
 #Program resolution
 w = 1920
