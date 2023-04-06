@@ -53,9 +53,10 @@ def login_fn() : #โค้ดนี้กำลังแก้ไขโดย �
     frm_left_login_entry_user.grid(row=1, column=0,sticky='e', ipadx=100, ipady=5)
     frm_left_login_entry_pass = Entry(frm_left_login, width=10)
     frm_left_login_entry_pass.grid(row=2, column=0,sticky='e', ipadx=100, ipady=5)
-    #frm_left_login_btn = Button(frm_left_login, )
+    #Button(frm_left_login, image=btn_login, bd=0, bg='white').grid(row=3, column=0, sticky='news')
+    Button(frm_left_login,bd=0, bg='white').grid(row=3, column=0, sticky='news')
 
-    Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=1,column=1)
+    Label(frm_right_login, image=img_rikilogo, bg='#084235').grid(row=0,column=1)
     
 
 #Program resolution
@@ -64,6 +65,9 @@ h = 1080
 root = mainwindow()
 #Image import
 img_rikilogo = PhotoImage(file='img/img_riskilogo.png')
+
+#Buttom import
+btn_login = PhotoImage(file='button/btn_login.png')
 
 #Background
 bg_login = PhotoImage(file = 'img/img_bglogin.png')
