@@ -22,7 +22,7 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     conn = sqlite3.connect('input database right here')
     cursor = conn.cursor()
 
-def login_fn() :
+def login_fn() : #By Haris
     #MAIN
     root.title("Riski Apartment : Login")
     frm_main_login = Frame(root, bg='black')
@@ -55,7 +55,7 @@ def login_fn() :
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').place(x=230, y=840)
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
-def home_fn() :
+def home_fn() : #By Haris
     #MAIN
     root.title("Riski Apartment : Home")
     frm_main_home = Frame(root, bg='black')
@@ -101,7 +101,7 @@ def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโด
     Button(frm_left_inout, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
     Button(frm_left_inout, image=btn_home, bd=0, bg='#084235').place(x=30, y=900)
 
-def checkin_fn() :
+def checkin_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check In")
     frm_main_checkin = Frame(root, bg='black')
@@ -139,49 +139,49 @@ def checkin_fn() :
     Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=271, y= 240)
     entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
-    entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
+    entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
 
-def checkin_date() :
+def checkin_date() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check In")
-    frm_main_checkdate = Frame(root, bg='black')
-    frm_main_checkdate.place(x=0, y=0, width = w, height = h)
+    frm_main_checkindate = Frame(root, bg='black')
+    frm_main_checkindate.place(x=0, y=0, width = w, height = h)
 
     #FRAME LEFT
-    frm_left_checkdate = Frame(frm_main_checkdate, bg='#084235')
-    frm_left_checkdate.place(x=0, y=0, width=650, height=1080)
+    frm_left_checkindate = Frame(frm_main_checkindate, bg='#084235')
+    frm_left_checkindate.place(x=0, y=0, width=650, height=1080)
 
     #FRAME RIGHT
-    frm_right_checkdate = Frame(frm_main_checkdate, bg='white')
-    frm_right_checkdate.place(x=651,y=0, width= 1269, height=1080)
+    frm_right_checkindate = Frame(frm_main_checkindate, bg='white')
+    frm_right_checkindate.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
-    Button(frm_left_checkdate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    Button(frm_left_checkindate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_checkdate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
-    Button(frm_left_checkdate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
-    Button(frm_left_checkdate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
-    Button(frm_left_checkdate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    Button(frm_left_checkindate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+    Button(frm_left_checkindate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+    Button(frm_left_checkindate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
+    Button(frm_left_checkindate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_checkdate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
-    frm_right_checkdate_bg = Frame(frm_right_checkdate, bg='#DDDDDD')
-    frm_right_checkdate_bg.place(x=276, y=258, width=750, height=500)
-    Label(frm_right_checkdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=60)
-    Label(frm_right_checkdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
-    Label(frm_right_checkdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=120)
-    Label(frm_right_checkdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
-    Label(frm_right_checkdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_date_start = Entry(frm_right_checkdate_bg).place(x=250, y=180)
-    Button(frm_right_checkdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
-    Button(frm_right_checkdate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
-    Button(frm_right_checkdate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
+    Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
+    frm_right_checkindate_bg.place(x=276, y=258, width=750, height=500)
+    Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+    entry_startdate_in = Entry(frm_right_checkindate_bg).place(x=250, y=60)
+    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
+    Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+    entry_enddate_in = Entry(frm_right_checkindate_bg).place(x=250, y=120)
+    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
+    entry_user_in = Entry(frm_right_checkindate_bg).place(x=250, y=180)
+    Button(frm_right_checkindate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
+    Button(frm_right_checkindate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
+    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
 
-def checkout_fn() :
+def checkout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check Out")
     frm_main_checkout = Frame(root, bg='black')
@@ -219,9 +219,9 @@ def checkout_fn() :
     entry_roomtype_checkout = Entry(frm_right_checkout_bg).place(x=350, y=240)
     Label(frm_right_checkout_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
     entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
-    Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD').place(x=480, y=450)
+    Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
-def accountmanage_fn() :
+def accountmanage_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_accmanage = Frame(root, bg='black')
@@ -241,13 +241,13 @@ def accountmanage_fn() :
     #LEFT
     Button(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_accmanage, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Button(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
     Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
     Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
-def addempaccount_fn() :
+def addempaccount_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_addempaccount = Frame(root, bg='black')
@@ -267,9 +267,9 @@ def addempaccount_fn() :
     #LEFT
     Button(frm_left_addempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_addempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_addempaccount, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Button(frm_left_addempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Button(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
     Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
     Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
@@ -289,7 +289,7 @@ def addempaccount_fn() :
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
 
-def editempaccount_fn() :
+def editempaccount_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_editempaccount = Frame(root, bg='black')
@@ -309,9 +309,9 @@ def editempaccount_fn() :
     #LEFT
     Button(frm_left_editempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
     Button(frm_left_editempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_editempaccount, image=btn_editempinfo, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Button(frm_left_editempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Button(frm_left_editempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
     Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
     Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
@@ -332,6 +332,97 @@ def editempaccount_fn() :
     Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=220)
     Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=220)
 
+def addcustomerinfo_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_addcusinfo = Frame(root, bg='black')
+    frm_main_addcusinfo.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_addcusinfo = Frame(frm_main_addcusinfo, bg='#084235')
+    frm_left_addcusinfo.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_addcusinfo = Frame(frm_main_addcusinfo, bg='white')
+    frm_right_addcusinfo.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_addcusinfo, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_addcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Button(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
+    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT 
+    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
+    frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
+    frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
+    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
+    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=50)
+    Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
+    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=150)
+    Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
+    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=250)
+    Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
+    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=350)  #ศัพท์จาก apple translate
+    Label(frm_right_addcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
+    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=450)     #nation --> nationality
+    Label(frm_right_addcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
+    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=50)      #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    Label(frm_right_addcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
+    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=150)
+    Label(frm_right_addcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
+    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=250)
+    Label(frm_right_addcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
+    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=350)
+    Label(frm_right_addcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
+    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=450)
+    Label(frm_right_addcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
+    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
+    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+
+def checkout_date() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
+    #MAIN
+    root.title("Riski Apartment : Check Out")
+    frm_main_checkoutdate = Frame(root, bg='black')
+    frm_main_checkoutdate.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_checkoutdate = Frame(frm_main_checkoutdate, bg='#084235')
+    frm_left_checkoutdate.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_checkoutdate = Frame(frm_main_checkoutdate, bg='white')
+    frm_right_checkoutdate.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_checkoutdate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_checkoutdate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+    Button(frm_left_checkoutdate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+    Button(frm_left_checkoutdate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
+    Button(frm_left_checkoutdate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_checkoutdate, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    frm_right_checkoutdate_bg = Frame(frm_right_checkoutdate, bg='#DDDDDD')
+    frm_right_checkoutdate_bg.place(x=276, y=258, width=750, height=400)
+    Label(frm_right_checkoutdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+    entry_startdate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=60)
+    Label(frm_right_checkoutdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+    entry_endate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=120)
+    Label(frm_right_checkoutdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_checkoutdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
+    entry_user_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=180)
+    Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
+    Button(frm_right_checkoutdate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
+    
 
 
     
@@ -364,13 +455,14 @@ btn_paperform = PhotoImage(file='button/btn_paperform.png')
 btn_confirm = PhotoImage(file='button/btn_confirm.png')
 btn_empmanage = PhotoImage(file='button/btn_empmanage.png')
 btn_addempacc = PhotoImage(file='button/btn_addempacc.png')
-btn_editempinfo = PhotoImage(file='button/btn_editempinfo.png')
+btn_editempacc = PhotoImage(file='button/btn_editempacc.png')
 btn_editcusinfo = PhotoImage(file='button/btn_editcusinfo.png')
 btn_cusmanage = PhotoImage(file='button/btn_cusmanage.png')
 btn_addcusinfo = PhotoImage(file='button/btn_addcusinfo.png')
 btn_save = PhotoImage(file='button/btn_save.png')
 btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
+btn_longsave = PhotoImage(file='button/btn_longsave.png')
 
 
 #Background
