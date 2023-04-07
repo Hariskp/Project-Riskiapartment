@@ -773,6 +773,27 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     Button(frm_left_payment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
+    Label(frm_right_payment, text='ชำระค่าบริการ', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=475, y=30)
+    frm_right_payment_bg = Frame(frm_right_payment, bg='#DDDDDD')
+    frm_right_payment_bg.place(x=276, y=158, width=750, height=750)
+    Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    entry_phone_payment = Entry(frm_right_payment_bg).place(x=270, y=60)
+    Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
+    Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=100, y=120)
+    entry_name_payment = Entry(frm_right_payment_bg).place(x=270, y=120)
+    Label(frm_right_payment_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=100, y=180)
+    entry_roomtype_payment = Entry(frm_right_payment_bg).place(x=270, y=180)
+    Label(frm_right_payment_bg, text='ค่าเช่าห้อง : ', bg='#DDDDDD').place(x=100, y=240)
+    entry_rent_payment = Entry(frm_right_payment_bg).place(x=270, y=240)
+    Label(frm_right_payment_bg, text='ค่าไฟ : ', bg='#DDDDDD').place(x=100, y=300)
+    entry_electric_payment = Entry(frm_right_payment_bg).place(x=270, y=300)
+    Label(frm_right_payment_bg, text='ค่าน้ำ : ', bg='#DDDDDD').place(x=100, y=360)
+    entry_water_payment = Entry(frm_right_payment_bg).place(x=270, y=360)
+    Label(frm_right_payment_bg, text='รวม : ', bg='#DDDDDD').place(x=100, y=420)
+    entry_total_payment = Entry(frm_right_payment_bg).place(x=270, y=420)
+    Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
+    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD').place(x=400, y=600)
+    
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
     #MAIN
@@ -963,8 +984,8 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
     Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=incometable_fn).place(x=330, y=350)
-
-def incometable_fn() : # ตารางรายรับ
+    
+def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_incometable = Frame(root, bg='black')
@@ -990,7 +1011,7 @@ def incometable_fn() : # ตารางรายรับ
     Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
     Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
 
-def pay_fn() : # หน้ารายจ่าย
+def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:08
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_pay = Frame(root, bg='black')
@@ -1024,7 +1045,7 @@ def pay_fn() : # หน้ารายจ่าย
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
 
-    
+
 #Program resolution
 w = 1920
 h = 1080
@@ -1083,6 +1104,8 @@ btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
 btn_information = PhotoImage(file='button/btn_information.png')
 btn_find = PhotoImage(file='button/btn_find.png')
 btn_printincome = PhotoImage(file='button/btn_printincome.png')
+btn_invoices = PhotoImage(file='button/btn_invoices.png')
+btn_paystat = PhotoImage(file='button/btn_paystat.png')
 
 
 #Background
