@@ -72,7 +72,7 @@ def home_fn() : #หน้า Home #By Haris
     #LEFT
     Button(frm_left_home, image=img_riskilogos, bg='#084235', command=home_fn, bd=0).place(x=30, y=30)
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
-    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
+    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235', command=datareport_fn).place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235').place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
@@ -130,7 +130,7 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
     Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
-    Button(frm_right_checkin_bg, image=btn_serach, bd=0, bg='#DDDDDD').place(x=670, y=58)
+    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
@@ -312,7 +312,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
@@ -354,7 +354,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
     frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
@@ -397,7 +397,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT 
-    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
+    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
     frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
     Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
@@ -451,12 +451,12 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) 
+    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50) 
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
     Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
     entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
-    Button(frm_right_searchcusinfo_bg, image=btn_serach, bd=0, bg='#DDDDDD').place(x=620, y=68)
+    Button(frm_right_searchcusinfo_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=620, y=68)
     Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
     entry_name_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=140)
     Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
@@ -489,7 +489,7 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     Button(frm_left_editcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_editcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) # ใส่ปุ่มค้นหา
+    Label(frm_right_editcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_editcusinfo_bg = Frame(frm_right_editcusinfo, bg='#DDDDDD')
     frm_right_editcusinfo_bg.place(x=96, y=158, width=1090, height=750)
     Label(frm_right_editcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD', bd=0).place(x=110, y=50)
@@ -516,7 +516,62 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
+def datareport_fn() : # หน้าข้อมูล / รายงาน
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_datareport = Frame(root, bg='black')
+    frm_main_datareport.place(x=0, y=0, width = w, height = h)
 
+    #FRAME LEFT
+    frm_left_datareport = Frame(frm_main_datareport, bg='#084235')
+    frm_left_datareport.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_datareport = Frame(frm_main_datareport, bg='white')
+    frm_right_datareport.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_datareport, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_datareport, image=btn_datareport, bd=0, bg='#084235').place(x=125, y=185)
+    Button(frm_left_datareport, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
+    Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
+    Button(frm_right_datareport, image=btn_income, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=100)
+    Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
+    Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0).place(x=900, y=100)
+    Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
+    Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0).place(x=170, y=530)
+    Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
+    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=530)
+    Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
+
+def servicelog_fn() : # หน้าบันทึกการใช้บริการ
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_servicelog = Frame(root, bg='black')
+    frm_main_servicelog.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_servicelog = Frame(frm_main_servicelog, bg='#084235')
+    frm_left_servicelog.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_servicelog = Frame(frm_main_servicelog, bg='white')
+    frm_right_servicelog.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_servicelog, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_servicelog, image=btn_datareport, bd=0, bg='#084235').place(x=125, y=185)
+    Button(frm_left_servicelog, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_servicelog, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
 
 
 
@@ -559,7 +614,13 @@ btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
 btn_longsave = PhotoImage(file='button/btn_longsave.png')
 btn_deleteinfo = PhotoImage(file='button/btn_deleteinfo.png')
-btn_serach = PhotoImage(file='button/btn_search.png').subsample(2,2)
+btn_search = PhotoImage(file='button/btn_search.png').subsample(2,2)
+btn_datareport = PhotoImage(file='button/btn_datareport.png')
+btn_doc = PhotoImage(file='button/btn_doc.png')
+btn_income = PhotoImage(file='button/btn_income.png')
+btn_pay = PhotoImage(file='button/btn_pay.png')
+btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
+btn_information = PhotoImage(file='button/btn_information.png')
 
 
 

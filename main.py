@@ -393,8 +393,8 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
     Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
-    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
-    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT 
