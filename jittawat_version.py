@@ -986,18 +986,19 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Button(frm_left_totalamt, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT 
-    Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=550, y=50)
+    Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=550, y=20)
     frm_right_totalamt = Frame(frm_right_totalamt, bg='#DDDDDD')
-    frm_right_totalamt.place(x=236, y=170, width=800, height=800)
+    frm_right_totalamt.place(x=236, y=110, width=800, height=870)
 
-    Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
-    Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
-    entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=280, y=120)
-    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
-    Label(frm_right_totalamt, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
-    entry_endate_totalamt = Entry(frm_right_totalamt).place(x=280, y=180)
-    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
+    Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
+    entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=260, y=120)
+    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_totalamt, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
+    entry_endate_totalamt = Entry(frm_right_totalamt).place(x=260, y=180)
+    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
+    Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
     my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
     
@@ -1015,6 +1016,9 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("รายรับ",anchor=CENTER,width=150)
     my_tree.column("รายจ่าย",anchor=CENTER,width=150)
     my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
+
+    
+    
 
 #Program resolution
 w = 1920
@@ -1071,7 +1075,7 @@ btn_pay = PhotoImage(file='button/btn_pay.png')
 btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
 btn_information = PhotoImage(file='button/btn_information.png')
 btn_find = PhotoImage(file='button/btn_find.png')
-
+btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
 
 #Background
 bg_login = PhotoImage(file = 'img/img_bglogin.png')
