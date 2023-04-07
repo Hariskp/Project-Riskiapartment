@@ -72,9 +72,9 @@ def home_fn() : #หน้า Home #By Haris
     #LEFT
     Button(frm_left_home, image=img_riskilogos, bg='#084235', command=home_fn, bd=0).place(x=30, y=30)
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
-    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
+    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235', command=datareporttable_fn).place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
-    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=RoomManagement_fn).place(x=180, y=480)
+    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
@@ -393,8 +393,8 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
     Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
-    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
-    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT 
@@ -425,7 +425,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
     Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า
+def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_searchcusinfo = Frame(root, bg='black')
@@ -463,7 +463,7 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
     Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
 
-def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า
+def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_editcusinfo = Frame(root, bg='black')
@@ -517,53 +517,30 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def RoomManagement_fn(): # RoomManagement(Admin)
+def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
-    frm_main_RoomManagement = Frame(root, bg='black')
-    frm_main_RoomManagement.place(x=0, y=0, width = w, height = h)
+    frm_main_roommanage = Frame(root, bg='black')
+    frm_main_roommanage.place(x=0, y=0, width = w, height = h)
 
     #FRAME LEFT
-    frm_left_RoomManagement = Frame(frm_main_RoomManagement, bg='#084235')
-    frm_left_RoomManagement.place(x=0, y=0, width=650, height=1080)
+    frm_left_roommanage = Frame(frm_main_roommanage, bg='#084235')
+    frm_left_roommanage.place(x=0, y=0, width=650, height=1080)
 
     #FRAME RIGHT
-    frm_right_checkin = Frame(frm_main_RoomManagement, bg='white')
+    frm_right_checkin = Frame(frm_main_roommanage, bg='white')
     frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
-    Button(frm_left_RoomManagement, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_RoomManagement, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
-    Label(frm_left_RoomManagement, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
-    Button(frm_left_RoomManagement, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
-    Button(frm_left_RoomManagement, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
-    Button(frm_left_RoomManagement, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
+    Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
+    Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
+    Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
+    Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-def CheckRoom_fn(): # เช็คห้องพัก
-    root.title("Riski Apartment : Room Management")
-    frm_main_CheckRoom = Frame(root, bg='black')
-    frm_main_CheckRoom.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_CheckRoom = Frame(frm_main_CheckRoom, bg='#084235')
-    frm_left_CheckRoom.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_checkin = Frame(frm_main_CheckRoom, bg='white')
-    frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_CheckRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_CheckRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
-    Label(frm_left_CheckRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
-    Button(frm_left_CheckRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
-    Button(frm_left_CheckRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
-    Button(frm_left_CheckRoom, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-def addRoom_fn(): #เพิ่มห้องพัก
+def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
@@ -580,7 +557,7 @@ def addRoom_fn(): #เพิ่มห้องพัก
     Button(frm_left_addRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_addRoom, image=btn_CheckRoom, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_addRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
     Label(frm_left_addRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_addRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_addRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
@@ -600,7 +577,7 @@ def addRoom_fn(): #เพิ่มห้องพัก
     roomtype = OptionMenu(frm_right_addRoom_bg, *room_type).place(x=350, y=180, width=310)
     Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
 
-def editRoom_fn(): #แก้ไขห้องพัก
+def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
@@ -617,7 +594,7 @@ def editRoom_fn(): #แก้ไขห้องพัก
     Button(frm_left_editRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_editRoom, image=btn_CheckRoom, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_editRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
     Label(frm_left_editRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_editRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_editRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
@@ -628,8 +605,9 @@ def editRoom_fn(): #แก้ไขห้องพัก
     Label(frm_right_editRoom, text='แก้ไขห้องพัก', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_editRoom_bg = Frame(frm_right_editRoom, bg='#DDDDDD')
     frm_right_editRoom_bg.place(x=276, y=270, width=750, height=450)
-    Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     # ต้องใส่ปุ่มค้นหา
+    Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     
     entry_phonenum_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=60)
+    Button(frm_right_editRoom_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=660, y=60)
     Label(frm_right_editRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
     entry_name_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=120)
     Label(frm_right_editRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
@@ -818,7 +796,174 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
     Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
     Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
     Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-  
+
+def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_datareporttable = Frame(root, bg='black')
+    frm_main_datareporttable.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_datareporttable = Frame(frm_main_datareporttable, bg='#084235')
+    frm_left_datareporttable.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_datareporttable = Frame(frm_main_datareporttable, bg='white')
+    frm_right_datareporttable.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_datareporttable, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_datareporttable, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_datareporttable, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+def datareport_fn() : # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_datareport = Frame(root, bg='black')
+    frm_main_datareport.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_datareport = Frame(frm_main_datareport, bg='#084235')
+    frm_left_datareport.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_datareport = Frame(frm_main_datareport, bg='white')
+    frm_right_datareport.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_datareport, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_datareport, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_datareport, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
+    Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
+    Button(frm_right_datareport, image=btn_income, width=250, height=350, bg='#DDDDDD', bd=0, command=income_fn).place(x=535, y=100)
+    Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
+    Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0).place(x=900, y=100)
+    Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
+    Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0).place(x=170, y=530)
+    Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
+    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=530)
+    Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
+
+def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_servicelog = Frame(root, bg='black')
+    frm_main_servicelog.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_servicelog = Frame(frm_main_servicelog, bg='#084235')
+    frm_left_servicelog.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_servicelog = Frame(frm_main_servicelog, bg='white')
+    frm_right_servicelog.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_servicelog, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_servicelog, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_servicelog, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_servicelog, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+    frm_right_servicelog_bg = Frame(frm_right_servicelog, bg='#DDDDDD')
+    frm_right_servicelog_bg.place(x=276, y=228, width=750, height=600)
+    Label(frm_right_servicelog_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    entry_phonenum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=60)          #from database
+    Button(frm_right_servicelog_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
+    Label(frm_right_servicelog_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
+    entry_name_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=120)             #from database
+    Label(frm_right_servicelog_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
+    entry_roomnum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=180)
+    #room type
+    Label(frm_right_servicelog_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
+    entry_roomtype_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=240)
+    Label(frm_right_servicelog_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
+    entry_floor_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=300)
+    Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
+
+def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_servicelogsave = Frame(root, bg='black')
+    frm_main_servicelogsave.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_servicelogsave = Frame(frm_main_servicelogsave, bg='#084235')
+    frm_left_servicelogsave.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_servicelogsave = Frame(frm_main_servicelogsave, bg='white')
+    frm_right_servicelogsave.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_servicelogsave, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_servicelogsave, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_servicelogsave, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+    frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
+    frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
+    Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+    entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=60)
+    Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
+    entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=120)
+    Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
+    entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=180)
+    Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
+    entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=240)
+    Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
+    entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=300)
+    Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
+    entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=360)
+    Label(frm_right_servicelogsave_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=600, y=360)
+    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=400, y=500)
+
+def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_income = Frame(root, bg='black')
+    frm_main_income.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_income = Frame(frm_main_income, bg='#084235')
+    frm_left_income.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_income = Frame(frm_main_income, bg='white')
+    frm_right_income.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_income, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_income, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_income, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_income, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
+    frm_right_income_bg = Frame(frm_right_income, bg='#DDDDDD')
+    frm_right_income_bg.place(x=236, y=228, width=800, height=500)
+    Label(frm_right_income_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
+    Label(frm_right_income_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
+    entry_startdate_income = Entry(frm_right_income_bg).place(x=280, y=120)
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
+    Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
+    entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+    
 #Program resolution
 w = 1920
 h = 1080
@@ -869,6 +1014,13 @@ btn_help = PhotoImage(file='button/btn_help.png')
 btn_room = PhotoImage(file='button/btn_room.png')
 btn_water = PhotoImage(file='button/btn_water.png')
 btn_electricity = PhotoImage(file='button/btn_electricity.png')
+btn_datareport = PhotoImage(file='button/btn_datareport.png')
+btn_doc = PhotoImage(file='button/btn_doc.png')
+btn_income = PhotoImage(file='button/btn_income.png')
+btn_pay = PhotoImage(file='button/btn_pay.png')
+btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
+btn_information = PhotoImage(file='button/btn_information.png')
+btn_find = PhotoImage(file='button/btn_find.png')
 
 
 #Background
