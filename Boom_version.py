@@ -528,8 +528,8 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     frm_left_roommanage.place(x=0, y=0, width=650, height=1080)
 
     #FRAME RIGHT
-    frm_right_checkin = Frame(frm_main_roommanage, bg='white')
-    frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
+    frm_right_roommanage = Frame(frm_main_roommanage, bg='white')
+    frm_right_roommanage.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
     Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
@@ -540,6 +540,20 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
     Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #Create Treeview
+    mytree= ttk.Treeview(frm_right_roommanage, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=W)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=W)
+    mytree.heading('roomstate_', text="สถานะ", anchor=W)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=200)
+    mytree.column('roomnum_', anchor=W, width=200)
+    mytree.column('roomstate_', anchor=W, width=360)
+    mytree.place(x=100, y=50, width=1050, height=900)
 
 def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
@@ -619,7 +633,7 @@ def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้�
     roomtype = OptionMenu(frm_right_editRoom_bg, *room_type).place(x=350, y=180, width=310)
     #room state
     Label(frm_right_editRoom_bg, text='สถานะห้อง : ', bg='#DDDDDD').place(x=198, y=250)
-    room_state = ["ว่าง","ว่าง", "ไม่ว่าง"]
+    room_state = ["ว่าง","ว่าง", "ไม่ว่าง","ปรับปรุง"]
     roomstate = OptionMenu(frm_right_editRoom_bg, *room_state).place(x=350, y=250, width=310)
     Button(frm_right_editRoom_bg, image=btn_edit,bd=0, bg='#DDDDDD',).place(x=485, y=350)
 
