@@ -642,6 +642,122 @@ def editRoom_fn(): #แก้ไขห้องพัก
     roomstate = OptionMenu(frm_right_editRoom_bg, *room_state).place(x=350, y=250, width=310)
     Button(frm_right_editRoom_bg, image=btn_edit,bd=0, bg='#DDDDDD',).place(x=485, y=350)
 
+def service_fn() : #หน้า Main บริการต่าง ๆ #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 14:34 07/04/2023
+    #MAIN
+    root.title("Riski Apartment : บริการต่าง ๆ")
+    frm_main_service = Frame(root, bg='black')
+    frm_main_service.place(x=0, y=0, width = w, height = h)    
+
+    #FRAME LEFT 
+    frm_left_service = Frame(frm_main_service, bg='#084235')
+    frm_left_service.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_service, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_service = Frame(frm_main_service, bg='white')
+    frm_right_service.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_service, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_service, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_service, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_service, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_service, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:01 07/04/2023
+    #MAIN
+    root.title("Riski Apartment : กำหนดอัตราค่าบริการ")
+    frm_main_ratemanage = Frame(root, bg='black')
+    frm_main_ratemanage.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_ratemanage = Frame(frm_main_ratemanage, bg='#084235')
+    frm_left_ratemanage.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_ratemanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_ratemanage = Frame(frm_main_ratemanage, bg='white')
+    frm_right_ratemanage.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_ratemanage, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_ratemanage, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_ratemanage, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_ratemanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_ratemanage, text='กำหนดอัตราค่าบริการ', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=400, y=30)
+    Button(frm_right_ratemanage, width=25, height=20, bd=0, bg='#DDDDDD').place(x=150, y=200)
+    Label(frm_right_ratemanage, image=btn_room, bd=0, bg='#DDDDDD').place(x=315, y=430)
+    Button(frm_right_ratemanage, width=25, height=20, bd=0, bg='#DDDDDD').place(x=750, y=200)
+    Label(frm_right_ratemanage, image=btn_water, bd=0, bg='#DDDDDD').place(x=885, y=400)
+    Label(frm_right_ratemanage, image=btn_electricity, bd=0, bg='#DDDDDD').place(x=965, y=500)
+    Label(frm_right_ratemanage, text='ค่าห้องพัก', bg='white', fg='#084235').place(x=300, y=720)
+    Label(frm_right_ratemanage, text='ค่าน้ำ/ไฟ', bg='white', fg='#084235').place(x=900, y=720)
+
+def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+    #MAIN
+    root.title("Riski Apartment : ชำระค่าบริการ")
+    frm_main_payment = Frame(root, bg='black')
+    frm_main_payment.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_payment = Frame(frm_main_payment, bg='#084235')
+    frm_left_payment.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_payment, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_payment = Frame(frm_main_payment, bg='white')
+    frm_right_payment.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_payment, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_payment, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_payment, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_payment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_payment, text='ค่าห้องพัก', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=510, y=30)
+    frm_right_payment_bg = Frame(frm_right_payment, bg='#DDDDDD')
+    frm_right_payment_bg.place(x=276, y=158, width=750, height=400)
+    Label(frm_right_payment_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=170, y=60)     # ต้องใส่ปุ่มค้นหา
+    entry_roomtype_payment = Entry(frm_right_payment_bg).place(x=320, y=60)
+    Label(frm_right_payment_bg, text='ราคาเดิม : ', bg='#DDDDDD').place(x=190, y=120)
+    entry_oldrate_payment = Entry(frm_right_payment_bg).place(x=320, y=120)
+    Label(frm_right_payment_bg, text='ราคาใหม่ : ', bg='#DDDDDD').place(x=189, y=180)
+    entry_oldrate_payment = Entry(frm_right_payment_bg).place(x=320, y=180)
+    Button(frm_right_payment_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=450, y=280)
+
+def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+    #MAIN
+    root.title("Riski Apartment : บริการช่วยเหลือ")
+    frm_main_help = Frame(root, bg='black')
+    frm_main_help.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_help = Frame(frm_main_help, bg='#084235')
+    frm_left_help.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_help, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_help = Frame(frm_main_help, bg='white')
+    frm_right_help.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_help, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
   
 #Program resolution
@@ -688,6 +804,12 @@ btn_addRoom = PhotoImage(file='button/btn_addRoom.png')
 btn_editRoom = PhotoImage(file='button/btn_editRoom.png')
 btn_roommanage_V2 = PhotoImage(file='button/btn_roommanage_V2.png')
 btn_add = PhotoImage(file='button/btn_add.png')
+btn_ratemanage = PhotoImage(file='button/btn_ratemanage.png')
+btn_payment = PhotoImage(file='button/btn_payment.png')
+btn_help = PhotoImage(file='button/btn_help.png')
+btn_room = PhotoImage(file='button/btn_room.png')
+btn_water = PhotoImage(file='button/btn_water.png')
+btn_electricity = PhotoImage(file='button/btn_electricity.png')
 
 
 #Background
