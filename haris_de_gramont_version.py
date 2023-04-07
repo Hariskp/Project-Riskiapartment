@@ -750,9 +750,13 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=120)
     Label(frm_right_waterelec, text='Charge ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=150)
     Label(frm_right_waterelec, text='บวกเพิ่ม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=220) 
+    entry_watercharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=850, y=225)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=905, y=400)
     #ELECTRICITY RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=550)
     Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=270, y=590)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
+    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=655)
     #ELECTRICITY CHARGE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=550)
     Label(frm_right_waterelec, text='Charge ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=590)

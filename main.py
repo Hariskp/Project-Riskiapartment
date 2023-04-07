@@ -879,7 +879,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
     Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
     Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=900, y=100)
     Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
-    Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0).place(x=170, y=530)
+    Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0, command=totalamt_fn).place(x=170, y=530)
     Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
     Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=530)
     Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
@@ -1056,6 +1056,44 @@ def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำ�
     entry_enddate_pay = Entry(frm_right_pay_bg).place(x=280, y=180)
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+
+def paymentstatus_fn() :
+    #MAIN
+    root.title("Riski Apartment : บริการช่วยเหลือ")
+    frm_main_paymentstatus = Frame(root, bg='black')
+    frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
+    frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
+    frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
+    frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
+    frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
+    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=60)
+    Button(frm_right_paymentstatus_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
+    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+    entry_name_paymentstatus= Entry(frm_right_paymentstatus_bg).place(x=270, y=120)
+    Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
+    payment_status = [" ", "ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
+    paymentstatus = OptionMenu(frm_right_paymentstatus_bg, *payment_status).place(x=270, y=180, width=310)
+    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
+    Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' ).place(x=450, y=280)
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     #MAIN
