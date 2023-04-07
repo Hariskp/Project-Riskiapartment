@@ -479,6 +479,8 @@ btn_save = PhotoImage(file='button/btn_save.png')
 btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
 btn_longsave = PhotoImage(file='button/btn_longsave.png')
+btn_ratemanage = PhotoImage(file='button/btn_ratemanage.png')
+btn_payment = PhotoImage(file='button/btn_payment.png')
 
 
 #Background
