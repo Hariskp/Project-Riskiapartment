@@ -74,7 +74,7 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
     Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
-    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=RoomManagement_fn).place(x=180, y=480)
+    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
@@ -517,51 +517,28 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def RoomManagement_fn(): # RoomManagement(Admin)
+def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก
     root.title("Riski Apartment : Room Management")
-    frm_main_RoomManagement = Frame(root, bg='black')
-    frm_main_RoomManagement.place(x=0, y=0, width = w, height = h)
+    frm_main_roommanage = Frame(root, bg='black')
+    frm_main_roommanage.place(x=0, y=0, width = w, height = h)
 
     #FRAME LEFT
-    frm_left_RoomManagement = Frame(frm_main_RoomManagement, bg='#084235')
-    frm_left_RoomManagement.place(x=0, y=0, width=650, height=1080)
+    frm_left_roommanage = Frame(frm_main_roommanage, bg='#084235')
+    frm_left_roommanage.place(x=0, y=0, width=650, height=1080)
 
     #FRAME RIGHT
-    frm_right_checkin = Frame(frm_main_RoomManagement, bg='white')
+    frm_right_checkin = Frame(frm_main_roommanage, bg='white')
     frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
 
     #LOGO
-    Button(frm_left_RoomManagement, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_RoomManagement, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
-    Label(frm_left_RoomManagement, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
-    Button(frm_left_RoomManagement, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
-    Button(frm_left_RoomManagement, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
-    Button(frm_left_RoomManagement, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-def CheckRoom_fn(): # เช็คห้องพัก
-    root.title("Riski Apartment : Room Management")
-    frm_main_CheckRoom = Frame(root, bg='black')
-    frm_main_CheckRoom.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_CheckRoom = Frame(frm_main_CheckRoom, bg='#084235')
-    frm_left_CheckRoom.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_checkin = Frame(frm_main_CheckRoom, bg='white')
-    frm_right_checkin.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_CheckRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_CheckRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
-    Label(frm_left_CheckRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
-    Button(frm_left_CheckRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
-    Button(frm_left_CheckRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
-    Button(frm_left_CheckRoom, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
+    Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
+    Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
+    Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
+    Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
 def addRoom_fn(): #เพิ่มห้องพัก
     root.title("Riski Apartment : Room Management")
@@ -580,7 +557,7 @@ def addRoom_fn(): #เพิ่มห้องพัก
     Button(frm_left_addRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_addRoom, image=btn_CheckRoom, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_addRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
     Label(frm_left_addRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_addRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_addRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
@@ -617,7 +594,7 @@ def editRoom_fn(): #แก้ไขห้องพัก
     Button(frm_left_editRoom, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_editRoom, image=btn_CheckRoom, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_editRoom, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
     Label(frm_left_editRoom, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_editRoom, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_editRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
