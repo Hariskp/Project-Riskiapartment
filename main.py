@@ -628,8 +628,9 @@ def editRoom_fn(): #แก้ไขห้องพัก
     Label(frm_right_editRoom, text='แก้ไขห้องพัก', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_editRoom_bg = Frame(frm_right_editRoom, bg='#DDDDDD')
     frm_right_editRoom_bg.place(x=276, y=270, width=750, height=450)
-    Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     # ต้องใส่ปุ่มค้นหา
+    Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     
     entry_phonenum_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=60)
+    Button(frm_right_editRoom_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=660, y=60)
     Label(frm_right_editRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
     entry_name_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=120)
     Label(frm_right_editRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
