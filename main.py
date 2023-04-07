@@ -774,7 +774,7 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
 
     #RIGHT
 
-def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
     #MAIN
     root.title("Riski Apartment : บริการช่วยเหลือ")
     frm_main_help = Frame(root, bg='black')
@@ -796,6 +796,19 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
     Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
     Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
     Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_help, text='บริการช่วยเหลือ', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=475, y=160)
+    frm_right_help_bg = Frame(frm_right_help, bg='#DDDDDD')
+    frm_right_help_bg.place(x=276, y=270, width=750, height=320)
+    Label(frm_right_help_bg, text='วันที่ : ', bg='#DDDDDD').place(x=160, y=50)
+    entry_date_help = Entry(frm_right_help_bg).place(x=230, y=50)
+    Label(frm_right_help_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=550, y=50)
+    Label(frm_right_help_bg, text='เรื่องที่แจ้ง : ', bg='#DDDDDD').place(x=115, y=110)
+    entry_inform_help = Entry(frm_right_help_bg).place(x=230, y=110)
+    Label(frm_right_help_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=120, y=170)
+    entry_adminname_help = Entry(frm_right_help_bg).place(x=230, y=170)
+    Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0).place(x=360, y=240)
 
 def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
