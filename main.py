@@ -75,7 +75,7 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=RoomManagement_fn).place(x=180, y=480)
-    Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
+    Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
