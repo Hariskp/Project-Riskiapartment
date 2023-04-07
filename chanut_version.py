@@ -128,8 +128,9 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
+    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
+    Button(frm_right_checkin_bg, image=btn_serach, bd=0, bg='#DDDDDD').place(x=670, y=58)
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
@@ -453,7 +454,7 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) 
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
-    Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70) # ใส่ปุ่มค้นหา
+    Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
     entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
     Button(frm_right_searchcusinfo_bg, image=btn_serach, bd=0, bg='#DDDDDD').place(x=620, y=68)
     Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
@@ -514,6 +515,8 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     Label(frm_right_editcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+
+
 
 
 

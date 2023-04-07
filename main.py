@@ -130,6 +130,7 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
     Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
     entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
+    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
@@ -208,8 +209,9 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     Label(frm_right_checkout, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkout_bg = Frame(frm_right_checkout, bg='#DDDDDD')
     frm_right_checkout_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
-    entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)          #from database
+    Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)
+    Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)       #from database
     Label(frm_right_checkout_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkout = Entry(frm_right_checkout_bg).place(x=350, y=120)             #from database
     Label(frm_right_checkout_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
@@ -514,6 +516,8 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     Label(frm_right_editcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+
+
   
 #Program resolution
 w = 1920
@@ -552,7 +556,7 @@ btn_save = PhotoImage(file='button/btn_save.png')
 btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
 btn_longsave = PhotoImage(file='button/btn_longsave.png')
-btn_search = PhotoImage(file='button/btn_search.png')
+btn_search = PhotoImage(file='button/btn_search.png').subsample(2,2)
 btn_deleteinfo = PhotoImage(file='button/btn_deleteinfo.png')
 
 
