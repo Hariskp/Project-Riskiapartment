@@ -1061,11 +1061,6 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     my_tree.column("เรื่องที่แจ้ง",anchor=CENTER,width=400)
 
 
-  
-
-    
-    
-
 #Program resolution
 w = 1920
 h = 1080
