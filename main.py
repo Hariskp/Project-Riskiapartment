@@ -281,7 +281,7 @@ def accountmanage_fn() : #หน้า Main จัดการห้องพั
     Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Label(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
     Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
 def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
@@ -307,7 +307,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     Button(frm_left_addempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Label(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
     Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
@@ -349,7 +349,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Button(frm_left_editempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
     Label(frm_left_editempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
     Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
@@ -450,16 +450,18 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) # ใส่ปุ่มค้นหา
+    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
     Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
     entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
+    Button(frm_right_searchcusinfo_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=620, y=68)
     Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
     entry_name_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=140)
+    Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
     Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
 
-def editcusinfo_fn() :   # หน้าแก้ไขข้อมูลลูกค้า
+def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_editcusinfo = Frame(root, bg='black')
@@ -550,6 +552,8 @@ btn_save = PhotoImage(file='button/btn_save.png')
 btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
 btn_longsave = PhotoImage(file='button/btn_longsave.png')
+btn_search = PhotoImage(file='button/btn_search.png')
+btn_deleteinfo = PhotoImage(file='button/btn_deleteinfo.png')
 
 
 #Background

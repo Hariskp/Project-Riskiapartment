@@ -423,7 +423,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
     Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def searchcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า
+def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_searchcusinfo = Frame(root, bg='black')
@@ -450,16 +450,18 @@ def searchcusinfo_fn() :  # หน้าแก้ไขข้อมูลลู�
     Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) # ใส่ปุ่มค้นหา
+    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) 
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
-    Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
+    Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70) # ใส่ปุ่มค้นหา
     entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
+    Button(frm_right_searchcusinfo_bg, image=btn_serach, bd=0, bg='#DDDDDD').place(x=620, y=68)
     Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
     entry_name_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=140)
+    Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
     Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
 
-def editcusinfo_fn() :
+def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า
     #MAIN
     root.title("Riski Apartment : Accountmanage")
     frm_main_editcusinfo = Frame(root, bg='black')
@@ -514,6 +516,7 @@ def editcusinfo_fn() :
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
 
+
   
 #Program resolution
 w = 1920
@@ -552,6 +555,9 @@ btn_save = PhotoImage(file='button/btn_save.png')
 btn_delete = PhotoImage(file='button/btn_delete.png')
 btn_edit = PhotoImage(file='button/btn_edit.png')
 btn_longsave = PhotoImage(file='button/btn_longsave.png')
+btn_deleteinfo = PhotoImage(file='button/btn_deleteinfo.png')
+btn_serach = PhotoImage(file='button/btn_search.png').subsample(2,2)
+
 
 
 
