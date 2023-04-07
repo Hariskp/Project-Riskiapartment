@@ -792,7 +792,7 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     Label(frm_right_payment_bg, text='รวม : ', bg='#DDDDDD').place(x=100, y=420)
     entry_total_payment = Entry(frm_right_payment_bg).place(x=270, y=420)
     Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
-    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD').place(x=400, y=600)
+    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=600)
     
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
@@ -1045,6 +1045,42 @@ def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำ�
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
 
+def paymentstatus_fn() :
+    #MAIN
+    root.title("Riski Apartment : บริการช่วยเหลือ")
+    frm_main_paymentstatus = Frame(root, bg='black')
+    frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
+    frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
+    frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+    Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+    Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+    Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
+    frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
+    frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
+    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=60)
+    Button(frm_right_paymentstatus_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
+    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+    entry_name_paymentstatus= Entry(frm_right_paymentstatus_bg).place(x=270, y=120)
+    Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
+    entry_roomtype_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=180)
+    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
+    Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' ).place(x=450, y=280)
 
 #Program resolution
 w = 1920
@@ -1106,6 +1142,7 @@ btn_find = PhotoImage(file='button/btn_find.png')
 btn_printincome = PhotoImage(file='button/btn_printincome.png')
 btn_invoices = PhotoImage(file='button/btn_invoices.png')
 btn_paystat = PhotoImage(file='button/btn_paystat.png')
+btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 
 
 #Background
