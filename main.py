@@ -1024,6 +1024,57 @@ def pay_fn() : # หน้ารายจ่าย
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
 
+def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
+    #MAIN
+    root.title("Riski Apartment : Total Amount")
+    frm_main_totalamt = Frame(root, bg='black')
+    frm_main_totalamt.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_totalamt = Frame(frm_main_totalamt, bg='#084235')
+    frm_left_totalamt.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_totalamt = Frame(frm_main_totalamt, bg='white')
+    frm_right_totalamt.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_totalamt, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_totalamt, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_totalamt, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT 
+    Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=550, y=50)
+    frm_right_totalamt = Frame(frm_right_totalamt, bg='#DDDDDD')
+    frm_right_totalamt.place(x=236, y=170, width=800, height=800)
+
+    Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
+    Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
+    entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=280, y=120)
+    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
+    Label(frm_right_totalamt, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
+    entry_endate_totalamt = Entry(frm_right_totalamt).place(x=280, y=180)
+    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
+
+    my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("วันที่",text='วันที่',anchor=CENTER)
+    my_tree.heading("รายรับ",text='รายรับ',anchor=CENTER)
+    my_tree.heading("รายจ่าย",text='รายจ่าย',anchor=CENTER)
+    my_tree.heading("รายได้สุทธิ",text='รายได้สุทธิ',anchor=CENTER)
+    my_tree.place(x=82,y=330,height=450,width=652)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("วันที่",anchor=CENTER,width=150)
+    my_tree.column("รายรับ",anchor=CENTER,width=150)
+    my_tree.column("รายจ่าย",anchor=CENTER,width=150)
+    my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
 
 #Program resolution
 w = 1920

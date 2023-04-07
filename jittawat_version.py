@@ -988,7 +988,8 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     #RIGHT 
     Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=550, y=50)
     frm_right_totalamt = Frame(frm_right_totalamt, bg='#DDDDDD')
-    frm_right_totalamt.place(x=236, y=228, width=800, height=350)
+    frm_right_totalamt.place(x=236, y=170, width=800, height=800)
+
     Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
     Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
     entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=280, y=120)
@@ -998,8 +999,22 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
 
+    my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("วันที่",text='วันที่',anchor=CENTER)
+    my_tree.heading("รายรับ",text='รายรับ',anchor=CENTER)
+    my_tree.heading("รายจ่าย",text='รายจ่าย',anchor=CENTER)
+    my_tree.heading("รายได้สุทธิ",text='รายได้สุทธิ',anchor=CENTER)
+    my_tree.place(x=82,y=330,height=450,width=652)
 
-
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("วันที่",anchor=CENTER,width=150)
+    my_tree.column("รายรับ",anchor=CENTER,width=150)
+    my_tree.column("รายจ่าย",anchor=CENTER,width=150)
+    my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
 
 #Program resolution
 w = 1920
