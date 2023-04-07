@@ -848,7 +848,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
     Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
     Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0, command=totalamt_fn).place(x=170, y=530)
     Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
-    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=530)
+    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0 , command=receivenoti_fn).place(x=535, y=530)
     Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
 
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
@@ -1016,6 +1016,52 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("รายรับ",anchor=CENTER,width=150)
     my_tree.column("รายจ่าย",anchor=CENTER,width=150)
     my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
+
+def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
+    #MAIN
+    root.title("Riski Apartment : Receive Notifications")
+    frm_main_receivenoti = Frame(root, bg='black')
+    frm_main_receivenoti.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_receivenoti = Frame(frm_main_receivenoti, bg='#084235')
+    frm_left_receivenoti.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_receivenoti = Frame(frm_main_receivenoti, bg='white')
+    frm_right_receivenoti.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    Button(frm_left_receivenoti, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_receivenoti, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #LOGO
+    Button(frm_left_receivenoti, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #RIGHT 
+    Label(frm_right_receivenoti, text='เรื่องที่รับแจ้ง', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=527, y=20)
+    frm_right_receivenoti = Frame(frm_right_receivenoti, bg='#DDDDDD')
+    frm_right_receivenoti.place(x=236, y=110, width=800, height=820 )
+    Button(frm_right_receivenoti,image=btn_back,bd=0 ,  bg='#DDDDDD',command=datareport_fn).place(x=570,y=720)
+
+
+    my_tree = ttk.Treeview(frm_right_receivenoti,column=("วันที่","เจ้าหน้าที่","เรื่องที่แจ้ง"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("วันที่",text='วันที่',anchor=CENTER)
+    my_tree.heading("เจ้าหน้าที่",text='เจ้าหน้าที่',anchor=CENTER)
+    my_tree.heading("เรื่องที่แจ้ง",text='เรื่องที่แจ้ง',anchor=CENTER)
+    my_tree.place(x=50,y=50,height=640,width=702)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("วันที่",anchor=CENTER,width=150)
+    my_tree.column("เจ้าหน้าที่",anchor=CENTER,width=150)
+    my_tree.column("เรื่องที่แจ้ง",anchor=CENTER,width=400)
+
+
+  
 
     
     
