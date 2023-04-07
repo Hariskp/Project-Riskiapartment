@@ -72,7 +72,7 @@ def home_fn() : #หน้า Home #By Haris
     #LEFT
     Button(frm_left_home, image=img_riskilogos, bg='#084235', command=home_fn, bd=0).place(x=30, y=30)
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
-    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235').place(x=180, y=280)
+    Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235', command=datareporttable_fn).place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=accountmanage_fn).place(x=180, y=380)
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
