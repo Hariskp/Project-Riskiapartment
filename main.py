@@ -963,6 +963,7 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
     Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+    
 #Program resolution
 w = 1920
 h = 1080
