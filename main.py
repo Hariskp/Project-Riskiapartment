@@ -534,7 +534,7 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก
     Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=CheckRoom_fn).place(x=125, y=185)
+    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
     Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
