@@ -358,18 +358,21 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
     frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
     frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
-    Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=50, width=230)
-    Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=50, width=230)
-    Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=120, width=230)
-    Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
-    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=120, width=230)
-    Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
-    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=190, width=230)
-    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=220)
-    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=220)
+    Label(frm_right_editempaccount_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=330, y=50)
+    entry_findphone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=500, y=50, width=250)
+    Button(frm_right_editempaccount_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=780, y=50)
+    Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=100)
+    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=100, width=230)
+    Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=100)
+    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=100, width=230)
+    Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=150)
+    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=150, width=230)
+    Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=150)
+    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=150, width=230)
+    Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=200)
+    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=200, width=230)
+    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=240)
+    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=240)
 
 def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -1072,7 +1075,7 @@ def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำ�
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
 
-def paymentstatus_fn() :
+def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     #MAIN
     root.title("Riski Apartment : บริการช่วยเหลือ")
     frm_main_paymentstatus = Frame(root, bg='black')
