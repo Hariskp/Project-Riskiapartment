@@ -517,7 +517,7 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก
+def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
     frm_main_roommanage = Frame(root, bg='black')
     frm_main_roommanage.place(x=0, y=0, width = w, height = h)
@@ -540,7 +540,7 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก
     Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
     Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-def addRoom_fn(): #เพิ่มห้องพัก
+def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
@@ -577,7 +577,7 @@ def addRoom_fn(): #เพิ่มห้องพัก
     roomtype = OptionMenu(frm_right_addRoom_bg, *room_type).place(x=350, y=180, width=310)
     Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
 
-def editRoom_fn(): #แก้ไขห้องพัก
+def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : Room Management")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
