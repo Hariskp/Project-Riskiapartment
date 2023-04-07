@@ -924,7 +924,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
     Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
     Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0, command=totalamt_fn).place(x=170, y=530)
     Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
-    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0).place(x=535, y=530)
+    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=535, y=530)
     Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
 
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
