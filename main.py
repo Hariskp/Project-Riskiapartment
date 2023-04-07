@@ -80,7 +80,11 @@ def home_fn() : #By Haris
 
 def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
+<<<<<<< Updated upstream
     root.title("Riski Apartment : Check In/Out")
+=======
+    root.title("Riski Apartment : Check in/out")
+>>>>>>> Stashed changes
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
@@ -103,7 +107,11 @@ def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโด
 
 def checkin_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
+<<<<<<< Updated upstream
     root.title("Riski Apartment : Check In")
+=======
+    root.title("Riski Apartment : Check in")
+>>>>>>> Stashed changes
     frm_main_checkin = Frame(root, bg='black')
     frm_main_checkin.place(x=0, y=0, width = w, height = h)
 
