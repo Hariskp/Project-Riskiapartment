@@ -1045,7 +1045,7 @@ def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำ�
     Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
 
-def paymentstatus_fn() :
+def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:33
     #MAIN
     root.title("Riski Apartment : บริการช่วยเหลือ")
     frm_main_paymentstatus = Frame(root, bg='black')
