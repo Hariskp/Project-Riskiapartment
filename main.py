@@ -22,7 +22,7 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
     conn = sqlite3.connect('input database right here')
     cursor = conn.cursor()
 
-def login_fn() : #By Haris
+def login_fn() : #หน้า Login #By Haris
     #MAIN
     root.title("Riski Apartment : Login")
     frm_main_login = Frame(root, bg='black')
@@ -55,7 +55,7 @@ def login_fn() : #By Haris
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').place(x=230, y=840)
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
-def home_fn() : #By Haris
+def home_fn() : #หน้า Home #By Haris
     #MAIN
     root.title("Riski Apartment : Home")
     frm_main_home = Frame(root, bg='black')
@@ -78,13 +78,9 @@ def home_fn() : #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235').place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
-def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
+def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-<<<<<<< Updated upstream
     root.title("Riski Apartment : Check In/Out")
-=======
-    root.title("Riski Apartment : Check in/out")
->>>>>>> Stashed changes
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
@@ -103,15 +99,11 @@ def checkinout_fn() : #โค้ดนี้กำลังแก้ไขโด
     Button(frm_left_inout, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
     Button(frm_left_inout, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
     Button(frm_left_inout, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
-    Button(frm_left_inout, image=btn_home, bd=0, bg='#084235').place(x=30, y=900)
+    Button(frm_left_inout, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-def checkin_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-<<<<<<< Updated upstream
     root.title("Riski Apartment : Check In")
-=======
-    root.title("Riski Apartment : Check in")
->>>>>>> Stashed changes
     frm_main_checkin = Frame(root, bg='black')
     frm_main_checkin.place(x=0, y=0, width = w, height = h)
 
@@ -150,7 +142,7 @@ def checkin_fn() : #โค้ดนี้กำลังแก้ไขโดย
     entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
 
-def checkin_date() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check In")
     frm_main_checkindate = Frame(root, bg='black')
@@ -189,7 +181,7 @@ def checkin_date() : #โค้ดนี้กำลังแก้ไขโด�
     Button(frm_right_checkindate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
     Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
 
-def checkout_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check Out")
     frm_main_checkout = Frame(root, bg='black')
@@ -229,172 +221,7 @@ def checkout_fn() : #โค้ดนี้กำลังแก้ไขโด�
     entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
-def accountmanage_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    #MAIN
-    root.title("Riski Apartment : Accountmanage")
-    frm_main_accmanage = Frame(root, bg='black')
-    frm_main_accmanage.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_accmanage = Frame(frm_main_accmanage, bg='#084235')
-    frm_left_accmanage.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_accmanage = Frame(frm_main_accmanage, bg='white')
-    frm_right_accmanage.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_accmanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Button(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
-    Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
-
-def addempaccount_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    #MAIN
-    root.title("Riski Apartment : Accountmanage")
-    frm_main_addempaccount = Frame(root, bg='black')
-    frm_main_addempaccount.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_addempaccount = Frame(frm_main_addempaccount, bg='#084235')
-    frm_left_addempaccount.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_addempaccount = Frame(frm_main_addempaccount, bg='white')
-    frm_right_addempaccount.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_addempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_addempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_addempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_addempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Button(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
-    Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
-    frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
-    frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
-    Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=50, width=230)
-    Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=50, width=230)
-    Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
-    entry_password_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
-    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
-    Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
-
-def editempaccount_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    #MAIN
-    root.title("Riski Apartment : Accountmanage")
-    frm_main_editempaccount = Frame(root, bg='black')
-    frm_main_editempaccount.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_editempaccount = Frame(frm_main_editempaccount, bg='#084235')
-    frm_left_editempaccount.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_editempaccount = Frame(frm_main_editempaccount, bg='white')
-    frm_right_editempaccount.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_editempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_editempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_editempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_editempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Button(frm_left_editempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
-    Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
-    frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
-    frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
-    Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=50, width=230)
-    Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=50, width=230)
-    Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=120, width=230)
-    Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
-    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=120, width=230)
-    Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
-    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=190, width=230)
-    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=220)
-    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=220)
-
-def addcustomerinfo_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    #MAIN
-    root.title("Riski Apartment : Accountmanage")
-    frm_main_addcusinfo = Frame(root, bg='black')
-    frm_main_addcusinfo.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_addcusinfo = Frame(frm_main_addcusinfo, bg='#084235')
-    frm_left_addcusinfo.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_addcusinfo = Frame(frm_main_addcusinfo, bg='white')
-    frm_right_addcusinfo.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_addcusinfo, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_addcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)  #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Button(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)   #เป็น Label หรือ Button ?? ลืมอะ
-    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
-    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
-    Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
-
-    #RIGHT 
-    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
-    frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
-    frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
-    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
-    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=50)
-    Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
-    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=150)
-    Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
-    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=250)
-    Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
-    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=350)  #ศัพท์จาก apple translate
-    Label(frm_right_addcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
-    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=450)     #nation --> nationality
-    Label(frm_right_addcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
-    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=50)      #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
-    Label(frm_right_addcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
-    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=150)
-    Label(frm_right_addcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
-    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=250)
-    Label(frm_right_addcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
-    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=350)
-    Label(frm_right_addcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
-    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=450)
-    Label(frm_right_addcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
-    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
-    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
-
-def checkout_date() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
+def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     #MAIN
     root.title("Riski Apartment : Check Out")
     frm_main_checkoutdate = Frame(root, bg='black')
@@ -430,10 +257,172 @@ def checkout_date() : #โค้ดนี้กำลังแก้ไขโด
     entry_user_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=180)
     Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
     Button(frm_right_checkoutdate_bg, image=btn_next,bd=0, bg='#DDDDDD').place(x=450, y=250)
-    
 
+def accountmanage_fn() : #หน้า Main จัดการห้องพัก #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_accmanage = Frame(root, bg='black')
+    frm_main_accmanage.place(x=0, y=0, width = w, height = h)
 
-    
+    #FRAME LEFT
+    frm_left_accmanage = Frame(frm_main_accmanage, bg='#084235')
+    frm_left_accmanage.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_accmanage = Frame(frm_main_accmanage, bg='white')
+    frm_right_accmanage.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_accmanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Label(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Label(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_addempaccount = Frame(root, bg='black')
+    frm_main_addempaccount.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_addempaccount = Frame(frm_main_addempaccount, bg='#084235')
+    frm_left_addempaccount.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_addempaccount = Frame(frm_main_addempaccount, bg='white')
+    frm_right_addempaccount.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_addempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Label(frm_left_addempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_addempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_addempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Label(frm_left_addempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+    Button(frm_left_addempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+    Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
+    frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
+    Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    entry_name_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=50, width=230)
+    Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=50, width=230)
+    Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    entry_username_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=120, width=230)
+    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    entry_password_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=120, width=230)
+    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
+    Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
+
+def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_editempaccount = Frame(root, bg='black')
+    frm_main_editempaccount.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_editempaccount = Frame(frm_main_editempaccount, bg='#084235')
+    frm_left_editempaccount.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_editempaccount = Frame(frm_main_editempaccount, bg='white')
+    frm_right_editempaccount.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_editempaccount, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Label(frm_left_editempaccount, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_editempaccount, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_editempaccount, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Label(frm_left_editempaccount, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+    Button(frm_left_editempaccount, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+    Button(frm_left_editempaccount, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
+    frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
+    Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=50, width=230)
+    Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=50, width=230)
+    Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=120, width=230)
+    Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=120, width=230)
+    Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=190, width=230)
+    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=220)
+    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=220)
+
+def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_addcusinfo = Frame(root, bg='black')
+    frm_main_addcusinfo.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_addcusinfo = Frame(frm_main_addcusinfo, bg='#084235')
+    frm_left_addcusinfo.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_addcusinfo = Frame(frm_main_addcusinfo, bg='white')
+    frm_right_addcusinfo.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_addcusinfo, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Label(frm_left_addcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+    Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+    Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+    Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235').place(x=180, y=520)
+    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235').place(x=180, y=600)
+    Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    #RIGHT 
+    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
+    frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
+    frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
+    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
+    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=50)
+    Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
+    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=150)
+    Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
+    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=250)
+    Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
+    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=350)  #ศัพท์จาก apple translate
+    Label(frm_right_addcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
+    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=450)     #nation --> nationality
+    Label(frm_right_addcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
+    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=50)      #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    Label(frm_right_addcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
+    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=150)
+    Label(frm_right_addcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
+    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=250)
+    Label(frm_right_addcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
+    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=350)
+    Label(frm_right_addcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
+    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=450)
+    Label(frm_right_addcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
+    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
+    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+  
 #Program resolution
 w = 1920
 h = 1080
