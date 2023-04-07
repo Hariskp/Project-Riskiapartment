@@ -844,7 +844,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
     Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
     Button(frm_right_datareport, image=btn_income, width=250, height=350, bg='#DDDDDD', bd=0, command=income_fn).place(x=535, y=100)
     Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
-    Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0).place(x=900, y=100)
+    Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=900, y=100)
     Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
     Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0).place(x=170, y=530)
     Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
@@ -962,8 +962,69 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
     entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
     Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
-    Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+    Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=incometable_fn).place(x=330, y=350)
     
+def incometable_fn() : # ตารางรายรับ
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_incometable = Frame(root, bg='black')
+    frm_main_incometable.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_incometable = Frame(frm_main_incometable, bg='#084235')
+    frm_left_incometable.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_incometable = Frame(frm_main_incometable, bg='white')
+    frm_right_incometable.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_incometable, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_incometable, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_incometable, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
+    Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
+    Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+
+def pay_fn() : # หน้ารายจ่าย
+    #MAIN
+    root.title("Riski Apartment : Accountmanage")
+    frm_main_pay = Frame(root, bg='black')
+    frm_main_pay.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_pay = Frame(frm_main_pay, bg='#084235')
+    frm_left_pay.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_pay = Frame(frm_main_pay, bg='white')
+    frm_right_pay.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_pay, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_pay, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_pay, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_pay, text='รายจ่าย', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
+    frm_right_pay_bg = Frame(frm_right_pay, bg='#DDDDDD')
+    frm_right_pay_bg.place(x=236, y=228, width=800, height=500)
+    Label(frm_right_pay_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
+    Label(frm_right_pay_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
+    entry_startdate_pay = Entry(frm_right_pay_bg).place(x=280, y=120)
+    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
+    Label(frm_right_pay_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
+    entry_enddate_pay = Entry(frm_right_pay_bg).place(x=280, y=180)
+    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+
+
 #Program resolution
 w = 1920
 h = 1080
@@ -1021,6 +1082,7 @@ btn_pay = PhotoImage(file='button/btn_pay.png')
 btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
 btn_information = PhotoImage(file='button/btn_information.png')
 btn_find = PhotoImage(file='button/btn_find.png')
+btn_printincome = PhotoImage(file='button/btn_printincome.png')
 
 
 #Background
