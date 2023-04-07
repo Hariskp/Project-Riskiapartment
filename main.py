@@ -1090,7 +1090,8 @@ def paymentstatus_fn() :
     Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
     entry_name_paymentstatus= Entry(frm_right_paymentstatus_bg).place(x=270, y=120)
     Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
-    entry_roomtype_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=180)
+    payment_status = [" ", "ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
+    paymentstatus = OptionMenu(frm_right_paymentstatus_bg, *payment_status).place(x=270, y=180, width=310)
     Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
     Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' ).place(x=450, y=280)
 
