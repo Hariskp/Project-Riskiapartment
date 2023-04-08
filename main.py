@@ -1176,22 +1176,22 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
     #CALL TREEVIEW
-    my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
+    my_tree = ttk.Treeview(frm_right_totalamt,column=("date_","revenue_","expenses_","totalamt_"), height=2)
     
     #CREATE HEADING
     my_tree.heading("#0",text='',anchor=W)
-    my_tree.heading("วันที่",text='วันที่',anchor=CENTER)
-    my_tree.heading("รายรับ",text='รายรับ',anchor=CENTER)
-    my_tree.heading("รายจ่าย",text='รายจ่าย',anchor=CENTER)
-    my_tree.heading("รายได้สุทธิ",text='รายได้สุทธิ',anchor=CENTER)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("revenue_",text='รายรับ',anchor=CENTER)
+    my_tree.heading("expenses_",text='รายจ่าย',anchor=CENTER)
+    my_tree.heading("totalamt_",text='รายได้สุทธิ',anchor=CENTER)
     my_tree.place(x=82,y=330,height=450,width=652)
 
     #FORMAT COLUMNS
     my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("วันที่",anchor=CENTER,width=150)
-    my_tree.column("รายรับ",anchor=CENTER,width=150)
-    my_tree.column("รายจ่าย",anchor=CENTER,width=150)
-    my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
+    my_tree.column("date_",anchor=CENTER,width=150)
+    my_tree.column("revenue_",anchor=CENTER,width=150)
+    my_tree.column("expenses_",anchor=CENTER,width=150)
+    my_tree.column("totalamt_",anchor=CENTER,width=150)
 
 def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
@@ -1221,20 +1221,20 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     Button(frm_right_receivenoti,image=btn_back,bd=0 ,  bg='#DDDDDD',command=datareport_fn).place(x=570,y=720)
 
     #CALL TREEVIEW
-    my_tree = ttk.Treeview(frm_right_receivenoti,column=("วันที่","เจ้าหน้าที่","เรื่องที่แจ้ง"), height=2)
+    my_tree = ttk.Treeview(frm_right_receivenoti,column=("date_","admin_","topic_"), height=2)
     
     #CREATE HEADING
     my_tree.heading("#0",text='',anchor=W)
-    my_tree.heading("วันที่",text='วันที่',anchor=CENTER)
-    my_tree.heading("เจ้าหน้าที่",text='เจ้าหน้าที่',anchor=CENTER)
-    my_tree.heading("เรื่องที่แจ้ง",text='เรื่องที่แจ้ง',anchor=CENTER)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("admin_",text='เจ้าหน้าที่',anchor=CENTER)
+    my_tree.heading("topic_",text='เรื่องที่แจ้ง',anchor=CENTER)
     my_tree.place(x=50,y=50,height=640,width=702)
 
     #FORMAT COLUMNS
     my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("วันที่",anchor=CENTER,width=150)
-    my_tree.column("เจ้าหน้าที่",anchor=CENTER,width=150)
-    my_tree.column("เรื่องที่แจ้ง",anchor=CENTER,width=400)
+    my_tree.column("date",anchor=CENTER,width=150)
+    my_tree.column("admin_",anchor=CENTER,width=150)
+    my_tree.column("topic_",anchor=CENTER,width=400)
 
 #Program resolution
 w = 1920
