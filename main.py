@@ -24,7 +24,7 @@ def createconnection() : #Create Connection to sqlite3 (สร้างรอไ
 
 def login_fn() : #หน้า Login #By Haris
     #MAIN
-    root.title("Riski Apartment : Login")
+    root.title("Riski Apartment : เข้าสู่ระบบ")
     frm_main_login = Frame(root, bg='black')
     frm_main_login.place(x=0, y=0, width = w, height = h)
 
@@ -38,11 +38,11 @@ def login_fn() : #หน้า Login #By Haris
 
     #LEFT
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=200, y=110)
-    Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=300)
+    Label(frm_left_login, text='Username', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=300)
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
     frm_left_login_entry_username.focus_force()
     frm_left_login_entry_username.place(x=380, y=400, height=50)
-    Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=480)
+    Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*")
     frm_left_login_entry_password.place(x=380, y=580, height=50)
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).place(x=480, y=680)
@@ -58,7 +58,7 @@ def login_fn() : #หน้า Login #By Haris
 
 def home_fn() : #หน้า Home #By Haris
     #MAIN
-    root.title("Riski Apartment : Home")
+    root.title("Riski Apartment : หน้าหลัก")
     frm_main_home = Frame(root, bg='black')
     frm_main_home.place(x=0, y=0, width = w, height = h)
 
@@ -81,7 +81,7 @@ def home_fn() : #หน้า Home #By Haris
 
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-    root.title("Riski Apartment : Check In/Out")
+    root.title("Riski Apartment : เช็คอิน/เอ้าท์")
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
@@ -119,7 +119,7 @@ def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้ก�
 
 def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Check In")
+    root.title("Riski Apartment : เช็คอิน")
     frm_main_checkin = Frame(root, bg='black')
     frm_main_checkin.place(x=0, y=0, width = w, height = h)
 
@@ -162,7 +162,7 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Check In")
+    root.title("Riski Apartment : เช็คอิน")
     frm_main_checkindate = Frame(root, bg='black')
     frm_main_checkindate.place(x=0, y=0, width = w, height = h)
 
@@ -201,7 +201,7 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
 
 def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Check Out")
+    root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkout = Frame(root, bg='black')
     frm_main_checkout.place(x=0, y=0, width = w, height = h)
 
@@ -242,7 +242,7 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
 
 def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     #MAIN
-    root.title("Riski Apartment : Check Out")
+    root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkoutdate = Frame(root, bg='black')
     frm_main_checkoutdate.place(x=0, y=0, width = w, height = h)
 
@@ -279,7 +279,7 @@ def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้
 
 def accountmanage_fn() : #หน้า Main จัดการห้องพัก #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : จัดการห้องพัก")
     frm_main_accmanage = Frame(root, bg='black')
     frm_main_accmanage.place(x=0, y=0, width = w, height = h)
 
@@ -320,7 +320,7 @@ def accountmanage_fn() : #หน้า Main จัดการห้องพั
 
 def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
     frm_main_addempaccount = Frame(root, bg='black')
     frm_main_addempaccount.place(x=0, y=0, width = w, height = h)
 
@@ -345,7 +345,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
@@ -382,7 +382,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
 
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
     frm_main_editempaccount = Frame(root, bg='black')
     frm_main_editempaccount.place(x=0, y=0, width = w, height = h)
 
@@ -407,7 +407,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Button(frm_left_editempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=470, y=50)
+    Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
     frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_editempaccount_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=330, y=50)
@@ -448,7 +448,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
 
 def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : เพิ่มข้อมูลลูกค้า")
     frm_main_addcusinfo = Frame(root, bg='black')
     frm_main_addcusinfo.place(x=0, y=0, width = w, height = h)
 
@@ -473,7 +473,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT 
-    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
+    Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
     frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
     Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
@@ -502,7 +502,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
 
 def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
     frm_main_searchcusinfo = Frame(root, bg='black')
     frm_main_searchcusinfo.place(x=0, y=0, width = w, height = h)
 
@@ -527,7 +527,7 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50)
+    Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
     Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
@@ -540,7 +540,7 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
 
 def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
     frm_main_editcusinfo = Frame(root, bg='black')
     frm_main_editcusinfo.place(x=0, y=0, width = w, height = h)
 
@@ -565,7 +565,7 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     Button(frm_left_editcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_editcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=480, y=50) # ใส่ปุ่มค้นหา
+    Label(frm_right_editcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50) # ใส่ปุ่มค้นหา
     frm_right_editcusinfo_bg = Frame(frm_right_editcusinfo, bg='#DDDDDD')
     frm_right_editcusinfo_bg.place(x=96, y=158, width=1090, height=750)
     Label(frm_right_editcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD', bd=0).place(x=110, y=50)
@@ -594,7 +594,7 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
 
 def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Room Management")
+    root.title("Riski Apartment : เช็คห้องพัก")
     frm_main_roommanage = Frame(root, bg='black')
     frm_main_roommanage.place(x=0, y=0, width = w, height = h)
 
@@ -632,7 +632,7 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     mytree.place(x=100, y=50, width=1052, height=900)
 
 def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
-    root.title("Riski Apartment : Room Management")
+    root.title("Riski Apartment : เพิ่มห้องพัก")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
 
@@ -669,7 +669,7 @@ def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้�
     Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
 
 def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
-    root.title("Riski Apartment : Room Management")
+    root.title("Riski Apartment : แก้ไขห้องพัก")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
 
@@ -954,7 +954,7 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
 
 def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : ข้อมูล / รายงาน")
     frm_main_datareporttable = Frame(root, bg='black')
     frm_main_datareporttable.place(x=0, y=0, width = w, height = h)
 
@@ -990,7 +990,7 @@ def datareporttable_fn() :  # หน้าข้อมูล / รายงา�
 
 def datareport_fn() : # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : ข้อมูล / รายงาน")
     frm_main_datareport = Frame(root, bg='black')
     frm_main_datareport.place(x=0, y=0, width = w, height = h)
 
@@ -1023,7 +1023,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
 
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelog = Frame(root, bg='black')
     frm_main_servicelog.place(x=0, y=0, width = w, height = h)
 
@@ -1062,7 +1062,7 @@ def servicelog_fn() : # หน้าบันทึกการใช้บร�
 
 def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelogsave = Frame(root, bg='black')
     frm_main_servicelogsave.place(x=0, y=0, width = w, height = h)
 
@@ -1102,7 +1102,7 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : รายรับ")
     frm_main_income = Frame(root, bg='black')
     frm_main_income.place(x=0, y=0, width = w, height = h)
 
@@ -1136,7 +1136,7 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     
 def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : รายรับ")
     frm_main_incometable = Frame(root, bg='black')
     frm_main_incometable.place(x=0, y=0, width = w, height = h)
 
@@ -1162,7 +1162,7 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
 
 def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:08
     #MAIN
-    root.title("Riski Apartment : Accountmanage")
+    root.title("Riski Apartment : รายจ่าย")
     frm_main_pay = Frame(root, bg='black')
     frm_main_pay.place(x=0, y=0, width = w, height = h)
 
@@ -1234,7 +1234,7 @@ def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโ
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     #MAIN
-    root.title("Riski Apartment : Total Amount")
+    root.title("Riski Apartment : รายได้สุทธิ")
     frm_main_totalamt = Frame(root, bg='black')
     frm_main_totalamt.place(x=0, y=0, width = w, height = h)
 
@@ -1254,7 +1254,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Button(frm_left_totalamt, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT 
-    Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=550, y=20)
+    Label(frm_right_totalamt, text='รายได้สุทธิ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=550, y=20)
     frm_right_totalamt = Frame(frm_right_totalamt, bg='#DDDDDD')
     frm_right_totalamt.place(x=236, y=110, width=800, height=870)
 
@@ -1288,7 +1288,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
 
 def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
-    root.title("Riski Apartment : Receive Notifications")
+    root.title("Riski Apartment : เรื่องที่รับแจ้ง")
     frm_main_receivenoti = Frame(root, bg='black')
     frm_main_receivenoti.place(x=0, y=0, width = w, height = h)
 
@@ -1308,7 +1308,7 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     Button(frm_left_receivenoti, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
     
     #RIGHT 
-    Label(frm_right_receivenoti, text='เรื่องที่รับแจ้ง', font='Verdana 30 bold', bg='white', fg='#60AC7F').place(x=527, y=20)
+    Label(frm_right_receivenoti, text='เรื่องที่รับแจ้ง', font='Verdana 30 bold', bg='white', fg='#376957').place(x=527, y=20)
     frm_right_receivenoti = Frame(frm_right_receivenoti, bg='#DDDDDD')
     frm_right_receivenoti.place(x=236, y=110, width=800, height=820 )
     Button(frm_right_receivenoti,image=btn_back,bd=0 ,  bg='#DDDDDD',command=datareport_fn).place(x=570,y=720)
