@@ -79,6 +79,21 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
+    #Create Treeview
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_home, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('roomnum_', anchor=W, width=350)
+    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.place(x=100, y=50, width=1052, height=900)
+
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
     root.title("Riski Apartment : เช็คอิน/เอ้าท์")
