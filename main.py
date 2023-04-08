@@ -352,11 +352,11 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     mytree= ttk.Treeview(frm_right_addempaccount, columns=("username_", "pwd_", "fname_", "lname_","phonenum_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('username_', text="Username", anchor=W)
-    mytree.heading('pwd_', text="Password", anchor=W)
-    mytree.heading('fname_', text="ชื่อ", anchor=W)
-    mytree.heading('lname_', text="นามสกุล", anchor=W)
-    mytree.heading('phonenum_', text="เบอร์โทร", anchor=W)
+    mytree.heading('username_', text="Username", anchor=CENTER)
+    mytree.heading('pwd_', text="Password", anchor=CENTER)
+    mytree.heading('fname_', text="ชื่อ", anchor=CENTER)
+    mytree.heading('lname_', text="นามสกุล", anchor=CENTER)
+    mytree.heading('phonenum_', text="เบอร์โทร", anchor=CENTER)
 
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -418,11 +418,11 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     mytree= ttk.Treeview(frm_right_editempaccount, columns=("username_", "pwd_", "fname_", "lname_","phonenum_"), height=2) #ไม่แน่ใจ ชื่อตัวแปร ซ้ำกับaddempaccount_fn
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('username_', text="Username", anchor=W)
-    mytree.heading('pwd_', text="Password", anchor=W)
-    mytree.heading('fname_', text="ชื่อ", anchor=W)
-    mytree.heading('lname_', text="นามสกุล", anchor=W)
-    mytree.heading('phonenum_', text="เบอร์โทร", anchor=W)
+    mytree.heading('username_', text="Username", anchor=CENTER)
+    mytree.heading('pwd_', text="Password", anchor=CENTER)
+    mytree.heading('fname_', text="ชื่อ", anchor=CENTER)
+    mytree.heading('lname_', text="นามสกุล", anchor=CENTER)
+    mytree.heading('phonenum_', text="เบอร์โทร", anchor=CENTER)
 
     #format columns
     mytree.column("#0", width=0, minwidth=0)
