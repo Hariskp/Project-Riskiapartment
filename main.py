@@ -1175,7 +1175,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
     Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
-
+    #CALL TREEVIEW
     my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
     
     #CREATE HEADING
@@ -1192,8 +1192,6 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("รายรับ",anchor=CENTER,width=150)
     my_tree.column("รายจ่าย",anchor=CENTER,width=150)
     my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
-
-    entry_startdate_totalamt.focus_force()
 
 def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
@@ -1222,7 +1220,7 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     frm_right_receivenoti.place(x=236, y=110, width=800, height=820 )
     Button(frm_right_receivenoti,image=btn_back,bd=0 ,  bg='#DDDDDD',command=datareport_fn).place(x=570,y=720)
 
-
+    #CALL TREEVIEW
     my_tree = ttk.Treeview(frm_right_receivenoti,column=("วันที่","เจ้าหน้าที่","เรื่องที่แจ้ง"), height=2)
     
     #CREATE HEADING
