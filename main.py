@@ -1112,7 +1112,7 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=300)
     Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
     entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=360)
-    Label(frm_right_servicelogsave_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=600, y=360)
+    Label(frm_right_servicelogsave_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg='#969696').place(x=600, y=360)
     Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=400, y=500)
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
@@ -1143,10 +1143,10 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     Label(frm_right_income_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
     Label(frm_right_income_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
     entry_startdate_income = Entry(frm_right_income_bg).place(x=280, y=120)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg='#969696').place(x=610, y=120)
     Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
     entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg='#969696').place(x=610, y=180)
     Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=incometable_fn).place(x=330, y=350)
     
 def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
@@ -1174,6 +1174,26 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
     Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
     Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+
+    #CALL TREEVIEW
+    my_tree = ttk.Treeview(frm_right_incometable,column=("date_","roomnum_","rentroom_","water&electric_","total_"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("roomnum_",text='เลขที่ห้อง',anchor=CENTER)
+    my_tree.heading("rentroom_",text='ค่าเช่าห้อง',anchor=CENTER)
+    my_tree.heading("water&electric_",text='ค่าน้ำ+ค่าไฟ',anchor=CENTER)
+    my_tree.heading("total_",text='รวม',anchor=CENTER)
+    my_tree.place(x=100,y=190,height=650,width=1052)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("date_",anchor=CENTER,width=250)
+    my_tree.column("roomnum_",anchor=CENTER,width=200)
+    my_tree.column("rentroom_",anchor=CENTER,width=170)
+    my_tree.column("water&electric_",anchor=CENTER,width=170)
+    my_tree.column("total_",anchor=CENTER,width=250)
 
 def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:08
     #MAIN
