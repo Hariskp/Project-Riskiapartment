@@ -3,7 +3,7 @@ import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
 
-#Create Main Window
+#CREATE MAINWINDOW
 def mainwindow() : 
     root = Tk()
     x = root.winfo_screenwidth()/2 - w/2
@@ -17,12 +17,34 @@ def mainwindow() :
     root.columnconfigure((0,1,2,3),weight=1)
     return root
 
-def createconnection() : #Create Connection to sqlite3 (สร้างรอไว้ก่อน)
+#CREATE CONNECTION WITH SQLITE3
+def createconnection() : 
     global conn, cursor
-    conn = sqlite3.connect('input database right here')
+    conn = sqlite3.connect('database/riski_database.db')
     cursor = conn.cursor()
 
+def login_backend() :
+    global db_user, name_user
+    #Existence Check
+    if userentry.get() == "" :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Username")
+        frm_left_login_entry_username.focus_force()
+    else :
+        if passwordentry.get() == "" :
+            messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
+            frm_left_login_entry_password.focus_force()
+        else :
+            sql = "SELECT * FROM user WHERE username=? and password=?"
+            cursor.execute(sql, [userentry.get(), passwordentry.get()])
+            db_user = cursor.fetchone()
+            if db_user :
+                messagebox.showinfo("Riski Apartment : Success", "Login Successfully")
+                home_fn()
+                name_user = db_user[3] + " " + db_user[4]
+                print(name_user)
+
 def login_fn() : #หน้า Login #By Haris
+    global frm_left_login_entry_username, frm_left_login_entry_password
     #MAIN
     root.title("Riski Apartment : เข้าสู่ระบบ")
     frm_main_login = Frame(root, bg='black')
@@ -39,13 +61,13 @@ def login_fn() : #หน้า Login #By Haris
     #LEFT
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=200, y=110)
     Label(frm_left_login, text='Username', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=300)
-    frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
+    frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0, textvariable=userentry) #Spy
     frm_left_login_entry_username.focus_force()
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
-    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*")
+    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
     frm_left_login_entry_password.place(x=380, y=580, height=50)
-    Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).place(x=480, y=680)
+    Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
     #RIGHT
     Label(frm_right_login, image=img_riskilogo, bg='#084235').place(x=93, y=30)
@@ -607,7 +629,7 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
     Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
 
-def roommanage_user_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : เช็คห้องพัก")
     frm_main_roommanage = Frame(root, bg='black')
@@ -626,6 +648,10 @@ def roommanage_user_fn(): # RoomManagement(Admin) เช็คห้องพั
 
     #LEFT
     Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
+    Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
+    Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
+    Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
+    Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #Create Treeview
     mytree = ttk.Treeview(root)
@@ -1169,11 +1195,34 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     #RIGHT
     Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
     Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
-    Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
 
-def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:08
+    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+
+    #CALL TREEVIEW
+    my_tree = ttk.Treeview(frm_right_incometable,column=("date_","roomnum_","rentroom_","water&electric_","total_"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("roomnum_",text='เลขที่ห้อง',anchor=CENTER)
+    my_tree.heading("rentroom_",text='ค่าเช่าห้อง',anchor=CENTER)
+    my_tree.heading("water&electric_",text='ค่าน้ำ+ค่าไฟ',anchor=CENTER)
+    my_tree.heading("total_",text='รวม',anchor=CENTER)
+    my_tree.place(x=100,y=190,height=650,width=1052)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("date_",anchor=CENTER,width=250)
+    my_tree.column("roomnum_",anchor=CENTER,width=200)
+    my_tree.column("rentroom_",anchor=CENTER,width=170)
+    my_tree.column("water&electric_",anchor=CENTER,width=170)
+    my_tree.column("total_",anchor=CENTER,width=250)
+
+#PAY FRAME [ ปุ่มข้อมูล/รายงาน หน้าหลัก หา , ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ] #หน้ารายจ่าย
+def pay_fn() :
     #MAIN
-    root.title("Riski Apartment : รายจ่าย")
+    root.title("Riski Apartment : รายได้สุทธิ")
     frm_main_pay = Frame(root, bg='black')
     frm_main_pay.place(x=0, y=0, width = w, height = h)
 
@@ -1187,24 +1236,42 @@ def pay_fn() : # หน้ารายจ่าย #โค้ดนี้กำ�
 
     #LOGO
     Button(frm_left_pay, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT SIDE [ ปุ่มข้อมูล/รายงาน ]
+    Button(frm_left_pay, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185) 
+    Button(frm_left_pay, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900) 
 
-    #LEFT
-    Button(frm_left_pay, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
-    Button(frm_left_pay, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    #RIGHT SIDE [ ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ]
+    Label(frm_right_pay, text='รายจ่าย', font='Verdana 30 bold', bg='white', fg='#376957').place(x=550, y=20)
+    frm_right_pay= Frame(frm_right_pay, bg='#DDDDDD')
+    frm_right_pay.place(x=236, y=110, width=800, height=870)
 
-    #RIGHT
-    Label(frm_right_pay, text='รายจ่าย', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
-    frm_right_pay_bg = Frame(frm_right_pay, bg='#DDDDDD')
-    frm_right_pay_bg.place(x=236, y=228, width=800, height=500)
-    Label(frm_right_pay_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
-    Label(frm_right_pay_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
-    entry_startdate_pay = Entry(frm_right_pay_bg).place(x=280, y=120)
-    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
-    Label(frm_right_pay_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
-    entry_enddate_pay = Entry(frm_right_pay_bg).place(x=280, y=180)
-    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
-    Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350)
+    Label(frm_right_pay, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
+    Label(frm_right_pay, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
+    entry_startdate_pay = Entry(frm_right_pay).place(x=260, y=120) 
+    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_pay, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
+    entry_endate_pay = Entry(frm_right_pay).place(x=260, y=180) 
+    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
+    Button(frm_right_pay, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
+    Button(frm_right_pay,image=btn_back, bd=0 ,  bg="#DDDDDD",command=datareport_fn).place(x=560,y=790) 
 
+    #CALL TREEVIEW [ วันที่ รายรับ รายจ่าย รายได้สุทธิ ]
+    my_tree = ttk.Treeview(frm_right_pay,column=("date_","waterelectric_","amount_"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("waterelectric_",text='รายรับ',anchor=CENTER)
+    my_tree.heading("amount_",text='รายจ่าย',anchor=CENTER)
+    my_tree.place(x=82,y=330,height=450,width=650)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("date_",anchor=CENTER,width=216)
+    my_tree.column("waterelectric_",anchor=CENTER,width=216)
+    my_tree.column("amount_",anchor=CENTER,width=216)
+    
 def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     #MAIN
     root.title("Riski Apartment : บริการช่วยเหลือ")
@@ -1343,7 +1410,14 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
 #Program resolution
 w = 1920
 h = 1080
+
+createconnection()
 root = mainwindow()
+
+#Spy's Job
+userentry = StringVar()
+passwordentry = StringVar()
+
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
@@ -1402,6 +1476,7 @@ btn_printincome = PhotoImage(file='button/btn_printincome.png')
 btn_invoices = PhotoImage(file='button/btn_invoices.png')
 btn_paystat = PhotoImage(file='button/btn_paystat.png')
 btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
+
 
 #Background
 bg_login = PhotoImage(file = 'img/img_bglogin.png')

@@ -20,10 +20,30 @@ def mainwindow() :
 #CREATE CONNECTION WITH SQLITE3
 def createconnection() : 
     global conn, cursor
-    conn = sqlite3.connect('input database right here')
+    conn = sqlite3.connect('database/riski_database.db')
     cursor = conn.cursor()
 
+def login_backend() :
+    global db_user, name_user
+    #Existence Check
+    if userentry.get() == "" :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Username")
+        frm_left_login_entry_username.focus_force()
+    else :
+        if passwordentry.get() == "" :
+            messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
+            frm_left_login_entry_password.focus_force()
+        else :
+            sql = "SELECT * FROM user WHERE username=? and password=?"
+            cursor.execute(sql, [userentry.get(), passwordentry.get()])
+            db_user = cursor.fetchone()
+            if db_user :
+                messagebox.showinfo("Riski Apartment : Success", "Login Successfully")
+                home_fn()
+                name_user = db_user[3] + " " + db_user[4]
+
 def login_fn() : #หน้า Login #By Haris
+    global frm_left_login_entry_username, frm_left_login_entry_password
     #MAIN
     root.title("Riski Apartment : เข้าสู่ระบบ")
     frm_main_login = Frame(root, bg='black')
@@ -40,13 +60,13 @@ def login_fn() : #หน้า Login #By Haris
     #LEFT
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=200, y=110)
     Label(frm_left_login, text='Username', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=300)
-    frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
+    frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0, textvariable=userentry) #Spy
     frm_left_login_entry_username.focus_force()
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
-    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*")
+    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
     frm_left_login_entry_password.place(x=380, y=580, height=50)
-    Button(frm_left_login, image=btn_login, bd=0, bg='white', command=home_fn).place(x=480, y=680)
+    Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
     #RIGHT
     Label(frm_right_login, image=img_riskilogo, bg='#084235').place(x=93, y=30)
@@ -1389,7 +1409,14 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
 #Program resolution
 w = 1920
 h = 1080
+
+createconnection()
 root = mainwindow()
+
+#Spy's Job
+userentry = StringVar()
+passwordentry = StringVar()
+
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
