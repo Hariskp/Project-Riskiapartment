@@ -37,7 +37,7 @@ def login_fn() : #หน้า Login #By Haris
     frm_right_login.place(x=1251, y=0, width=669, height=1080)
 
     #LEFT
-    Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=180, y=60)
+    Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=200, y=110)
     Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=300)
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
     frm_left_login_entry_username.focus_force()
