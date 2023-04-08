@@ -1173,7 +1173,7 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     #RIGHT
     Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
     Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
-    Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
 
     #CALL TREEVIEW
     my_tree = ttk.Treeview(frm_right_incometable,column=("date_","roomnum_","rentroom_","water&electric_","total_"), height=2)
