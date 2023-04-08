@@ -329,6 +329,26 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
 
+    #CALL TREEVIEW
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_addempaccount, columns=("username_", "pwd_", "fname_", "lname_","phonenum_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('username_', text="Username", anchor=W)
+    mytree.heading('pwd_', text="Password", anchor=W)
+    mytree.heading('fname_', text="ชื่อ", anchor=W)
+    mytree.heading('lname_', text="นามสกุล", anchor=W)
+    mytree.heading('phonenum_', text="เบอร์โทร", anchor=W)
+
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('username_', anchor=W, width=200)
+    mytree.column('pwd_', anchor=W, width=200)
+    mytree.column('fname_', anchor=W, width=250)
+    mytree.column('lname_', anchor=W, width=250)
+    mytree.column('phonenum_', anchor=W, width=190)
+    mytree.place(x=100, y=550, width=1090, height=400)
+
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Accountmanage")
