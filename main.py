@@ -1174,7 +1174,29 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     #RIGHT
     Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
     Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
-    Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+
+    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
+
+    #CALL TREEVIEW
+    my_tree = ttk.Treeview(frm_right_incometable,column=("date_","roomnum_","rentroom_","water&electric_","total_"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("roomnum_",text='เลขที่ห้อง',anchor=CENTER)
+    my_tree.heading("rentroom_",text='ค่าเช่าห้อง',anchor=CENTER)
+    my_tree.heading("water&electric_",text='ค่าน้ำ+ค่าไฟ',anchor=CENTER)
+    my_tree.heading("total_",text='รวม',anchor=CENTER)
+    my_tree.place(x=100,y=190,height=650,width=1052)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("date_",anchor=CENTER,width=250)
+    my_tree.column("roomnum_",anchor=CENTER,width=200)
+    my_tree.column("rentroom_",anchor=CENTER,width=170)
+    my_tree.column("water&electric_",anchor=CENTER,width=170)
+    my_tree.column("total_",anchor=CENTER,width=250)
 
 #PAY FRAME [ ปุ่มข้อมูล/รายงาน หน้าหลัก หา , ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ] #หน้ารายจ่าย
 def pay_fn() :
