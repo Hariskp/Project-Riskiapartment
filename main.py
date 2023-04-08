@@ -724,6 +724,21 @@ def service_fn() : #หน้า Main บริการต่าง ๆ #โค
     Button(frm_left_service, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
     Button(frm_left_service, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
+    #Create Treeview
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_service, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('roomnum_', anchor=W, width=350)
+    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.place(x=100, y=50, width=1052, height=900)
+
 def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:01 07/04/2023
     #MAIN
     root.title("Riski Apartment : กำหนดอัตราค่าบริการ")
