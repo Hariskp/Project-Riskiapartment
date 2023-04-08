@@ -102,6 +102,21 @@ def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้ก�
     Button(frm_left_inout, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
     Button(frm_left_inout, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
+    #Create Treeview
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_inout, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('roomnum_', anchor=W, width=350)
+    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.place(x=100, y=50, width=1052, height=900)
+
 def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : Check In")
@@ -143,6 +158,7 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
     entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
+
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -286,6 +302,8 @@ def accountmanage_fn() : #หน้า Main จัดการห้องพั
     Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
     Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
+    
 
 def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -906,6 +924,21 @@ def datareporttable_fn() :  # หน้าข้อมูล / รายงา�
     #LEFT
     Button(frm_left_datareporttable, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
     Button(frm_left_datareporttable, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #Create Treeview
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_datareporttable, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('roomnum_', anchor=W, width=350)
+    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.place(x=100, y=50, width=1052, height=900)
 
 def datareport_fn() : # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
