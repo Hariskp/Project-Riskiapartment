@@ -119,7 +119,7 @@ def home_condition_fn() :
     if db_user[5] == "A" :
         accountmanage_fn()
     if db_user[5] == "U" :
-        roommanage_fn()
+        accountmanage_user_fn()
 
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
