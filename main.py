@@ -40,6 +40,7 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_left_login, text='Sign in to Riski Apartment', bg='white', font = 'Calibri 55 bold', fg='#60AC7F').place(x=180, y=60)
     Label(frm_left_login, text='Username', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=300)
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0)
+    frm_left_login_entry_username.focus_force()
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#60AC7F', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*")
@@ -1174,6 +1175,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
     Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
+
     my_tree = ttk.Treeview(frm_right_totalamt,column=("วันที่","รายรับ","รายจ่าย","รายได้สุทธิ"), height=2)
     
     #CREATE HEADING
@@ -1190,6 +1192,8 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("รายรับ",anchor=CENTER,width=150)
     my_tree.column("รายจ่าย",anchor=CENTER,width=150)
     my_tree.column("รายได้สุทธื",anchor=CENTER,width=150)
+
+    entry_startdate_totalamt.focus_force()
 
 def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
