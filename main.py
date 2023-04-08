@@ -96,7 +96,7 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_checkinout, bd=0, bg='#084235', command=checkinout_fn).place(x=180, y=180)
     Button(frm_left_home, image=btn_inforeport, bd=0, bg='#084235', command=datareporttable_fn).place(x=180, y=280)
     Button(frm_left_home, image=btn_accmanage, bd=0, bg='#084235', command=home_condition_fn).place(x=180, y=380)
-    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_fn).place(x=180, y=480)
+    Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_condition_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
 
@@ -115,11 +115,18 @@ def home_fn() : #หน้า Home #By Haris
     mytree.column('roomstate_', anchor=W, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
 
+#Condition Of Admin and User
 def home_condition_fn() :
     if db_user[5] == "A" :
         accountmanage_fn()
     if db_user[5] == "U" :
         accountmanage_user_fn()
+        
+def roommanage_condition_fn() :
+    if db_user[5] == "A" :
+        roommanage_fn()
+    if db_user[5] == "U" :
+        roommanage_user_fn()
 
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
@@ -831,6 +838,45 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
     Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
     Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
+    Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #Create Treeview
+    mytree = ttk.Treeview(root)
+    mytree= ttk.Treeview(frm_right_roommanage, columns=("floor_", "roomnum_", "roomstate_"), height=2)
+    #create headings
+    mytree.heading('#0', text='') #default
+    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
+    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    #format columns
+    mytree.column("#0", width=0, minwidth=0)
+    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('roomnum_', anchor=W, width=350)
+    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.place(x=100, y=50, width=1052, height=900)
+
+def roommanage_user_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05 # User Vesion
+    #MAIN
+    root.title("Riski Apartment : เช็คห้องพัก")
+    frm_main_roommanage = Frame(root, bg='black')
+    frm_main_roommanage.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_roommanage = Frame(frm_main_roommanage, bg='#084235')
+    frm_left_roommanage.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_roommanage = Frame(frm_main_roommanage, bg='white')
+    frm_right_roommanage.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_user_fn).place(x=125, y=185)
+    #Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
+    #Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
+    #Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
     Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #Create Treeview
