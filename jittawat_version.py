@@ -1225,7 +1225,7 @@ def incometable_fn() :
 #PAY FRAME [ ปุ่มข้อมูล/รายงาน หน้าหลัก หา , ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ] #หน้ารายจ่าย
 def pay_fn() :
     #MAIN
-    root.title("Riski Apartment : รายจ่าย")
+    root.title("Riski Apartment : รายได้สุทธิ")
     frm_main_pay = Frame(root, bg='black')
     frm_main_pay.place(x=0, y=0, width = w, height = h)
 
@@ -1237,25 +1237,43 @@ def pay_fn() :
     frm_right_pay = Frame(frm_main_pay, bg='white')
     frm_right_pay.place(x=651,y=0, width= 1269, height=1080)
 
-    #LOGO 
-    Button(frm_left_pay, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30) #HOME_BTN LOGO ปุ่มหน้าหลัก *
-
+    #LOGO
+    Button(frm_left_pay, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
     #LEFT SIDE [ ปุ่มข้อมูล/รายงาน ]
-    Button(frm_left_pay, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185) #DATAREPORT_BTN ปุ่มข้อมูล/รายงาน *
-    Button(frm_left_pay, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900) #HOME_BTN ปุ่มหน้าหลัก *
+    Button(frm_left_pay, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185) 
+    Button(frm_left_pay, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900) 
 
     #RIGHT SIDE [ ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ]
-    Label(frm_right_pay, text='รายจ่าย', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
-    frm_right_pay_bg = Frame(frm_right_pay, bg='#DDDDDD')
-    frm_right_pay_bg.place(x=236, y=228, width=800, height=500)
-    Label(frm_right_pay_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
-    Label(frm_right_pay_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
-    entry_startdate_pay = Entry(frm_right_pay_bg).place(x=280, y=120) #ENTRYS กรอกวันที่เริ่มต้น *
-    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
-    Label(frm_right_pay_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
-    entry_enddate_pay = Entry(frm_right_pay_bg).place(x=280, y=180) #ENTRY กรอกวันที่สิ้้นสุด *
-    Label(frm_right_pay_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
-    Button(frm_right_pay_bg, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=350) #FIND_BTN ปุ่มหา *
+    Label(frm_right_pay, text='รายจ่าย', font='Verdana 30 bold', bg='white', fg='#376957').place(x=550, y=20)
+    frm_right_pay= Frame(frm_right_pay, bg='#DDDDDD')
+    frm_right_pay.place(x=236, y=110, width=800, height=870)
+
+    Label(frm_right_pay, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
+    Label(frm_right_pay, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
+    entry_startdate_pay = Entry(frm_right_pay).place(x=260, y=120) 
+    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_pay, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
+    entry_endate_pay = Entry(frm_right_pay).place(x=260, y=180) 
+    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
+    Button(frm_right_pay, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
+    Button(frm_right_pay,image=btn_back, bd=0 ,  bg="#DDDDDD",command=datareport_fn).place(x=560,y=790) 
+
+    #CALL TREEVIEW [ วันที่ รายรับ รายจ่าย รายได้สุทธิ ]
+    my_tree = ttk.Treeview(frm_right_pay,column=("date_","waterelectric_","amount_"), height=2)
+    
+    #CREATE HEADING
+    my_tree.heading("#0",text='',anchor=W)
+    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("waterelectric_",text='รายรับ',anchor=CENTER)
+    my_tree.heading("amount_",text='รายจ่าย',anchor=CENTER)
+    my_tree.place(x=82,y=330,height=450,width=650)
+
+    #FORMAT COLUMNS
+    my_tree.column("#0",width=0,minwidth=25)
+    my_tree.column("date_",anchor=CENTER,width=216)
+    my_tree.column("waterelectric_",anchor=CENTER,width=216)
+    my_tree.column("amount_",anchor=CENTER,width=216)
 
 #PAYMENTSTATUS FRAME [ ปุ่มอัตราค่าบริการ ชำระค่าบริการ บริการช่วยเหลือ หน้าหลัก ปริ้นใบ สำเร็จ , ช่องกรอกเบอร์โ?ร ชื่อ นามสกุล ]
 def paymentstatus_fn() : 
