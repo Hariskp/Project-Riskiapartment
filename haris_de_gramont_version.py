@@ -82,6 +82,7 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
 def home_fn() : #หน้า Home #By Haris
+    name_user = db_user[3] + " " + db_user[4]
     #MAIN
     root.title("Riski Apartment : หน้าหลัก")
     frm_main_home = Frame(root, bg='black')
@@ -103,6 +104,9 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
+    #Welcome
+    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
+    name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
 
     #Create Treeview
     mytree = ttk.Treeview(root)
