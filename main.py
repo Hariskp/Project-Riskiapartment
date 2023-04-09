@@ -312,9 +312,9 @@ def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้
     Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
     Button(frm_right_checkoutdate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
 
-def accountmanage_fn() : #หน้า Main จัดการห้องพัก #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def accountmanage_fn() : #หน้า Main จัดการบัญชี #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : จัดการห้องพัก")
+    root.title("Riski Apartment : จัดการบัญชี")
     frm_main_accmanage = Frame(root, bg='black')
     frm_main_accmanage.place(x=0, y=0, width = w, height = h)
 
@@ -850,7 +850,7 @@ def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำล�
 
 def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
     #MAIN
-    root.title("Riski Apartment : ชำระค่าบริการ")
+    root.title("Riski Apartment : ค่าห้องพัก")
     frm_main_roomrate = Frame(root, bg='black')
     frm_main_roomrate.place(x=0, y=0, width = w, height = h) 
 
@@ -1267,7 +1267,7 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
 #PAY FRAME [ ปุ่มข้อมูล/รายงาน หน้าหลัก หา , ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ] #หน้ารายจ่าย
 def pay_fn() :
     #MAIN
-    root.title("Riski Apartment : รายได้สุทธิ")
+    root.title("Riski Apartment : รายจ่าย")
     frm_main_pay = Frame(root, bg='black')
     frm_main_pay.place(x=0, y=0, width = w, height = h)
 
@@ -1319,7 +1319,7 @@ def pay_fn() :
     
 def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     #MAIN
-    root.title("Riski Apartment : บริการช่วยเหลือ")
+    root.title("Riski Apartment : สถานะการชำระเงิน")
     frm_main_paymentstatus = Frame(root, bg='black')
     frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
 
