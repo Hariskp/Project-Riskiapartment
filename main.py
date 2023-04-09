@@ -84,6 +84,7 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
 def home_fn() : #หน้า Home #By Haris
+    global db_room
     name_user = db_user[3] + " " + db_user[4]
     #MAIN
     root.title("Riski Apartment : หน้าหลัก")
@@ -120,10 +121,15 @@ def home_fn() : #หน้า Home #By Haris
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350) 
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350) 
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
         
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
@@ -158,10 +164,15 @@ def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้ก�
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350)
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -365,12 +376,19 @@ def accountmanage_fn() : #หน้า Main จัดการบัญชี #�
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350)
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
+
 
 def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global db_employee
     #MAIN
     root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
     frm_main_addempaccount = Frame(root, bg='black')
@@ -431,6 +449,12 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     mytree.column('lname_', anchor=W, width=250)
     mytree.column('phonenum_', anchor=W, width=185)
     mytree.place(x=100, y=550, width=1090, height=400)
+    #Connect Database user table
+    db_employee = conn.execute('SELECT * FROM user')
+    #Insert Data to tree
+    for i in db_employee :
+        mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
+
 
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -497,6 +521,11 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     mytree.column('lname_', anchor=W, width=250)
     mytree.column('phonenum_', anchor=W, width=185)
     mytree.place(x=100, y=550, width=1090, height=400)
+    #Connect Database user table
+    db_employee = conn.execute('SELECT * FROM user')
+    #Insert Data to tree
+    for i in db_employee :
+        mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
 def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -700,10 +729,15 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350)
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : เพิ่มห้องพัก")
@@ -826,10 +860,15 @@ def service_fn() : #หน้า Main บริการต่าง ๆ #โค
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350)
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:01 07/04/2023
     #MAIN
@@ -1073,10 +1112,15 @@ def datareporttable_fn() :  # หน้าข้อมูล / รายงา�
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350)
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def datareport_fn() : # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
