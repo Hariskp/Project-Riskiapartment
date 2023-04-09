@@ -66,9 +66,11 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_left_login, text='Username', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=300)
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0, textvariable=userentry) #Spy
     frm_left_login_entry_username.focus_force()
+    userentry.set('')
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
+    passwordentry.set('')
     frm_left_login_entry_password.place(x=380, y=580, height=50)
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
@@ -82,6 +84,7 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
 def home_fn() : #หน้า Home #By Haris
+    global db_room
     name_user = db_user[3] + " " + db_user[4]
     #MAIN
     root.title("Riski Apartment : หน้าหลัก")
@@ -118,10 +121,15 @@ def home_fn() : #หน้า Home #By Haris
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
-    mytree.column('roomnum_', anchor=W, width=350)
-    mytree.column('roomstate_', anchor=W, width=350)
+    mytree.column('floor_', anchor=CENTER, width=350) 
+    mytree.column('roomnum_', anchor=CENTER, width=350)
+    mytree.column('roomstate_', anchor=CENTER, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        mytree.insert("", 'end', values=(i[1], i[0], i[5]))
         
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN

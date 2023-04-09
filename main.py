@@ -120,7 +120,7 @@ def home_fn() : #หน้า Home #By Haris
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
-    mytree.column('floor_', anchor=W, width=350)
+    mytree.column('floor_', anchor=W, width=350) 
     mytree.column('roomnum_', anchor=W, width=350)
     mytree.column('roomstate_', anchor=W, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
