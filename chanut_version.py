@@ -78,6 +78,9 @@ def home_fn() : #หน้า Home #By Haris # User Vesion
     Button(frm_left_home, image=btn_roommanage, bd=0, bg='#084235', command=roommanage_user_fn).place(x=180, y=480)
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
+    #Welcome
+    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
+    name_lastname = Label(frm_left_home, text='ชื่อ-นามสกุล', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
 
     #Create Treeview
     mytree = ttk.Treeview(root)
