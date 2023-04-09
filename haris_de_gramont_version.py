@@ -41,7 +41,6 @@ def login_backend() :
                 messagebox.showinfo("Riski Apartment : Success", "Login Successfully")
                 home_fn()
                 name_user = db_user[3] + " " + db_user[4]
-                print(name_user)
 
 def login_fn() : #หน้า Login #By Haris
     global frm_left_login_entry_username, frm_left_login_entry_password
@@ -115,7 +114,7 @@ def home_fn() : #หน้า Home #By Haris
     mytree.column('roomnum_', anchor=W, width=350)
     mytree.column('roomstate_', anchor=W, width=350)
     mytree.place(x=100, y=50, width=1052, height=900)
-
+        
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
     root.title("Riski Apartment : เช็คอิน/เอ้าท์")
@@ -195,7 +194,6 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
     entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
-
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -332,13 +330,20 @@ def accountmanage_fn() : #หน้า Main จัดการห้องพั
     Button(frm_left_accmanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Label(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
-    Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Label(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
-    Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
-    Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "A" :
+        Label(frm_left_accmanage, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_accmanage, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+        Button(frm_left_accmanage, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+        Label(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+        Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+        Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
+        Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "U" :
+        Label(frm_left_accmanage, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_accmanage, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=270)
+        Button(frm_left_accmanage, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=350)
+        Button(frm_left_accmanage, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+
 
     #Create Treeview
     mytree = ttk.Treeview(root)
@@ -381,7 +386,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     Button(frm_left_addempaccount, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
     Button(frm_left_addempaccount, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
-    #RIGHT
+    #RIGHT 
     Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
@@ -501,13 +506,19 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Button(frm_left_addcusinfo, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Label(frm_left_addcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
-    Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
-    Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
-    Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "A" :
+        Label(frm_left_addcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_addcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+        Button(frm_left_addcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+        Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+        Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+        Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
+        Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "U" :
+        Label(frm_left_addcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_addcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=270)
+        Button(frm_left_addcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=350)
+        Button(frm_left_addcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT 
     Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
@@ -555,13 +566,19 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Button(frm_left_searchcusinfo, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Label(frm_left_searchcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
-    Button(frm_left_searchcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
-    Button(frm_left_searchcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
-    Label(frm_left_searchcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
-    Button(frm_left_searchcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
-    Button(frm_left_searchcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
-    Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "A" :
+        Label(frm_left_searchcusinfo, image=btn_empmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_searchcusinfo, image=btn_addempacc, bd=0 , bg='#084235', command=addempaccount_fn).place(x=180, y=270)
+        Button(frm_left_searchcusinfo, image=btn_editempacc, bd=0 , bg='#084235', command=editempaccount_fn).place(x=180, y=350)
+        Label(frm_left_searchcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=435)
+        Button(frm_left_searchcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=520)
+        Button(frm_left_searchcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=600)
+        Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
+    if db_user[5] == "U" :
+        Label(frm_left_searchcusinfo, image=btn_cusmanage, bd=0 , bg='#084235').place(x=125, y=185)
+        Button(frm_left_searchcusinfo, image=btn_addcusinfo, bd=0 , bg='#084235', command=addcustomerinfo_fn).place(x=180, y=270)
+        Button(frm_left_searchcusinfo, image=btn_editcusinfo, bd=0 , bg='#084235', command=searchcusinfo_fn).place(x=180, y=350)
+        Button(frm_left_searchcusinfo, image=btn_home, command=home_fn, bd=0, bg='#084235').place(x=30, y=900)
 
     #RIGHT
     Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
@@ -647,11 +664,15 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     Button(frm_left_roommanage, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
-    Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
-    Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
-    Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
-    Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "A" :
+        Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
+        Label(frm_left_roommanage, image=btn_roommanage_V2, bd=0, bg='#084235').place(x=125, y=280)
+        Button(frm_left_roommanage, image=btn_addRoom, bd=0, bg='#084235', command=addRoom_fn).place(x=180, y=365)
+        Button(frm_left_roommanage, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
+        Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_roommanage, image=btn_CheckRoom, bd=0 , bg='#084235', command=roommanage_fn).place(x=125, y=185)
+        Button(frm_left_roommanage, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #Create Treeview
     mytree = ttk.Treeview(root)
@@ -769,10 +790,15 @@ def service_fn() : #หน้า Main บริการต่าง ๆ #โค
     Button(frm_left_service, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
     #LEFT
-    Button(frm_left_service, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-    Button(frm_left_service, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-    Button(frm_left_service, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-    Button(frm_left_service, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "A" :
+        Button(frm_left_service, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+        Button(frm_left_service, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+        Button(frm_left_service, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+        Button(frm_left_service, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_service, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+        Button(frm_left_service, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+        Button(frm_left_service, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #Create Treeview
     mytree = ttk.Treeview(root)
@@ -926,10 +952,15 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     frm_right_payment.place(x=651,y=0, width= 1269, height=1080)
 
     #LEFT
-    Button(frm_left_payment, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-    Button(frm_left_payment, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-    Button(frm_left_payment, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-    Button(frm_left_payment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "A" :
+        Button(frm_left_payment, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+        Button(frm_left_payment, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+        Button(frm_left_payment, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+        Button(frm_left_payment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_payment, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+        Button(frm_left_payment, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+        Button(frm_left_payment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
     Label(frm_right_payment, text='ชำระค่าบริการ', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=475, y=30)
@@ -971,10 +1002,15 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
     frm_right_help.place(x=651,y=0, width= 1269, height=1080)
 
     #LEFT
-    Button(frm_left_help, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-    Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-    Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-    Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "A" :
+        Button(frm_left_help, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+        Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+        Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+        Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_help, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+        Button(frm_left_help, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+        Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
     Label(frm_right_help, text='บริการช่วยเหลือ', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=475, y=160)
@@ -990,6 +1026,7 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
     Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0).place(x=360, y=240)
 
 def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+
     #MAIN
     root.title("Riski Apartment : ข้อมูล / รายงาน")
     frm_main_datareporttable = Frame(root, bg='black')
@@ -1047,16 +1084,24 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
     Button(frm_left_datareport, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
-    Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
-    Button(frm_right_datareport, image=btn_income, width=250, height=350, bg='#DDDDDD', bd=0, command=income_fn).place(x=535, y=100)
-    Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
-    Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=900, y=100)
-    Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
-    Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0, command=totalamt_fn).place(x=170, y=530)
-    Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
-    Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=535, y=530)
-    Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
+    if db_user[5] == "A" :
+        Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
+        Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
+        Button(frm_right_datareport, image=btn_income, width=250, height=350, bg='#DDDDDD', bd=0, command=income_fn).place(x=535, y=100)
+        Label(frm_right_datareport, text='รายรับ', fg='#376957', bg='white').place(x=630, y=470)
+        Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=900, y=100)
+        Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=994, y=470)
+        Button(frm_right_datareport, image=btn_totalamt, width=250, height=350, bg='#DDDDDD', bd=0, command=totalamt_fn).place(x=170, y=530)
+        Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
+        Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=535, y=530)
+        Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
+    if db_user[5] == "U" :
+        Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
+        Label(frm_right_datareport, text='บันทึกการใช้บริการ', fg='#376957', bg='white').place(x=210, y=470)
+        Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=535, y=100)
+        Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=630, y=470)
+        Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=900, y=100)
+        Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=994, y=470)
 
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
@@ -1290,10 +1335,15 @@ def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโ
     frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
 
     #LEFT
-    Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-    Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-    Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-    Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "A" :
+        Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
     Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
