@@ -388,7 +388,7 @@ def accountmanage_fn() : #หน้า Main จัดการบัญชี #�
 
 
 def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    global db_employee
+    global db_employee, entry_name_addempaccount, entry_surname_addempaccount, entry_username_addempaccount, entry_password_addempaccount, entry_phone_addempaccount
     #MAIN
     root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
     frm_main_addempaccount = Frame(root, bg='black')
@@ -419,16 +419,16 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=50, width=230)
+    entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp).place(x=270, y=50, width=230) #Spy
     Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=50, width=230)
+    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp).place(x=730, y=50, width=230) #Spy
     Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
-    entry_password_addempaccount = Entry(frm_right_addempaccount_bg).place(x=730, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
-    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg).place(x=270, y=190, width=230)
-    Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD').place(x=790, y=220)
+    entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp).place(x=270, y=120, width=230) #Spy
+    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120) 
+    entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp).place(x=730, y=120, width=230) #Spy
+    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
+    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp).place(x=270, y=190, width=230) #Spy
+    Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
     mytree = ttk.Treeview(root)
@@ -455,7 +455,47 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     for i in db_employee :
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
+def addempaccount_backend() :
+    # db_emp = conn.execute('SELECT * FROM user')
+    # db_emp = conn.fetchall()
+    # sql = "SELECT * FROM user"
+    # cursor.execute(sql)
+    # db_emp = cursor.fetchall()
+    # print(db_emp)
 
+    status = "U"
+    #Existence Check
+    if name_addemp.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชื่อ")
+        entry_name_addempaccount.focus_force()
+    elif lastname_addemp.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกนามสกุล")
+        entry_surname_addempaccount.focus_force()
+    elif username_addemp.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Username")
+        entry_username_addempaccount.focus_force()
+    elif password_addemp.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
+        entry_password_addempaccount.focus_force()
+    elif phone_addemp.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์")
+        entry_phone_addempaccount.focus_force()   
+    # elif phone_addemp.get() == db_emp[0] :
+    #     messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+    #     entry_phone_addempaccount.focus_force() 
+    else :
+        sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
+        cursor.execute(sql, [phone_addemp.get(), username_addemp.get(), password_addemp.get(), name_addemp.get(), lastname_addemp.get(), status])
+        conn.commit()
+        retrivedata()
+        messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
+        # entry_name_addempaccount.select_range(0, END)
+        # entry_surname_addempaccount.select_range(0, END)
+        # entry_username_addempaccount.select_range(0, END)
+        # entry_password_addempaccount.select_range(0, END)
+        # entry_phone_addempaccount.select_range(0, END)
+    addempaccount_fn()
+    
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
@@ -1517,6 +1557,14 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     my_tree.column("admin_",anchor=CENTER,width=150)
     my_tree.column("topic_",anchor=CENTER,width=400)
 
+def retrivedata() :
+    sql = "select * from user"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    print("Total row = ",len(result))
+    for i,data in enumerate(result) :
+        print("Row#",i+1,data)
+
 #Program resolution
 w = 1920
 h = 1080
@@ -1527,6 +1575,11 @@ root = mainwindow()
 #Spy's Job
 userentry = StringVar()
 passwordentry = StringVar()
+name_addemp = StringVar()
+lastname_addemp = StringVar()
+username_addemp = StringVar()
+password_addemp = StringVar()
+phone_addemp = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
