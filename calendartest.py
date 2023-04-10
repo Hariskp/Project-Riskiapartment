@@ -4,7 +4,10 @@ from tkcalendar import Calendar, DateEntry
 
 def get_date():
     date = cal.get_date()
-    date_label.config(text=date.strftime("%d/%m/%Y"))
+    date_parts = date.split("/")
+    formatted_date = date_parts[0] + "/" + date_parts[1] + "/" + date_parts[2]
+    date_label.config(text=formatted_date)
+
 
 root = Tk()
 root.title("Calendar Demo")
