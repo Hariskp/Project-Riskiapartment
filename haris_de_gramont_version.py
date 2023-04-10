@@ -875,41 +875,58 @@ def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้�
     entry_floor_addRoom.place(x=350, y=120)
     Label(frm_right_addRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
-    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_addRoom_bg, *room_type, roomtype_addroom).place(x=350, y=180, width=310) #Spy
-    Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
+    room_type = ["รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
+    roomtype = OptionMenu(frm_right_addRoom_bg, roomtype_addroom, *room_type).place(x=350, y=180, width=310) #Spy
+    roomtype_addroom.set('ประเภทห้อง')
+    Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD', command=addRoom_backend).place(x=485, y=270)
 
 def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่องจากต้องมีค่าห้องพักที่ต้องเชื่อมกับฟังชันการกำหนดราคาห้องพัก
-    sql = "SELECT * FROM room WHERE phonenumber=?"
+    room_execute = conn.execute('SELECT * FROM room')
+    for db_room in room_execute :
+        if db_room[2] == roomnumber_addroom.get() :
+            roomtype_price = db_room[3]
+        elif db_room[2] == roomtype_addroom.get() :
+            unit = db_room[4]
+
+    sql = "SELECT * FROM room WHERE room_number=?"
     cursor.execute(sql, [roomnumber_addroom.get()])
     db_roomnumbercheck = cursor.fetchone()
+    room_status = "ว่าง"
 
-    status = "U"
     #Existence Check
-    if roomnumber_addroom.get() == '' :
+    if roomnumber_addroom.get() == '':
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้อง")
         entry_roomnumber_addRoom.focus_force()
-    elif roomnumber_addroom.get().isnumeric == False :
+    elif not roomnumber_addroom.get().isnumeric():
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้องเป็นตัวเลข")
-        entry_roomnumber_addRoom.focus_force()   
-    elif roomnumber_addroom is not None and roomnumber_addroom.get() == db_roomnumbercheck[0]:
-        messagebox.showerror("Riski Apartment : Error", "เลขห้องนี้ถูกใช้ไปแล้ว")
-        entry_phone_addempaccount.focus_force() 
-    elif floor_addroom.get() == '' :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชั้น")
-        entry_floor_addRoom.focus_force()
-    else :
-        sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
-        cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom])
-        conn.commit()
-        retrivedata()
-        messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
-        entry_name_addempaccount.delete(0, END)
-        entry_surname_addempaccount.delete (0, END)
-        entry_username_addempaccount.delete(0, END)
-        entry_password_addempaccount.delete(0, END)
-        entry_phone_addempaccount.delete(0, END)
-    addempaccount_fn()
+        entry_roomnumber_addRoom.focus_force()
+    else:
+        sql = "SELECT * FROM room WHERE room_number=?"
+        cursor.execute(sql, [roomnumber_addroom.get()])
+        db_roomnumbercheck = cursor.fetchone()
+        if db_roomnumbercheck:
+            messagebox.showwarning("Riski Apartment : Warning", "หมายเลขห้องนี้ถูกใช้ไปแล้ว")
+            entry_roomnumber_addRoom.delete(0, END)
+            entry_floor_addRoom.delete(0, END)
+            roomtype_addroom.set('ประเภทห้อง')
+            entry_roomnumber_addRoom.focus_force()
+        else:
+            for db_room in room_execute:
+                if db_room[2] == roomnumber_addroom.get():
+                    roomtype_price = db_room[3]
+                elif db_room[2] == roomtype_addroom.get():
+                    unit = db_room[4]
+            room_status = "ว่าง"
+            sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
+            cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom.get(), db_room[3], unit, room_status])
+            conn.commit()
+            retrivedata()
+            messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลห้องพักเสร็จสิ้น")
+            entry_roomnumber_addRoom.delete(0, END)
+            entry_floor_addRoom.delete(0, END)
+            roomtype_addroom.set('ประเภทห้อง')
+        
+    addRoom_fn()
 
 def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : แก้ไขห้องพัก")
