@@ -9,11 +9,11 @@ def imgImport():
     img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
     img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
 
-#CREATE MAINWINDOW
-def mainwindow() : 
+#CREATE WINDOW
+def windowConfig() : 
     root = Tk()
-    x = root.winfo_screenwidth()/2 - w/2
-    y = root.winfo_screenheight()/2 - h/2
+    x = root.winfo_screenwidth()/10 - w/10
+    y = root.winfo_screenheight()/10 - h/10
     root.geometry("%dx%d+%d+%d"%(w,h,x,y))
     root.config(bg='#EBFCE0')
     root.title("Riski Apartment : Login")
@@ -33,11 +33,11 @@ def login_backend() :
     global db_user, name_user
     #Existence Check
     if userentry.get() == "" :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Username")
+        messagebox.showwarning("Riski Apartment : Warning", "Username is empty.")
         frm_left_login_entry_username.focus_force()
     else :
         if passwordentry.get() == "" :
-            messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
+            messagebox.showwarning("Riski Apartment : Warning", "Password is empty.")
             frm_left_login_entry_password.focus_force()
         else :
             sql = "SELECT * FROM user WHERE username=? and password=?"
@@ -47,7 +47,7 @@ def login_backend() :
                 home_fn()
                 name_user = db_user[3] + " " + db_user[4]
             else :
-                messagebox.showerror("Riski Apartment : Error", "Username หรือ Password ผิด")
+                messagebox.showerror("Riski Apartment : Error", "Username or Password is invalid.")
                 frm_left_login_entry_username.delete(0, END)
                 frm_left_login_entry_password.delete(0, END)
                 frm_left_login_entry_username.focus_force()
@@ -55,7 +55,7 @@ def login_backend() :
 def login_fn() : #หน้า Login #By Haris
     global frm_left_login_entry_username, frm_left_login_entry_password
     #MAIN
-    root.title("Riski Apartment : เข้าสู่ระบบ")
+    root.title("Riski Apartment : Log-in")
     frm_main_login = Frame(root, bg='black')
     frm_main_login.place(x=0, y=0, width = w, height = h)
 
@@ -1636,7 +1636,7 @@ w = 1920
 h = 1080
 
 createconnection()
-root = mainwindow()
+root = windowConfig()
 
 imgImport()
 
