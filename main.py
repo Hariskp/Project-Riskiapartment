@@ -66,11 +66,11 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_left_login, text='Username', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=300)
     frm_left_login_entry_username = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0, textvariable=userentry) #Spy
     frm_left_login_entry_username.focus_force()
-    # userentry.set('')
+    userentry.set('')
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
-    # passwordentry.set('')
+    passwordentry.set('')
     frm_left_login_entry_password.place(x=380, y=580, height=50)
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
@@ -203,7 +203,7 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
     Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
     entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
-    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
+    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58) 
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
@@ -456,12 +456,9 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
 def addempaccount_backend() :
-    # db_emp = conn.execute('SELECT * FROM user')
-    # db_emp = conn.fetchall()
-    # sql = "SELECT * FROM user"
-    # cursor.execute(sql)
-    # db_emp = cursor.fetchall()
-    # print(db_emp)
+    sql = "SELECT * FROM user WHERE phonenumber=?"
+    cursor.execute(sql, [phone_addemp.get()])
+    db_phonecheck = cursor.fetchone()
 
     status = "U"
     #Existence Check
@@ -480,20 +477,25 @@ def addempaccount_backend() :
     elif phone_addemp.get() == '' :
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์")
         entry_phone_addempaccount.focus_force()   
-    # elif phone_addemp.get() == db_emp[0] :
-    #     messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
-    #     entry_phone_addempaccount.focus_force() 
+    elif phone_addemp.get().isnumeric == False :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลข")
+        entry_phone_addempaccount.focus_force()   
+    elif len(phone_addemp.get()) != 10 :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
+    elif db_phonecheck is not None and phone_addemp.get() == db_phonecheck[0]:
+        messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+        entry_phone_addempaccount.focus_force() 
     else :
         sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
         cursor.execute(sql, [phone_addemp.get(), username_addemp.get(), password_addemp.get(), name_addemp.get(), lastname_addemp.get(), status])
         conn.commit()
         retrivedata()
         messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
-        # entry_name_addempaccount.select_range(0, END)
-        # entry_surname_addempaccount.select_range(0, END)
-        # entry_username_addempaccount.select_range(0, END)
-        # entry_password_addempaccount.select_range(0, END)
-        # entry_phone_addempaccount.select_range(0, END)
+        # entry_name_addempaccount.delete(0, END)
+        # entry_surname_addempaccount.delete (0, END)
+        # entry_username_addempaccount.delete(0, END)
+        # entry_password_addempaccount.delete(0, END)
+        # entry_phone_addempaccount.delete(0, END)
     addempaccount_fn()
     
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
