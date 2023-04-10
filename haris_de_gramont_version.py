@@ -35,7 +35,7 @@ def login_backend() :
             frm_left_login_entry_password.focus_force()
         else :
             sql = "SELECT * FROM user WHERE username=? and password=?"
-            cursor.execute(sql, [userentry.get(), passwordentry.get()])
+            cursor.execute(sql, [userentry.get().lower(), passwordentry.get().lower()])
             db_user = cursor.fetchone()
             if db_user :
                 home_fn()
@@ -70,8 +70,8 @@ def login_fn() : #หน้า Login #By Haris
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
-    passwordentry.set('')
     frm_left_login_entry_password.place(x=380, y=580, height=50)
+    passwordentry.set('')
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
     #RIGHT
@@ -419,15 +419,20 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp).place(x=270, y=50, width=230) #Spy
+    entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp) #Spy
+    entry_name_addempaccount.place(x=270, y=50, width=230) 
     Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp).place(x=730, y=50, width=230) #Spy
+    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp) #Spy
+    entry_surname_addempaccount.place(x=730, y=50, width=230)
     Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp).place(x=270, y=120, width=230) #Spy
+    entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp) #Spy
+    entry_username_addempaccount.place(x=270, y=120, width=230)
     Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120) 
-    entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp).place(x=730, y=120, width=230) #Spy
+    entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp) #Spy
+    entry_password_addempaccount.place(x=730, y=120, width=230)
     Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
-    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp).place(x=270, y=190, width=230) #Spy
+    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
+    entry_phone_addempaccount.place(x=270, y=190, width=230)
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
@@ -487,15 +492,15 @@ def addempaccount_backend() :
         entry_phone_addempaccount.focus_force() 
     else :
         sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
-        cursor.execute(sql, [phone_addemp.get(), username_addemp.get(), password_addemp.get(), name_addemp.get(), lastname_addemp.get(), status])
+        cursor.execute(sql, [phone_addemp.get(), username_addemp.get().lower(), password_addemp.get().lower(), name_addemp.get(), lastname_addemp.get(), status])
         conn.commit()
         retrivedata()
         messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
-        # entry_name_addempaccount.delete(0, END)
-        # entry_surname_addempaccount.delete (0, END)
-        # entry_username_addempaccount.delete(0, END)
-        # entry_password_addempaccount.delete(0, END)
-        # entry_phone_addempaccount.delete(0, END)
+        entry_name_addempaccount.delete(0, END)
+        entry_surname_addempaccount.delete (0, END)
+        entry_username_addempaccount.delete(0, END)
+        entry_password_addempaccount.delete(0, END)
+        entry_phone_addempaccount.delete(0, END)
     addempaccount_fn()
     
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
@@ -570,6 +575,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
 def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_name_addcusinfo, entry_surname_addcusinfo, entry_phone_addcusinfo, entry_ethnicity_addcusinfo, entry_nation_addcusinfo, entry_number_addcusinfo, entry_village_addcusinfo, entry_road_addcusinfo, entry_subdistrict_addcusinfo, entry_district_addcusinfo, entry_province_addcusinfo
     #MAIN
     root.title("Riski Apartment : เพิ่มข้อมูลลูกค้า")
     frm_main_addcusinfo = Frame(root, bg='black')
@@ -605,29 +611,81 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
     frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
-    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
-    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=50)
+    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50) #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
+    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=name_addcus)
+    entry_name_addcusinfo.place(x=170, y=50)
     Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
-    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=150)
+    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=lastname_addcus)
+    entry_surname_addcusinfo.place(x=170, y=150)
     Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
-    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=250)
+    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=phone_addcus)
+    entry_phone_addcusinfo.place(x=170, y=250)
     Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
-    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=350)  #ศัพท์จาก apple translate
+    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=ethinicity_addcus) #ศัพท์จาก apple translate
+    entry_ethnicity_addcusinfo.place(x=170, y=350)
     Label(frm_right_addcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
-    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=450)     #nation --> nationality
+    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=nation_addcus) #nation --> nationality
+    entry_nation_addcusinfo.place(x=170, y=450)
     Label(frm_right_addcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
-    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=50)      #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=number_addcus) #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    entry_number_addcusinfo.place(x=720, y=50)
     Label(frm_right_addcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
-    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=150)
+    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=village_addcus)
+    entry_village_addcusinfo.place(x=720, y=150)
     Label(frm_right_addcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
-    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=250)
+    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=road_addcus)
+    entry_road_addcusinfo.place(x=720, y=250)
     Label(frm_right_addcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
-    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=350)
+    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=subdistrict_addcus)
+    entry_subdistrict_addcusinfo.place(x=720, y=350)
     Label(frm_right_addcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
-    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=450)
+    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=district_addcus)
+    entry_district_addcusinfo.place(x=720, y=450)
     Label(frm_right_addcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
-    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
-    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=province_addcus)
+    entry_province_addcusinfo.place(x=720, y=550) 
+    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD', command=addcustomerinfo_backend).place(x=760, y=650)
+
+def addcustomerinfo_backend() :
+    sql = "SELECT * FROM customer WHERE phonenumber=?"
+    cursor.execute(sql, [phone_addemp.get()])
+    db_phonecheck = cursor.fetchone()
+    room = "ว่าง"
+
+    status = "U"
+    #Existence Check
+    if name_addcus.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชื่อ")
+        entry_name_addcusinfo.focus_force()
+    elif lastname_addcus.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกนามสกุล")
+        entry_surname_addcusinfo.focus_force()
+    elif phone_addcus.get().isnumeric == False :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลข")
+        entry_phone_addcusinfo.focus_force()   
+    elif len(phone_addcus.get()) != 10 :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
+    elif db_phonecheck is not None and phone_addcus.get() == db_phonecheck[0]:
+        messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+        entry_phone_addcusinfo.focus_force() 
+    else :
+        sql = '''INSERT INTO customer (phonenumber, room, name, lastname, house_number, village, road, district, amphoe, province, ethnicity, nationality) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [phone_addcus.get(), room, name_addcus.get(), lastname_addcus.get(), number_addcus.get(), village_addcus.get(), road_addcus.get(), subdistrict_addcus.get(), district_addcus.get(), province_addcus.get(), ethinicity_addcus.get(), nation_addcus.get()])
+        conn.commit()
+        # retrivedata()
+        messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลลูกค้าเสร็จสิ้น")
+        entry_name_addcusinfo.delete(0, END)
+        entry_surname_addcusinfo.delete (0, END)
+        entry_phone_addcusinfo.delete (0, END)
+        entry_nation_addcusinfo.delete (0, END)
+        entry_ethnicity_addcusinfo.delete (0, END)
+        entry_number_addcusinfo.delete (0, END)
+        entry_village_addcusinfo.delete (0, END)
+        entry_road_addcusinfo.delete (0, END)
+        entry_subdistrict_addcusinfo.delete (0, END)
+        entry_district_addcusinfo.delete (0, END)
+        entry_province_addcusinfo.delete (0, END)
+    addcustomerinfo_fn()
 
 def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
@@ -782,6 +840,7 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+    global entry_roomnumber_addRoom, entry_floor_addRoom
     root.title("Riski Apartment : เพิ่มห้องพัก")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
@@ -809,14 +868,48 @@ def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้�
     frm_right_addRoom_bg = Frame(frm_right_addRoom, bg='#DDDDDD')
     frm_right_addRoom_bg.place(x=276, y=270, width=750, height=400)
     Label(frm_right_addRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60) 
-    entry_phonenum_checkin = Entry(frm_right_addRoom_bg).place(x=350, y=60)
+    entry_roomnumber_addRoom = Entry(frm_right_addRoom_bg, textvariable=roomnumber_addroom) #Spy
+    entry_roomnumber_addRoom.place(x=350, y=60)
     Label(frm_right_addRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
-    entry_name_addRoom = Entry(frm_right_addRoom_bg).place(x=350, y=120)
+    entry_floor_addRoom = Entry(frm_right_addRoom_bg, textvariable=floor_addroom) #Spy
+    entry_floor_addRoom.place(x=350, y=120)
     Label(frm_right_addRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_addRoom_bg, *room_type).place(x=350, y=180, width=310)
+    roomtype = OptionMenu(frm_right_addRoom_bg, *room_type, roomtype_addroom).place(x=350, y=180, width=310) #Spy
     Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
+
+def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่องจากต้องมีค่าห้องพักที่ต้องเชื่อมกับฟังชันการกำหนดราคาห้องพัก
+    sql = "SELECT * FROM room WHERE phonenumber=?"
+    cursor.execute(sql, [roomnumber_addroom.get()])
+    db_roomnumbercheck = cursor.fetchone()
+
+    status = "U"
+    #Existence Check
+    if roomnumber_addroom.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้อง")
+        entry_roomnumber_addRoom.focus_force()
+    elif roomnumber_addroom.get().isnumeric == False :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้องเป็นตัวเลข")
+        entry_roomnumber_addRoom.focus_force()   
+    elif roomnumber_addroom is not None and roomnumber_addroom.get() == db_roomnumbercheck[0]:
+        messagebox.showerror("Riski Apartment : Error", "เลขห้องนี้ถูกใช้ไปแล้ว")
+        entry_phone_addempaccount.focus_force() 
+    elif floor_addroom.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชั้น")
+        entry_floor_addRoom.focus_force()
+    else :
+        sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
+        cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom])
+        conn.commit()
+        retrivedata()
+        messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
+        entry_name_addempaccount.delete(0, END)
+        entry_surname_addempaccount.delete (0, END)
+        entry_username_addempaccount.delete(0, END)
+        entry_password_addempaccount.delete(0, END)
+        entry_phone_addempaccount.delete(0, END)
+    addempaccount_fn()
 
 def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : แก้ไขห้องพัก")
@@ -1582,6 +1675,20 @@ lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+name_addcus = StringVar()
+lastname_addcus = StringVar()
+phone_addcus  = StringVar()
+ethinicity_addcus = StringVar()
+nation_addcus = StringVar()
+number_addcus = StringVar()
+village_addcus = StringVar()
+road_addcus = StringVar()
+subdistrict_addcus = StringVar()
+district_addcus = StringVar()
+province_addcus = StringVar()
+roomtype_addroom = StringVar()
+roomnumber_addroom = StringVar()
+floor_addroom = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
