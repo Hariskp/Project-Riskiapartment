@@ -35,7 +35,7 @@ def login_backend() :
             frm_left_login_entry_password.focus_force()
         else :
             sql = "SELECT * FROM user WHERE username=? and password=?"
-            cursor.execute(sql, [userentry.get(), passwordentry.get()])
+            cursor.execute(sql, [userentry.get().lower(), passwordentry.get().lower()])
             db_user = cursor.fetchone()
             if db_user :
                 home_fn()
@@ -70,8 +70,8 @@ def login_fn() : #หน้า Login #By Haris
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
     frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
-    passwordentry.set('')
     frm_left_login_entry_password.place(x=380, y=580, height=50)
+    passwordentry.set('')
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
 
     #RIGHT
@@ -419,15 +419,21 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
-    entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp).place(x=270, y=50, width=230) #Spy
-    Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
-    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp).place(x=730, y=50, width=230) #Spy
+    entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp) #Spy
+    entry_name_addempaccount.place(x=270, y=50, width=230) 
+    Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD')
+    frm_right_addempaccount_bg.place(x=603, y=50)
+    entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp) #Spy
+    entry_surname_addempaccount.place(x=730, y=50, width=230) 
     Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
-    entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp).place(x=270, y=120, width=230) #Spy
+    entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp) #Spy
+    entry_username_addempaccount.place(x=270, y=120, width=230) 
     Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120) 
-    entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp).place(x=730, y=120, width=230) #Spy
+    entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp) #Spy
+    entry_password_addempaccount.place(x=730, y=120, width=230) 
     Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
-    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp).place(x=270, y=190, width=230) #Spy
+    entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
+    entry_phone_addempaccount.place(x=270, y=190, width=230)
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
@@ -491,11 +497,11 @@ def addempaccount_backend() :
         conn.commit()
         retrivedata()
         messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
-        # entry_name_addempaccount.delete(0, END)
-        # entry_surname_addempaccount.delete (0, END)
-        # entry_username_addempaccount.delete(0, END)
-        # entry_password_addempaccount.delete(0, END)
-        # entry_phone_addempaccount.delete(0, END)
+        entry_name_addempaccount.delete(0, END)
+        entry_surname_addempaccount.delete (0, END)
+        entry_username_addempaccount.delete(0, END)
+        entry_password_addempaccount.delete(0, END)
+        entry_phone_addempaccount.delete(0, END)
     addempaccount_fn()
     
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
