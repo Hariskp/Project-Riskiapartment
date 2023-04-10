@@ -114,7 +114,7 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
     #Welcome
-    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
+    Label(frm_left_home, text='"Welcome"', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
     name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
 
     #Create Treeview
@@ -122,9 +122,9 @@ def home_fn() : #หน้า Home #By Haris
     mytree= ttk.Treeview(frm_right_home, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
-    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    mytree.heading('floor_', text="floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room Number", anchor=CENTER)
+    mytree.heading('roomstate_', text="Status", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
     mytree.column('floor_', anchor=CENTER, width=350) 
@@ -139,7 +139,7 @@ def home_fn() : #หน้า Home #By Haris
         
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-    root.title("Riski Apartment : เช็คอิน/เอ้าท์")
+    root.title("Riski Apartment : Check in / Check out")
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
