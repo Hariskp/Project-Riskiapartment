@@ -493,7 +493,7 @@ def addempaccount_backend() :
         entry_phone_addempaccount.focus_force() 
     else :
         sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
-        cursor.execute(sql, [phone_addemp.get(), username_addemp.get(), password_addemp.get(), name_addemp.get(), lastname_addemp.get(), status])
+        cursor.execute(sql, [phone_addemp.get(), username_addemp.get().lower(), password_addemp.get().lower(), name_addemp.get(), lastname_addemp.get(), status])
         conn.commit()
         retrivedata()
         messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลพนักงานเสร็จสิ้น")
@@ -576,6 +576,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
 def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_name_addcusinfo, entry_surname_addcusinfo, entry_phone_addcusinfo, entry_ethnicity_addcusinfo, entry_nation_addcusinfo, entry_number_addcusinfo, entry_village_addcusinfo, entry_road_addcusinfo, entry_subdistrict_addcusinfo, entry_district_addcusinfo, entry_province_addcusinfo
     #MAIN
     root.title("Riski Apartment : เพิ่มข้อมูลลูกค้า")
     frm_main_addcusinfo = Frame(root, bg='black')
@@ -611,29 +612,81 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     Label(frm_right_addcusinfo, text='เพิ่มข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_addcusinfo_bg = Frame(frm_right_addcusinfo, bg='#DDDDDD')
     frm_right_addcusinfo_bg.place(x=96, y=158, width=1090, height=760)
-    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50)  #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
-    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=50)
+    Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50) #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
+    entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=name_addcus)
+    entry_name_addcusinfo.place(x=170, y=50)
     Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
-    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=150)
+    entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=lastname_addcus)
+    entry_surname_addcusinfo.place(x=170, y=150)
     Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
-    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=250)
+    entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=phone_addcus)
+    entry_phone_addcusinfo.place(x=170, y=250)
     Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
-    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=350)  #ศัพท์จาก apple translate
+    entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=ethinicity_addcus) #ศัพท์จาก apple translate
+    entry_ethnicity_addcusinfo.place(x=170, y=350)
     Label(frm_right_addcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
-    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=170, y=450)     #nation --> nationality
+    entry_nation_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=nation_addcus) #nation --> nationality
+    entry_nation_addcusinfo.place(x=170, y=450)
     Label(frm_right_addcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
-    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=50)      #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    entry_number_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=number_addcus) #บ้านเลขที่ --> number , จะเปลี่ยนก็ได้ตามใจชอบบ
+    entry_number_addcusinfo.place(x=720, y=50)
     Label(frm_right_addcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
-    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=150)
+    entry_village_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=village_addcus)
+    entry_village_addcusinfo.place(x=720, y=150)
     Label(frm_right_addcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
-    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=250)
+    entry_road_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=road_addcus)
+    entry_road_addcusinfo.place(x=720, y=250)
     Label(frm_right_addcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
-    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=350)
+    entry_subdistrict_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=subdistrict_addcus)
+    entry_subdistrict_addcusinfo.place(x=720, y=350)
     Label(frm_right_addcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
-    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=450)
+    entry_district_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=district_addcus)
+    entry_district_addcusinfo.place(x=720, y=450)
     Label(frm_right_addcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
-    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg).place(x=720, y=550)
-    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+    entry_province_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=province_addcus)
+    entry_province_addcusinfo.place(x=720, y=550)
+    Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD', command=addcustomerinfo_backend).place(x=760, y=650)
+
+def addcustomerinfo_backend() :
+    sql = "SELECT * FROM customer WHERE phonenumber=?"
+    cursor.execute(sql, [phone_addemp.get()])
+    db_phonecheck = cursor.fetchone()
+    room = "ว่าง"
+
+    status = "U"
+    #Existence Check
+    if name_addcus.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชื่อ")
+        entry_name_addcusinfo.focus_force()
+    elif lastname_addcus.get() == '' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกนามสกุล")
+        entry_surname_addcusinfo.focus_force()
+    elif phone_addcus.get().isnumeric == False :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลข")
+        entry_phone_addcusinfo.focus_force()   
+    elif len(phone_addcus.get()) != 10 :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
+    elif db_phonecheck is not None and phone_addcus.get() == db_phonecheck[0]:
+        messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+        entry_phone_addcusinfo.focus_force() 
+    else :
+        sql = '''INSERT INTO customer (phonenumber, room, name, lastname, house_number, village, road, district, amphoe, province, ethnicity, nationality) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [phone_addcus.get(), room, name_addcus.get(), lastname_addcus.get(), number_addcus.get(), village_addcus.get(), road_addcus.get(), subdistrict_addcus.get(), district_addcus.get(), province_addcus.get(), ethinicity_addcus.get(), nation_addcus.get()])
+        conn.commit()
+        # retrivedata()
+        messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลลูกค้าเสร็จสิ้น")
+        entry_name_addcusinfo.delete(0, END)
+        entry_surname_addcusinfo.delete (0, END)
+        entry_phone_addcusinfo.delete (0, END)
+        entry_nation_addcusinfo.delete (0, END)
+        entry_ethnicity_addcusinfo.delete (0, END)
+        entry_number_addcusinfo.delete (0, END)
+        entry_village_addcusinfo.delete (0, END)
+        entry_road_addcusinfo.delete (0, END)
+        entry_subdistrict_addcusinfo.delete (0, END)
+        entry_district_addcusinfo.delete (0, END)
+        entry_province_addcusinfo.delete (0, END)
+    addcustomerinfo_fn()
 
 def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
@@ -1588,6 +1641,17 @@ lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+name_addcus = StringVar()
+lastname_addcus = StringVar()
+phone_addcus  = StringVar()
+ethinicity_addcus = StringVar()
+nation_addcus = StringVar()
+number_addcus = StringVar()
+village_addcus = StringVar()
+road_addcus = StringVar()
+subdistrict_addcus = StringVar()
+district_addcus = StringVar()
+province_addcus = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
