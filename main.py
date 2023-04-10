@@ -417,7 +417,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     #RIGHT 
     Label(frm_right_addempaccount, text='เพิ่มบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
-    frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
+    frm_right_addempaccount_bg.place(x=6, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
     entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp) #Spy
     entry_name_addempaccount.place(x=270, y=50, width=230) 
