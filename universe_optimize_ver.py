@@ -3,6 +3,12 @@ import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
 
+def imgImport():
+    global img_phonenumber, img_riskilogo, img_riskilogos
+    img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
+    img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
+    img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
+
 #CREATE MAINWINDOW
 def mainwindow() : 
     root = Tk()
@@ -1632,6 +1638,8 @@ h = 1080
 createconnection()
 root = mainwindow()
 
+imgImport()
+
 #Spy's Job
 userentry = StringVar()
 passwordentry = StringVar()
@@ -1651,13 +1659,6 @@ road_addcus = StringVar()
 subdistrict_addcus = StringVar()
 district_addcus = StringVar()
 province_addcus = StringVar()
-
-#Image import
-img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
-img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
-img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
-
-
 
 #Button import
 btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
