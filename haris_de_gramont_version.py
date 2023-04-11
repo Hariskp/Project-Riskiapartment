@@ -558,7 +558,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     entry_phone_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=phone_editempaccount) #Spy
     entry_phone_editempaccount.place(x=270, y=200, width=230)
     Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=240)
-    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=240)
+    Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editempaccount_edit_backend).place(x=790, y=240)
 
     #CALL TREEVIEW
     mytree = ttk.Treeview(root)
@@ -602,41 +602,35 @@ def editempaccount_search_backend() :
     #     floor_editroom.set(db_roomnumbercheck[1])
     #     roomtype_editroom.set(db_roomnumbercheck[2])
     #     roomstatus_editroom.set(db_roomnumbercheck[5])
-    
     sql = 'SELECT * FROM user WHERE phonenumber=?'
     cursor.execute(sql, [findphone_editempaccount.get()])
-    db_phonecheck = cursor.fetchone() 
-    if db_phonecheck is None or findphone_editempaccount.get() != db_phonecheck[0]:
+    db_emp = cursor.fetchone() 
+    if db_emp is None or findphone_editempaccount.get() != db_emp[0]:
         messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s" %(findphone_editempaccount.get()))
         entry_phone_editempaccount.delete(0, END)
         entry_phone_editempaccount.focus_force
+    else :
+        phone_editempaccount.set(db_emp[0])
+        username_editempaccount.set(db_emp[1])
+        password_editempaccount.set(db_emp[2])
+        name_editempaccount.set(db_emp[3])
+        lastname_editempaccount.set(db_emp[4])
 
-
-def editempaccount_edit_backend() :
-    # room_execute = conn.execute('SELECT * FROM room')
-    # for db_room in room_execute :
-    #     if db_room[2] == roomtype_editroom.get() :
-    #         roomtype_price = db_room[3]
-    #         unit = db_room[4]
-    #         break  # exit the loop once a matching room type is found
-    # sql = '''
-    #         UPDATE room
-    #         SET room_number=?, floor=?, room_type=?, price=?, unit=?, status=?
-    #         WHERE room_number=?    
-    #     '''
-    # cursor.execute(sql, [roomnumber_editroom.get(), floor_editroom.get(), roomtype_editroom.get(), roomtype_price, unit, roomstatus_editroom.get(), roomnumber_editroom.get()])
-    # conn.commit()
-    # messagebox.showinfo("Riski Apartment : Success", "แก้ไขห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
-    # entry_roomnumber_editRoom.delete(0, END)
-    # entry_floor_editRoom.delete(0, END)
-    # roomtype_editroom.set('ประเภทห้อง')
-    # roomstatus_editroom.set('สถานะห้อง')
-    # entry_roomnumber_editRoom.focus_force()
-
-    # emp_execute = conn.execute('SELECT * FROM user')
-    # for db_emp in emp_execute :
-    #     if db_emp[]
-
+def editempaccount_edit_backend() : #เสร็จแล้ว โดย Haris
+    sql = '''
+            UPDATE user
+            SET phonenumber=?, username=?, password=?, name=?, lastname=?, status=?
+            WHERE phonenumber=?   
+    '''
+    cursor.execute(sql, [phone_editempaccount.get(), username_editempaccount.get(), password_editempaccount.get(), name_editempaccount.get(), lastname_editempaccount.get(), db_user[5], findphone_editempaccount.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "แก้ไขข้อมูลของเรียบร้อย")
+    entry_name_editempaccount.delete(0, END)
+    entry_surname_editempaccount.delete(0, END)
+    entry_username_editempaccount.delete(0, END)
+    entry_password_editempaccount.delete(0, END)
+    entry_findphone_editempaccount.delete(0, END)
+    entry_phone_editempaccount.delete(0, END)
     editempaccount_fn()
 
 def addcustomerinfo_fn() : #เสร็จแล้ว #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
