@@ -3,6 +3,8 @@ import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
 
+#เวอร์ชั่นนี้เป็นเวอร์ชันทดลองเท่านั้น อาจจะมี ERROR ก็เป็นได้
+
 #CREATE MAINWINDOW
 def mainwindow() : 
     root = Tk()
@@ -46,7 +48,7 @@ def login_backend() :
                 frm_left_login_entry_password.delete(0, END)
                 frm_left_login_entry_username.focus_force()
 
-def login_fn() : #หน้า Login #By Haris
+def login_fn() :#เสร็จแล้ว #หน้า Login #By Haris
     global frm_left_login_entry_username, frm_left_login_entry_password
     #MAIN
     root.title("Riski Apartment : เข้าสู่ระบบ")
@@ -83,7 +85,7 @@ def login_fn() : #หน้า Login #By Haris
     Label(frm_right_login, text='sutee.prodpran@gmail.com', font = 'Calibri 16 bold', bg='#084235', fg='white').place(x=230, y=840)
     Label(frm_right_login, text='THA IT PAK KRET NONTHABURI 11120', font = 'Calibri 14 bold', bg='#084235', fg='white').place(x=200, y=900)
 
-def home_fn() : #หน้า Home #By Haris
+def home_fn() : #เสร็จแล้ว #หน้า Home #By Haris
     global db_room
     name_user = db_user[3] + " " + db_user[4]
     #MAIN
@@ -110,7 +112,10 @@ def home_fn() : #หน้า Home #By Haris
     #Welcome
     Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
     name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
-
+    #Add some style
+    style = ttk.Style()
+    #Configure our treeview color
+    style.configure("Treeview",background="#D9D9D9", foreground="black",rowheight=50, filebackground="silver" ,font=('Verdana', 12))
     #Create Treeview
     mytree = ttk.Treeview(root)
     mytree= ttk.Treeview(frm_right_home, columns=("floor_", "roomnum_", "roomstate_"), height=2)
@@ -131,7 +136,7 @@ def home_fn() : #หน้า Home #By Haris
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
         
-def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
+def checkinout_fn() : #เสร็จแล้ว #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
     root.title("Riski Apartment : เช็คอิน/เอ้าท์")
     frm_main_inout = Frame(root, bg='black')
@@ -333,7 +338,7 @@ def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้
     Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
     Button(frm_right_checkoutdate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
 
-def accountmanage_fn() : #หน้า Main จัดการบัญชี #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def accountmanage_fn() : #เสร็จแล้ว #หน้า Main จัดการบัญชี #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : จัดการบัญชี")
     frm_main_accmanage = Frame(root, bg='black')
@@ -386,8 +391,7 @@ def accountmanage_fn() : #หน้า Main จัดการบัญชี #�
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-
-def addempaccount_fn() : #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global db_employee, entry_name_addempaccount, entry_surname_addempaccount, entry_username_addempaccount, entry_password_addempaccount, entry_phone_addempaccount
     #MAIN
     root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
@@ -460,7 +464,7 @@ def addempaccount_fn() : #หน้าเพิ่มบัญชีพนัก
     for i in db_employee :
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
-def addempaccount_backend() :
+def addempaccount_backend() : #เสร็จแล้ว โดย Haris
     sql = "SELECT * FROM user WHERE phonenumber=?"
     cursor.execute(sql, [phone_addemp.get()])
     db_phonecheck = cursor.fetchone()
@@ -504,6 +508,7 @@ def addempaccount_backend() :
     addempaccount_fn()
     
 def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_findphone_editempaccount, entry_name_editempaccount, entry_surname_editempaccount, entry_username_editempaccount, entry_password_editempaccount, entry_phone_editempaccount
     #MAIN
     root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
     frm_main_editempaccount = Frame(root, bg='black')
@@ -534,18 +539,24 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
     frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_editempaccount_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=330, y=50)
-    entry_findphone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=500, y=50, width=250)
-    Button(frm_right_editempaccount_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=780, y=50)
+    entry_findphone_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=findphone_editempaccount) #Spy
+    entry_findphone_editempaccount.place(x=500, y=50, width=250)
+    Button(frm_right_editempaccount_bg, image=btn_search, bd=0, bg='#DDDDDD', command=editempaccount_search_backend).place(x=780, y=50)
     Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=100)
-    entry_name_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=100, width=230)
+    entry_name_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=name_editempaccount) #Spy
+    entry_name_editempaccount.place(x=270, y=100, width=230)
     Label(frm_right_editempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=100)
-    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=100, width=230)
+    entry_surname_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=lastname_editempaccount) #Spy
+    entry_surname_editempaccount.place(x=730, y=100, width=230)
     Label(frm_right_editempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=150)
-    entry_username_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=150, width=230)
+    entry_username_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=username_editempaccount) #Spy
+    entry_username_editempaccount.place(x=270, y=150, width=230)
     Label(frm_right_editempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=150)
-    entry_password_editempaccount = Entry(frm_right_editempaccount_bg).place(x=730, y=150, width=230)
+    entry_password_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=password_editempaccount) #Spy
+    entry_password_editempaccount.place(x=730, y=150, width=230)
     Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=200)
-    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=270, y=200, width=230)
+    entry_phone_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=phone_editempaccount) #Spy
+    entry_phone_editempaccount.place(x=270, y=200, width=230)
     Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=240)
     Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD').place(x=790, y=240)
 
@@ -574,7 +585,61 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     for i in db_employee :
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
-def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def editempaccount_search_backend() :
+    # sql = "SELECT * FROM room WHERE room_number=?"
+    # cursor.execute(sql, [roomnumber_editroom.get()])
+    # db_roomnumbercheck = cursor.fetchone()
+
+    # if db_roomnumbercheck is None or roomnumber_editroom.get() != db_roomnumbercheck[0]:
+    #     messagebox.showwarning("Riski Apartment : Warning", "ไม่พบหมายเลขห้อง %s" % (roomnumber_editroom.get()))
+    #     entry_roomnumber_editRoom.delete(0, END)
+    #     entry_floor_editRoom.delete(0, END)
+    #     roomtype_editroom.set('ประเภทห้อง')
+    #     roomstatus_editroom.set('สถานะห้อง')
+    #     entry_roomnumber_editRoom.focus_force
+
+    # else:
+    #     floor_editroom.set(db_roomnumbercheck[1])
+    #     roomtype_editroom.set(db_roomnumbercheck[2])
+    #     roomstatus_editroom.set(db_roomnumbercheck[5])
+    
+    sql = 'SELECT * FROM user WHERE phonenumber=?'
+    cursor.execute(sql, [findphone_editempaccount.get()])
+    db_phonecheck = cursor.fetchone() 
+    if db_phonecheck is None or findphone_editempaccount.get() != db_phonecheck[0]:
+        messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s" %(findphone_editempaccount.get()))
+        entry_phone_editempaccount.delete(0, END)
+        entry_phone_editempaccount.focus_force
+
+
+def editempaccount_edit_backend() :
+    # room_execute = conn.execute('SELECT * FROM room')
+    # for db_room in room_execute :
+    #     if db_room[2] == roomtype_editroom.get() :
+    #         roomtype_price = db_room[3]
+    #         unit = db_room[4]
+    #         break  # exit the loop once a matching room type is found
+    # sql = '''
+    #         UPDATE room
+    #         SET room_number=?, floor=?, room_type=?, price=?, unit=?, status=?
+    #         WHERE room_number=?    
+    #     '''
+    # cursor.execute(sql, [roomnumber_editroom.get(), floor_editroom.get(), roomtype_editroom.get(), roomtype_price, unit, roomstatus_editroom.get(), roomnumber_editroom.get()])
+    # conn.commit()
+    # messagebox.showinfo("Riski Apartment : Success", "แก้ไขห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
+    # entry_roomnumber_editRoom.delete(0, END)
+    # entry_floor_editRoom.delete(0, END)
+    # roomtype_editroom.set('ประเภทห้อง')
+    # roomstatus_editroom.set('สถานะห้อง')
+    # entry_roomnumber_editRoom.focus_force()
+
+    # emp_execute = conn.execute('SELECT * FROM user')
+    # for db_emp in emp_execute :
+    #     if db_emp[]
+
+    editempaccount_fn()
+
+def addcustomerinfo_fn() : #เสร็จแล้ว #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global entry_name_addcusinfo, entry_surname_addcusinfo, entry_phone_addcusinfo, entry_ethnicity_addcusinfo, entry_nation_addcusinfo, entry_number_addcusinfo, entry_village_addcusinfo, entry_road_addcusinfo, entry_subdistrict_addcusinfo, entry_district_addcusinfo, entry_province_addcusinfo
     #MAIN
     root.title("Riski Apartment : เพิ่มข้อมูลลูกค้า")
@@ -646,7 +711,7 @@ def addcustomerinfo_fn() : #หน้าเพิ่มข้อมูลลู�
     entry_province_addcusinfo.place(x=720, y=550) 
     Button(frm_right_addcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD', command=addcustomerinfo_backend).place(x=760, y=650)
 
-def addcustomerinfo_backend() :
+def addcustomerinfo_backend() : #เสร็จแล้ว โดย Haris
     sql = "SELECT * FROM customer WHERE phonenumber=?"
     cursor.execute(sql, [phone_addemp.get()])
     db_phonecheck = cursor.fetchone()
@@ -839,7 +904,7 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+def addRoom_fn(): #เสร็จแล้ว #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     global entry_roomnumber_addRoom, entry_floor_addRoom
     root.title("Riski Apartment : เพิ่มห้องพัก")
     frm_main_addRoom = Frame(root, bg='black')
@@ -880,13 +945,15 @@ def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้�
     roomtype_addroom.set('ประเภทห้อง')
     Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD', command=addRoom_backend).place(x=485, y=270)
 
-def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่องจากต้องมีค่าห้องพักที่ต้องเชื่อมกับฟังชันการกำหนดราคาห้องพัก
+def addRoom_backend() : #เสร็จแล้ว เนื่องจากต้องมีค่าห้องพักที่ต้องเชื่อมกับฟังชันการกำหนดราคาห้องพัก
+    roomtype_price = 0
+    unit = 0
     room_execute = conn.execute('SELECT * FROM room')
     for db_room in room_execute :
-        if db_room[2] == roomnumber_addroom.get() :
+        if db_room[2] == roomtype_addroom.get() :
             roomtype_price = db_room[3]
-        elif db_room[2] == roomtype_addroom.get() :
             unit = db_room[4]
+            break  # exit the loop once a matching room type is found
 
     sql = "SELECT * FROM room WHERE room_number=?"
     cursor.execute(sql, [roomnumber_addroom.get()])
@@ -911,14 +978,9 @@ def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่อ
             roomtype_addroom.set('ประเภทห้อง')
             entry_roomnumber_addRoom.focus_force()
         else:
-            for db_room in room_execute:
-                if db_room[2] == roomnumber_addroom.get():
-                    roomtype_price = db_room[3]
-                elif db_room[2] == roomtype_addroom.get():
-                    unit = db_room[4]
             room_status = "ว่าง"
             sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
-            cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom.get(), db_room[3], unit, room_status])
+            cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom.get(), roomtype_price, unit, room_status])
             conn.commit()
             retrivedata()
             messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลห้องพักเสร็จสิ้น")
@@ -928,7 +990,8 @@ def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่อ
         
     addRoom_fn()
 
-def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+def editRoom_fn(): #เสร็จแล้ว โดย Haris #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+    global entry_roomnumber_editRoom, entry_floor_editRoom
     root.title("Riski Apartment : แก้ไขห้องพัก")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
@@ -951,25 +1014,87 @@ def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้�
     Button(frm_left_editRoom, image=btn_editRoom, bd=0, bg='#084235', command=editRoom_fn).place(x=180, y=440)
     Button(frm_left_editRoom, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-    
     #RIGHT
     Label(frm_right_editRoom, text='แก้ไขห้องพัก', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_editRoom_bg = Frame(frm_right_editRoom, bg='#DDDDDD')
     frm_right_editRoom_bg.place(x=276, y=270, width=750, height=450)
     Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     
-    entry_phonenum_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=60)
-    Button(frm_right_editRoom_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=660, y=60)
+    entry_roomnumber_editRoom = Entry(frm_right_editRoom_bg, textvariable=roomnumber_editroom) #Spy
+    entry_roomnumber_editRoom.place(x=350, y=60)
+    Button(frm_right_editRoom_bg, image=btn_search, bd=0, bg='#DDDDDD', command=editRoom_search_backend).place(x=660, y=60)
     Label(frm_right_editRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
-    entry_name_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=120)
+    entry_floor_editRoom = Entry(frm_right_editRoom_bg, textvariable=floor_editroom) #Spy
+    entry_floor_editRoom.place(x=350, y=120)
     Label(frm_right_editRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
-    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_editRoom_bg, *room_type).place(x=350, y=180, width=310)
+    room_type = ["รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
+    roomtype = OptionMenu(frm_right_editRoom_bg, roomtype_editroom, *room_type).place(x=350, y=180, width=310) #Spy
+    roomtype_editroom.set('ประเภทห้อง')
     #room state
     Label(frm_right_editRoom_bg, text='สถานะห้อง : ', bg='#DDDDDD').place(x=198, y=250)
-    room_state = ["ว่าง","ว่าง", "ไม่ว่าง", "ปรับปรุง"]
-    roomstate = OptionMenu(frm_right_editRoom_bg, *room_state).place(x=350, y=250, width=310)
-    Button(frm_right_editRoom_bg, image=btn_edit,bd=0, bg='#DDDDDD',).place(x=485, y=350)
+    room_status = ["ว่าง", "ไม่ว่าง", "ปรับปรุง"]
+    roomstatus = OptionMenu(frm_right_editRoom_bg, roomstatus_editroom, *room_status).place(x=350, y=250, width=310) #Spy
+    roomstatus_editroom.set('สถานะห้อง')
+    Button(frm_right_editRoom_bg, image=btn_delete, bd=0, bg='#DDDDDD', command=editRoom_delete_backend).place(x=250, y=350)
+    Button(frm_right_editRoom_bg, image=btn_edit,bd=0, bg='#DDDDDD', command=editRoom_edit_backend).place(x=485, y=350)
+
+def editRoom_search_backend() : #เสร็จแล้ว โดย Haris
+    sql = "SELECT * FROM room WHERE room_number=?"
+    cursor.execute(sql, [roomnumber_editroom.get()])
+    db_roomnumbercheck = cursor.fetchone()
+
+    if db_roomnumbercheck is None or roomnumber_editroom.get() != db_roomnumbercheck[0]:
+        messagebox.showwarning("Riski Apartment : Warning", "ไม่พบหมายเลขห้อง %s" % (roomnumber_editroom.get()))
+        entry_roomnumber_editRoom.delete(0, END)
+        entry_floor_editRoom.delete(0, END)
+        roomtype_editroom.set('ประเภทห้อง')
+        roomstatus_editroom.set('สถานะห้อง')
+        entry_roomnumber_editRoom.focus_force
+
+    else:
+        floor_editroom.set(db_roomnumbercheck[1])
+        roomtype_editroom.set(db_roomnumbercheck[2])
+        roomstatus_editroom.set(db_roomnumbercheck[5])
+
+def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris
+    roomtype_price = 0
+    unit = 0
+    room_execute = conn.execute('SELECT * FROM room')
+    for db_room in room_execute :
+        if db_room[2] == roomtype_editroom.get() :
+            roomtype_price = db_room[3]
+            unit = db_room[4]
+            break  # exit the loop once a matching room type is found
+    sql = '''
+            UPDATE room
+            SET room_number=?, floor=?, room_type=?, price=?, unit=?, status=?
+            WHERE room_number=?    
+        '''
+    cursor.execute(sql, [roomnumber_editroom.get(), floor_editroom.get(), roomtype_editroom.get(), roomtype_price, unit, roomstatus_editroom.get(), roomnumber_editroom.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "แก้ไขห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
+    entry_roomnumber_editRoom.delete(0, END)
+    entry_floor_editRoom.delete(0, END)
+    roomtype_editroom.set('ประเภทห้อง')
+    roomstatus_editroom.set('สถานะห้อง')
+    entry_roomnumber_editRoom.focus_force()
+    editRoom_fn()
+
+def editRoom_delete_backend() : #เสร็จแล้ว โดย Haris
+    delete_confirm = messagebox.askquestion("Riski Apartment : ยืนยันการลบ", "คุณแน่ใจหรือไม่ว่าจะลบห้อง %s"%(roomnumber_editroom.get()))
+    if delete_confirm == 'yes' :
+        sql = '''
+                DELETE FROM room WHERE room_number=?
+            '''
+        cursor.execute(sql, [roomnumber_editroom.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "ลบห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
+        entry_roomnumber_editRoom.delete(0, END)
+        entry_floor_editRoom.delete(0, END)
+        roomtype_editroom.set('ประเภทห้อง')
+        roomstatus_editroom.set('สถานะห้อง')
+        entry_roomnumber_editRoom.focus_force()
+        editRoom_fn()
 
 def service_fn() : #หน้า Main บริการต่าง ๆ #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 14:34 07/04/2023
     #MAIN
@@ -1685,13 +1810,16 @@ createconnection()
 root = mainwindow()
 
 #Spy's Job
+#login
 userentry = StringVar()
 passwordentry = StringVar()
+#addemployee
 name_addemp = StringVar()
 lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+#addcustomer
 name_addcus = StringVar()
 lastname_addcus = StringVar()
 phone_addcus  = StringVar()
@@ -1701,11 +1829,24 @@ number_addcus = StringVar()
 village_addcus = StringVar()
 road_addcus = StringVar()
 subdistrict_addcus = StringVar()
+#addroom
 district_addcus = StringVar()
 province_addcus = StringVar()
 roomtype_addroom = StringVar()
 roomnumber_addroom = StringVar()
 floor_addroom = StringVar()
+#editroom
+floor_editroom = StringVar()
+roomnumber_editroom = StringVar()
+roomtype_editroom = StringVar()
+roomstatus_editroom = StringVar()
+#editempaccount
+findphone_editempaccount = StringVar()
+name_editempaccount = StringVar()
+lastname_editempaccount = StringVar()
+username_editempaccount = StringVar()
+password_editempaccount = StringVar()
+phone_editempaccount = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
