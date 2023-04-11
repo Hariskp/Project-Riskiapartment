@@ -557,7 +557,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Label(frm_right_editempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=200)
     entry_phone_editempaccount = Entry(frm_right_editempaccount_bg, textvariable=phone_editempaccount) #Spy
     entry_phone_editempaccount.place(x=270, y=200, width=230)
-    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=580, y=240)
+    Button(frm_right_editempaccount_bg, image=btn_delete, bd=0, bg='#DDDDDD', command=editempaccount_delete_backend).place(x=580, y=240)
     Button(frm_right_editempaccount_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editempaccount_edit_backend).place(x=790, y=240)
 
     #CALL TREEVIEW
@@ -585,23 +585,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     for i in db_employee :
         mytree.insert("", 'end', values=(i[1], i[2], i[3], i[4], i[0]))
 
-def editempaccount_search_backend() :
-    # sql = "SELECT * FROM room WHERE room_number=?"
-    # cursor.execute(sql, [roomnumber_editroom.get()])
-    # db_roomnumbercheck = cursor.fetchone()
-
-    # if db_roomnumbercheck is None or roomnumber_editroom.get() != db_roomnumbercheck[0]:
-    #     messagebox.showwarning("Riski Apartment : Warning", "ไม่พบหมายเลขห้อง %s" % (roomnumber_editroom.get()))
-    #     entry_roomnumber_editRoom.delete(0, END)
-    #     entry_floor_editRoom.delete(0, END)
-    #     roomtype_editroom.set('ประเภทห้อง')
-    #     roomstatus_editroom.set('สถานะห้อง')
-    #     entry_roomnumber_editRoom.focus_force
-
-    # else:
-    #     floor_editroom.set(db_roomnumbercheck[1])
-    #     roomtype_editroom.set(db_roomnumbercheck[2])
-    #     roomstatus_editroom.set(db_roomnumbercheck[5])
+def editempaccount_search_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM user WHERE phonenumber=?'
     cursor.execute(sql, [findphone_editempaccount.get()])
     db_emp = cursor.fetchone() 
@@ -631,6 +615,24 @@ def editempaccount_edit_backend() : #เสร็จแล้ว โดย Haris
     entry_password_editempaccount.delete(0, END)
     entry_findphone_editempaccount.delete(0, END)
     entry_phone_editempaccount.delete(0, END)
+    editempaccount_fn()
+
+def editempaccount_delete_backend() : #เสร็จแล้ว โดย Haris
+    delete_confirm = messagebox.askquestion("Riski Apartment : ยืนยันการลบ", "คุณแน่ใจหรือไม่ว่าจะลบ %s ออกจากพนักงาน" %(name_editempaccount.get()))
+    if delete_confirm == 'yes' :
+        sql = '''
+                DELETE FROM user WHERE phonenumber=?
+        '''
+        cursor.execute(sql,[phone_editempaccount.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "ลบ %s ออกเรียบร้อย" %(name_editempaccount.get()))
+        entry_name_editempaccount.delete(0, END)
+        entry_surname_editempaccount.delete(0, END)
+        entry_username_editempaccount.delete(0, END)
+        entry_password_editempaccount.delete(0, END)
+        entry_phone_editempaccount.delete(0, END)
+        entry_findphone_editempaccount.delete(0, END)
+        entry_findphone_editempaccount.focus_force()
     editempaccount_fn()
 
 def addcustomerinfo_fn() : #เสร็จแล้ว #หน้าเพิ่มข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
@@ -747,6 +749,7 @@ def addcustomerinfo_backend() : #เสร็จแล้ว โดย Haris
     addcustomerinfo_fn()
 
 def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    global entry_phone_searchcusinfo, entry_name_searchcusinfo
     #MAIN
     root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
     frm_main_searchcusinfo = Frame(root, bg='black')
@@ -783,14 +786,31 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
     Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
-    entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
-    Button(frm_right_searchcusinfo_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=620, y=68)
-    Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
-    entry_name_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=140)
-    Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
+    entry_phone_searchcusinfo = Entry(frm_right_searchcusinfo_bg, textvariable=phone_searchcusinfo) #Spy
+    entry_phone_searchcusinfo.place(x=300, y=70)
+    Button(frm_right_searchcusinfo_bg, image=btn_search, bd=0, bg='#DDDDDD', command=searchcusinfo_search_backend).place(x=620, y=68)
+    Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140) #Info from database
+    entry_name_searchcusinfo = Entry(frm_right_searchcusinfo_bg, textvariable=name_searchcusinfo) #Spy
+    entry_name_searchcusinfo.place(x=300, y=140)
+    Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD', command=editcusinfo_delete_backend).place(x=200, y=270)
     Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
 
+def searchcusinfo_search_backend() : #เสร็จแล้ว โดย Haris
+    global searchphone, name_searchcusinfo
+    searchphone = phone_searchcusinfo.get()
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_searchcusinfo.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_searchcusinfo.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า')
+        entry_phone_searchcusinfo.delete(0, END)
+        entry_name_searchcusinfo.delete(0, END)
+    else :
+        name_searchcusinfo.set(db_customer[2] + " " + db_customer[3])
+
 def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    global entry_name_editcusinfo, entry_surname_editcusinfo, entry_phone_editcusinfo, entry_ethnicity_editcusinfo, entry_nation_editcusinfo, entry_number_editcusinfo, entry_village_editcusinfo,  entry_road_editcusinfo, entry_subdistrict_editcusinfo, entry_district_editcusinfo, entry_province_editcusinfo
     #MAIN
     root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
     frm_main_editcusinfo = Frame(root, bg='black')
@@ -827,28 +847,94 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     frm_right_editcusinfo_bg = Frame(frm_right_editcusinfo, bg='#DDDDDD')
     frm_right_editcusinfo_bg.place(x=96, y=158, width=1090, height=750)
     Label(frm_right_editcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD', bd=0).place(x=110, y=50)
-    entry_name_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=170, y=50)
+    entry_name_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=name_editcusinfo) #Spy
+    entry_name_editcusinfo.place(x=170, y=50)
     Label(frm_right_editcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD', bd=0).place(x=59, y=150)
-    entry_surname_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=170, y=150)
+    entry_surname_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=lastname_editcusinfo) #Spy
+    entry_surname_editcusinfo.place(x=170, y=150)
     Label(frm_right_editcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
-    entry_phone_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=170, y=250)
+    entry_phone_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=phone_editcusinfo) #Spy
+    entry_phone_editcusinfo.place(x=170, y=250)
     Label(frm_right_editcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
-    entry_ethnicity_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=170, y=350)
+    entry_ethnicity_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=ethinicity_editcusinfo) #Spy
+    entry_ethnicity_editcusinfo.place(x=170, y=350)
     Label(frm_right_editcusinfo_bg, text='สัญชาติ : ', bg='#DDDDDD').place(x=67, y=450)
-    entry_nation_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=170, y=450)
+    entry_nation_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=nation_editcusinfo) #Spy
+    entry_nation_editcusinfo.place(x=170, y=450)
     Label(frm_right_editcusinfo_bg, text='บ้านเลขที่ : ', bg='#DDDDDD').place(x=600, y=50)
-    entry_number_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=50)
+    entry_number_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=number_editcusinfo) #Spy
+    entry_number_editcusinfo.place(x=720, y=50)
     Label(frm_right_editcusinfo_bg, text='หมู่บ้าน : ', bg='#DDDDDD').place(x=621, y=150)
-    entry_village_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=150)
+    entry_village_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=village_editcusinfo) #Spy
+    entry_village_editcusinfo.place(x=720, y=150)
     Label(frm_right_editcusinfo_bg, text='ถนน : ', bg='#DDDDDD').place(x=645, y=250)
-    entry_road_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=250)
+    entry_road_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=road_editcusinfo) #Spy
+    entry_road_editcusinfo.place(x=720, y=250)
     Label(frm_right_editcusinfo_bg, text='ตำบล/แขวง : ', bg='#DDDDDD').place(x=578, y=350)
-    entry_subdistrict_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=350)
+    entry_subdistrict_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=subdistrict_editcusinfo) #Spy
+    entry_subdistrict_editcusinfo.place(x=720, y=350)
     Label(frm_right_editcusinfo_bg, text='อำเภอ/เขต : ', bg='#DDDDDD').place(x=588, y=450)
-    entry_district_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=450)
+    entry_district_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=district_editcusinfo) #Spy
+    entry_district_editcusinfo.place(x=720, y=450)
     Label(frm_right_editcusinfo_bg, text='จังหวัด : ', bg='#DDDDDD').place(x=632, y=550)
-    entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg).place(x=720, y=550)
-    Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD').place(x=760, y=650)
+    entry_province_editcusinfo = Entry(frm_right_editcusinfo_bg, textvariable=province_editcusinfo) #Spy
+    entry_province_editcusinfo.place(x=720, y=550)
+    Button(frm_right_editcusinfo_bg, image=btn_longsave, bd=0, bg='#DDDDDD', command=editcusinfo_edit_backend).place(x=760, y=650)
+
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [searchphone])
+    db_customer = cursor.fetchone()
+
+    #editcustomerinfo
+    name_editcusinfo.set(db_customer[2])
+    lastname_editcusinfo.set(db_customer[3])
+    phone_editcusinfo.set(db_customer[0])
+    ethinicity_editcusinfo.set(db_customer[10])
+    nation_editcusinfo.set(db_customer[11])
+    number_editcusinfo.set(db_customer[4])
+    village_editcusinfo.set(db_customer[5])
+    road_editcusinfo.set(db_customer[6])
+    subdistrict_editcusinfo.set(db_customer[7])
+    district_editcusinfo.set(db_customer[8])
+    province_editcusinfo.set(db_customer[9])
+
+def editcusinfo_edit_backend() : #เสร็จแล้ว โดย Haris #แก้เพิ่มห้อง
+    room = "ระบบยังไม่พร้อม"
+    sql = '''
+            UPDATE customer
+            SET phonenumber=?, room=?, name=?, lastname=?, house_number=?, village=?,
+            road=?, district=?, amphoe=?, province=?, ethnicity=?, nationality=?
+            WHERE phonenumber=?   
+    '''
+    cursor.execute(sql, [phone_editcusinfo.get(), room, name_editcusinfo.get(), lastname_editcusinfo.get(), number_editcusinfo.get(), village_editcusinfo.get(), road_editcusinfo.get(), subdistrict_editcusinfo.get(), district_editcusinfo.get(), province_editcusinfo.get(), ethinicity_editcusinfo.get(), nation_editcusinfo.get(),phone_searchcusinfo.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "แก้ไขข้อมูลของเรียบร้อย")
+    entry_name_editcusinfo.delete(0, END)
+    entry_surname_editcusinfo.delete (0, END)
+    entry_phone_editcusinfo.delete (0, END)
+    entry_nation_editcusinfo.delete (0, END)
+    entry_ethnicity_editcusinfo.delete (0, END)
+    entry_number_editcusinfo.delete (0, END)
+    entry_village_editcusinfo.delete (0, END)
+    entry_road_editcusinfo.delete (0, END)
+    entry_subdistrict_editcusinfo.delete (0, END)
+    entry_district_editcusinfo.delete (0, END)
+    entry_province_editcusinfo.delete (0, END)
+    editcusinfo_fn()
+
+def editcusinfo_delete_backend() : #เสร็จแล้ว
+    delete_confirm = messagebox.askquestion("Riski Apartment : ยืนยันการลบ", "คุณแน่ใจหรือไม่ว่าจะลบลูกค้า")
+    if delete_confirm == 'yes' :
+        sql = '''
+                DELETE FROM customer WHERE phonenumber=?
+        '''
+        cursor.execute(sql,[phone_searchcusinfo.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "ลบลูกค้าออกเรียบร้อย")
+        entry_phone_searchcusinfo.delete(0, END)
+        entry_name_searchcusinfo.delete(0, END)
+        entry_phone_searchcusinfo.focus_force()
+    searchcusinfo_fn()
 
 def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
@@ -1841,6 +1927,21 @@ lastname_editempaccount = StringVar()
 username_editempaccount = StringVar()
 password_editempaccount = StringVar()
 phone_editempaccount = StringVar()
+#searchcustomerinfo
+phone_searchcusinfo = StringVar()
+name_searchcusinfo = StringVar()
+#editcustomerinfo
+name_editcusinfo = StringVar()
+lastname_editcusinfo = StringVar()
+phone_editcusinfo = StringVar()
+ethinicity_editcusinfo = StringVar()
+nation_editcusinfo = StringVar()
+number_editcusinfo = StringVar()
+village_editcusinfo = StringVar()
+road_editcusinfo = StringVar()
+subdistrict_editcusinfo = StringVar()
+district_editcusinfo = StringVar()
+province_editcusinfo = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
