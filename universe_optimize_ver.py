@@ -3,11 +3,17 @@ import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
 
-#CREATE MAINWINDOW
-def mainwindow() : 
+def imgImport():
+    global img_phonenumber, img_riskilogo, img_riskilogos
+    img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
+    img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
+    img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
+
+#CREATE WINDOW
+def windowConfig() : 
     root = Tk()
-    x = root.winfo_screenwidth()/2 - w/2
-    y = root.winfo_screenheight()/2 - h/2
+    x = root.winfo_screenwidth()/10 - w/10
+    y = root.winfo_screenheight()/10 - h/10
     root.geometry("%dx%d+%d+%d"%(w,h,x,y))
     root.config(bg='#EBFCE0')
     root.title("Riski Apartment : Login")
@@ -27,11 +33,11 @@ def login_backend() :
     global db_user, name_user
     #Existence Check
     if userentry.get() == "" :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Username")
+        messagebox.showwarning("Riski Apartment : Warning", "Username is empty.")
         frm_left_login_entry_username.focus_force()
     else :
         if passwordentry.get() == "" :
-            messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
+            messagebox.showwarning("Riski Apartment : Warning", "Password is empty.")
             frm_left_login_entry_password.focus_force()
         else :
             sql = "SELECT * FROM user WHERE username=? and password=?"
@@ -41,7 +47,7 @@ def login_backend() :
                 home_fn()
                 name_user = db_user[3] + " " + db_user[4]
             else :
-                messagebox.showerror("Riski Apartment : Error", "Username หรือ Password ผิด")
+                messagebox.showerror("Riski Apartment : Error", "Username or Password is invalid.")
                 frm_left_login_entry_username.delete(0, END)
                 frm_left_login_entry_password.delete(0, END)
                 frm_left_login_entry_username.focus_force()
@@ -49,7 +55,7 @@ def login_backend() :
 def login_fn() : #หน้า Login #By Haris
     global frm_left_login_entry_username, frm_left_login_entry_password
     #MAIN
-    root.title("Riski Apartment : เข้าสู่ระบบ")
+    root.title("Riski Apartment : Log-in")
     frm_main_login = Frame(root, bg='black')
     frm_main_login.place(x=0, y=0, width = w, height = h)
 
@@ -90,7 +96,7 @@ def home_fn() : #หน้า Home #By Haris
     root.title("Riski Apartment : หน้าหลัก")
     frm_main_home = Frame(root, bg='black')
     frm_main_home.place(x=0, y=0, width = w, height = h)
- 
+
     #FRAME LEFT
     frm_left_home = Frame(frm_main_home, bg='#084235')
     frm_left_home.place(x=0, y=0, width=650, height=1080)
@@ -108,7 +114,7 @@ def home_fn() : #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
     #Welcome
-    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
+    Label(frm_left_home, text='"Welcome"', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
     name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
 
     #Create Treeview
@@ -116,9 +122,9 @@ def home_fn() : #หน้า Home #By Haris
     mytree= ttk.Treeview(frm_right_home, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
-    mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
+    mytree.heading('floor_', text="floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room Number", anchor=CENTER)
+    mytree.heading('roomstate_', text="Status", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
     mytree.column('floor_', anchor=CENTER, width=350) 
@@ -133,7 +139,7 @@ def home_fn() : #หน้า Home #By Haris
         
 def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้กำลังแก้ไขโดย นัท 06/04/2023 เวลา 17:30
     #MAIN
-    root.title("Riski Apartment : เช็คอิน/เอ้าท์")
+    root.title("Riski Apartment : Check in / Check out")
     frm_main_inout = Frame(root, bg='black')
     frm_main_inout.place(x=0, y=0, width = w, height = h)
 
@@ -159,8 +165,8 @@ def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้ก�
     mytree= ttk.Treeview(frm_right_inout, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('floor_', text="Floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room no.", anchor=CENTER)
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -176,7 +182,7 @@ def checkinout_fn() : #หน้า Main Check In/Out#โค้ดนี้ก�
 
 def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : เช็คอิน")
+    root.title("Riski Apartment : Check in")
     frm_main_checkin = Frame(root, bg='black')
     frm_main_checkin.place(x=0, y=0, width = w, height = h)
 
@@ -201,24 +207,24 @@ def checkin_fn() : #หน้า Check In #โค้ดนี้กำลัง�
     Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
+    Label(frm_right_checkin_bg, text='Phone no. : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
     entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
     Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58) 
-    Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
+    Label(frm_right_checkin_bg, text='Full name : ', bg='#DDDDDD').place(x=180, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
-    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
+    Label(frm_right_checkin_bg, text='Room type : ', bg='#DDDDDD').place(x=180, y=180)
     #room type
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
     roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
-    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=271, y= 240)
+    Label(frm_right_checkin_bg, text='Floor : ', bg='#DDDDDD').place(x=180, y= 240)
     entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
-    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
+    Label(frm_right_checkin_bg, text='Price : ', bg='#DDDDDD').place(x=180, y= 300)
     entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : เช็คอิน")
+    root.title("Riski Apartment : Check in")
     frm_main_checkindate = Frame(root, bg='black')
     frm_main_checkindate.place(x=0, y=0, width = w, height = h)
 
@@ -243,21 +249,21 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
     Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
     frm_right_checkindate_bg.place(x=276, y=258, width=750, height=500)
-    Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    entry_startdate_in = Entry(frm_right_checkindate_bg).place(x=250, y=60)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
-    Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    entry_enddate_in = Entry(frm_right_checkindate_bg).place(x=250, y=120)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
-    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_user_in = Entry(frm_right_checkindate_bg).place(x=250, y=180)
+    Label(frm_right_checkindate_bg, text='Check in date : ', bg='#DDDDDD').place(x=100, y=60)
+    entry_startdate_in = Entry(frm_right_checkindate_bg).place(x=300, y=60)
+    Label(frm_right_checkindate_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=570, y=60)
+    Label(frm_right_checkindate_bg, text='Check out date : ', bg='#DDDDDD').place(x=100, y=120)
+    entry_enddate_in = Entry(frm_right_checkindate_bg).place(x=300, y=120)
+    Label(frm_right_checkindate_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_checkindate_bg, text='Officer : ', bg='#DDDDDD').place(x=100, y=180)
+    entry_user_in = Entry(frm_right_checkindate_bg).place(x=300, y=180)
     Button(frm_right_checkindate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
     Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
     Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
 
 def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
-    root.title("Riski Apartment : เช็คเอ้าท์")
+    root.title("Riski Apartment : Check out")
     frm_main_checkout = Frame(root, bg='black')
     frm_main_checkout.place(x=0, y=0, width = w, height = h)
 
@@ -282,23 +288,23 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     Label(frm_right_checkout, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkout_bg = Frame(frm_right_checkout, bg='#DDDDDD')
     frm_right_checkout_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    Label(frm_right_checkout_bg, text='Phone no. : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)
     Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)       #from database
-    Label(frm_right_checkout_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
+    Label(frm_right_checkout_bg, text='Full name : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkout = Entry(frm_right_checkout_bg).place(x=350, y=120)             #from database
-    Label(frm_right_checkout_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
+    Label(frm_right_checkout_bg, text='Room no. : ', bg='#DDDDDD').place(x=232, y=180)
     entry_roomnum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=180)
     #room type
-    Label(frm_right_checkout_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
+    Label(frm_right_checkout_bg, text='Room type : ', bg='#DDDDDD').place(x=200, y= 240)
     entry_roomtype_checkout = Entry(frm_right_checkout_bg).place(x=350, y=240)
-    Label(frm_right_checkout_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
+    Label(frm_right_checkout_bg, text='Floor : ', bg='#DDDDDD').place(x=275, y= 300)
     entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
 def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     #MAIN
-    root.title("Riski Apartment : เช็คเอ้าท์")
+    root.title("Riski Apartment : Check out")
     frm_main_checkoutdate = Frame(root, bg='black')
     frm_main_checkoutdate.place(x=0, y=0, width = w, height = h)
 
@@ -323,12 +329,12 @@ def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้
     Label(frm_right_checkoutdate, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkoutdate_bg = Frame(frm_right_checkoutdate, bg='#DDDDDD')
     frm_right_checkoutdate_bg.place(x=276, y=258, width=750, height=400)
-    Label(frm_right_checkoutdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+    Label(frm_right_checkoutdate_bg, text='Check in date : ', bg='#DDDDDD').place(x=132, y=60)
     entry_startdate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=60)
-    Label(frm_right_checkoutdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+    Label(frm_right_checkoutdate_bg, text='Check out date : ', bg='#DDDDDD').place(x=109, y=120)
     entry_endate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=120)
-    Label(frm_right_checkoutdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
-    Label(frm_right_checkoutdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
+    Label(frm_right_checkoutdate_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_checkoutdate_bg, text='Officer : ', bg='#DDDDDD').place(x=121, y=180)
     entry_user_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=180)
     Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
     Button(frm_right_checkoutdate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
@@ -371,8 +377,8 @@ def accountmanage_fn() : #หน้า Main จัดการบัญชี #�
     mytree= ttk.Treeview(frm_right_accmanage, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('floor_', text="Floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room no.", anchor=CENTER)
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -480,15 +486,15 @@ def addempaccount_backend() :
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอก Password")
         entry_password_addempaccount.focus_force()
     elif phone_addemp.get() == '' :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์")
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกPhone no.")
         entry_phone_addempaccount.focus_force()   
     elif phone_addemp.get().isnumeric == False :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลข")
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกPhone no.เป็นตัวเลข")
         entry_phone_addempaccount.focus_force()   
     elif len(phone_addemp.get()) != 10 :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกPhone no.ให้ครบ 10 ตัว")
     elif db_phonecheck is not None and phone_addemp.get() == db_phonecheck[0]:
-        messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+        messagebox.showerror("Riski Apartment : Error", "Phone no.นี้ถูกใช้ไปแล้ว")
         entry_phone_addempaccount.focus_force() 
     else :
         sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
@@ -533,7 +539,7 @@ def editempaccount_fn() : #หน้าแก้ไขบัญชีพนั�
     Label(frm_right_editempaccount, text='แก้ไขบัญชีพนักงาน', font='Verdana 30 bold', bg='white', fg='#376957').place(x=470, y=50)
     frm_right_editempaccount_bg = Frame(frm_right_editempaccount, bg='#DDDDDD')
     frm_right_editempaccount_bg.place(x=96, y=158, width=1090, height=350)
-    Label(frm_right_editempaccount_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=330, y=50)
+    Label(frm_right_editempaccount_bg, text='Phone no. : ', bg='#DDDDDD').place(x=330, y=50)
     entry_findphone_editempaccount = Entry(frm_right_editempaccount_bg).place(x=500, y=50, width=250)
     Button(frm_right_editempaccount_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=780, y=50)
     Label(frm_right_editempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=100)
@@ -661,12 +667,12 @@ def addcustomerinfo_backend() :
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกนามสกุล")
         entry_surname_addcusinfo.focus_force()
     elif phone_addcus.get().isnumeric == False :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลข")
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกPhone no.เป็นตัวเลข")
         entry_phone_addcusinfo.focus_force()   
     elif len(phone_addcus.get()) != 10 :
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกPhone no.ให้ครบ 10 ตัว")
     elif db_phonecheck is not None and phone_addcus.get() == db_phonecheck[0]:
-        messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
+        messagebox.showerror("Riski Apartment : Error", "Phone no.นี้ถูกใช้ไปแล้ว")
         entry_phone_addcusinfo.focus_force() 
     else :
         sql = '''INSERT INTO customer (phonenumber, room, name, lastname, house_number, village, road, district, amphoe, province, ethnicity, nationality) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'''
@@ -723,10 +729,10 @@ def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูล
     Label(frm_right_searchcusinfo, text='แก้ไขข้อมูลลูกค้า', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=50)
     frm_right_searchcusinfo_bg = Frame(frm_right_searchcusinfo, bg='#DDDDDD')
     frm_right_searchcusinfo_bg.place(x=245, y=220, width=800, height=400)
-    Label(frm_right_searchcusinfo_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
+    Label(frm_right_searchcusinfo_bg, text='Phone no. : ', bg='#DDDDDD', bd=0).place(x=150, y=70)
     entry_phone_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=70)
     Button(frm_right_searchcusinfo_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=620, y=68)
-    Label(frm_right_searchcusinfo_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
+    Label(frm_right_searchcusinfo_bg, text='Full name : ', bg='#DDDDDD', bd=0).place(x=154, y=140)     # info from database
     entry_name_editcus = Entry(frm_right_searchcusinfo_bg).place(x=300, y=140)
     Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD').place(x=200, y=270)
     Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
@@ -824,8 +830,8 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
     mytree= ttk.Treeview(frm_right_roommanage, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('floor_', text="Floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room no.", anchor=CENTER)
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -840,7 +846,6 @@ def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
-    global entry_roomnumber_addRoom, entry_floor_addRoom
     root.title("Riski Apartment : เพิ่มห้องพัก")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
@@ -868,65 +873,14 @@ def addRoom_fn(): #เพิ่มห้องพัก #โค้ดนี้�
     frm_right_addRoom_bg = Frame(frm_right_addRoom, bg='#DDDDDD')
     frm_right_addRoom_bg.place(x=276, y=270, width=750, height=400)
     Label(frm_right_addRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60) 
-    entry_roomnumber_addRoom = Entry(frm_right_addRoom_bg, textvariable=roomnumber_addroom) #Spy
-    entry_roomnumber_addRoom.place(x=350, y=60)
-    Label(frm_right_addRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
-    entry_floor_addRoom = Entry(frm_right_addRoom_bg, textvariable=floor_addroom) #Spy
-    entry_floor_addRoom.place(x=350, y=120)
-    Label(frm_right_addRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
+    entry_phonenum_checkin = Entry(frm_right_addRoom_bg).place(x=350, y=60)
+    Label(frm_right_addRoom_bg, text='Floor : ', bg='#DDDDDD').place(x=272, y=120)
+    entry_name_addRoom = Entry(frm_right_addRoom_bg).place(x=350, y=120)
+    Label(frm_right_addRoom_bg, text='Room type : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
-    room_type = ["รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_addRoom_bg, roomtype_addroom, *room_type).place(x=350, y=180, width=310) #Spy
-    roomtype_addroom.set('ประเภทห้อง')
-    Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD', command=addRoom_backend).place(x=485, y=270)
-
-def addRoom_backend() : #ยังไม่สมบูรณ์ เนื่องจากต้องมีค่าห้องพักที่ต้องเชื่อมกับฟังชันการกำหนดราคาห้องพัก
-    room_execute = conn.execute('SELECT * FROM room')
-    for db_room in room_execute :
-        if db_room[2] == roomnumber_addroom.get() :
-            roomtype_price = db_room[3]
-        elif db_room[2] == roomtype_addroom.get() :
-            unit = db_room[4]
-
-    sql = "SELECT * FROM room WHERE room_number=?"
-    cursor.execute(sql, [roomnumber_addroom.get()])
-    db_roomnumbercheck = cursor.fetchone()
-    room_status = "ว่าง"
-
-    #Existence Check
-    if roomnumber_addroom.get() == '':
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้อง")
-        entry_roomnumber_addRoom.focus_force()
-    elif not roomnumber_addroom.get().isnumeric():
-        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้องเป็นตัวเลข")
-        entry_roomnumber_addRoom.focus_force()
-    else:
-        sql = "SELECT * FROM room WHERE room_number=?"
-        cursor.execute(sql, [roomnumber_addroom.get()])
-        db_roomnumbercheck = cursor.fetchone()
-        if db_roomnumbercheck:
-            messagebox.showwarning("Riski Apartment : Warning", "หมายเลขห้องนี้ถูกใช้ไปแล้ว")
-            entry_roomnumber_addRoom.delete(0, END)
-            entry_floor_addRoom.delete(0, END)
-            roomtype_addroom.set('ประเภทห้อง')
-            entry_roomnumber_addRoom.focus_force()
-        else:
-            for db_room in room_execute:
-                if db_room[2] == roomnumber_addroom.get():
-                    roomtype_price = db_room[3]
-                elif db_room[2] == roomtype_addroom.get():
-                    unit = db_room[4]
-            room_status = "ว่าง"
-            sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
-            cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom.get(), db_room[3], unit, room_status])
-            conn.commit()
-            retrivedata()
-            messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลห้องพักเสร็จสิ้น")
-            entry_roomnumber_addRoom.delete(0, END)
-            entry_floor_addRoom.delete(0, END)
-            roomtype_addroom.set('ประเภทห้อง')
-        
-    addRoom_fn()
+    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
+    roomtype = OptionMenu(frm_right_addRoom_bg, *room_type).place(x=350, y=180, width=310)
+    Button(frm_right_addRoom_bg, image=btn_add,bd=0, bg='#DDDDDD',).place(x=485, y=270)
 
 def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     root.title("Riski Apartment : แก้ไขห้องพัก")
@@ -959,9 +913,9 @@ def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้�
     Label(frm_right_editRoom_bg, text='ห้องเลขที่ : ', bg='#DDDDDD').place(x=220, y=60)     
     entry_phonenum_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=60)
     Button(frm_right_editRoom_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=660, y=60)
-    Label(frm_right_editRoom_bg, text='ชั้น : ', bg='#DDDDDD').place(x=272, y=120)
+    Label(frm_right_editRoom_bg, text='Floor : ', bg='#DDDDDD').place(x=272, y=120)
     entry_name_editRoom = Entry(frm_right_editRoom_bg).place(x=350, y=120)
-    Label(frm_right_editRoom_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
+    Label(frm_right_editRoom_bg, text='Room type : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
     roomtype = OptionMenu(frm_right_editRoom_bg, *room_type).place(x=350, y=180, width=310)
@@ -1007,8 +961,8 @@ def service_fn() : #หน้า Main บริการต่าง ๆ #โค
     mytree= ttk.Treeview(frm_right_service, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('floor_', text="Floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room no.", anchor=CENTER)
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -1082,12 +1036,12 @@ def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลั
     Label(frm_right_roomrate, text='ค่าห้องพัก', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=510, y=30)
     frm_right_roomrate_bg = Frame(frm_right_roomrate, bg='#DDDDDD')
     frm_right_roomrate_bg.place(x=276, y=158, width=750, height=400)
-    Label(frm_right_roomrate_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=170, y=60)
+    Label(frm_right_roomrate_bg, text='Room type : ', bg='#DDDDDD').place(x=170, y=60)
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
     roomtype = OptionMenu(frm_right_roomrate_bg, *room_type).place(x=320, y=60, width=310)
-    Label(frm_right_roomrate_bg, text='ราคาเดิม : ', bg='#DDDDDD').place(x=190, y=120)
+    Label(frm_right_roomrate_bg, text='Priceเดิม : ', bg='#DDDDDD').place(x=190, y=120)
     entry_oldrate_roomrate = Entry(frm_right_roomrate_bg).place(x=320, y=120)
-    Label(frm_right_roomrate_bg, text='ราคาใหม่ : ', bg='#DDDDDD').place(x=189, y=180)
+    Label(frm_right_roomrate_bg, text='Priceใหม่ : ', bg='#DDDDDD').place(x=189, y=180)
     entry_oldrate_roomrate = Entry(frm_right_roomrate_bg).place(x=320, y=180)
     Button(frm_right_roomrate_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=450, y=280)
 
@@ -1119,7 +1073,7 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     #WATER RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=120)
     Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=270, y=150)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=220) 
+    Label(frm_right_waterelec, text='Priceใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=220) 
     entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=225)
     Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=400)
     #WATER CHARGE
@@ -1131,7 +1085,7 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     #ELECTRICITY RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=550)
     Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=270, y=590)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
+    Label(frm_right_waterelec, text='Priceใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
     entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=655)
     Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=800)
     #ELECTRICITY CHARGE
@@ -1173,12 +1127,12 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     Label(frm_right_payment, text='ชำระค่าบริการ', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=475, y=30)
     frm_right_payment_bg = Frame(frm_right_payment, bg='#DDDDDD')
     frm_right_payment_bg.place(x=276, y=158, width=750, height=750)
-    Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    Label(frm_right_payment_bg, text='Phone no. : ', bg='#DDDDDD').place(x=100, y=60)
     entry_phone_payment = Entry(frm_right_payment_bg).place(x=270, y=60)
     Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
-    Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+    Label(frm_right_payment_bg, text='Full name : ', bg='#DDDDDD').place(x=105, y=120)
     entry_name_payment = Entry(frm_right_payment_bg).place(x=270, y=120)
-    Label(frm_right_payment_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=120, y=180)
+    Label(frm_right_payment_bg, text='Room type : ', bg='#DDDDDD').place(x=120, y=180)
     entry_roomtype_payment = Entry(frm_right_payment_bg).place(x=270, y=180)
     Label(frm_right_payment_bg, text='ค่าเช่าห้อง : ', bg='#DDDDDD').place(x=130, y=240)
     entry_rent_payment = Entry(frm_right_payment_bg).place(x=270, y=240)
@@ -1225,10 +1179,10 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
     frm_right_help_bg.place(x=276, y=270, width=750, height=320)
     Label(frm_right_help_bg, text='วันที่ : ', bg='#DDDDDD').place(x=160, y=50)
     entry_date_help = Entry(frm_right_help_bg).place(x=230, y=50)
-    Label(frm_right_help_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=550, y=50)
+    Label(frm_right_help_bg, text='(DD/MM/YYYY)', bg='#DDDDDD', fg='#969696').place(x=550, y=50)
     Label(frm_right_help_bg, text='เรื่องที่แจ้ง : ', bg='#DDDDDD').place(x=115, y=110)
     entry_inform_help = Entry(frm_right_help_bg).place(x=230, y=110)
-    Label(frm_right_help_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=120, y=170)
+    Label(frm_right_help_bg, text='Officer : ', bg='#DDDDDD').place(x=120, y=170)
     entry_adminname_help = Entry(frm_right_help_bg).place(x=230, y=170)
     Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0).place(x=360, y=240)
 
@@ -1259,8 +1213,8 @@ def datareporttable_fn() :  # หน้าข้อมูล / รายงา�
     mytree= ttk.Treeview(frm_right_datareporttable, columns=("floor_", "roomnum_", "roomstate_"), height=2)
     #create headings
     mytree.heading('#0', text='') #default
-    mytree.heading('floor_', text="ชั้น", anchor=CENTER)
-    mytree.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    mytree.heading('floor_', text="Floor", anchor=CENTER)
+    mytree.heading('roomnum_', text="Room no.", anchor=CENTER)
     mytree.heading('roomstate_', text="สถานะ", anchor=CENTER)
     #format columns
     mytree.column("#0", width=0, minwidth=0)
@@ -1340,17 +1294,17 @@ def servicelog_fn() : # หน้าบันทึกการใช้บร�
     Label(frm_right_servicelog, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
     frm_right_servicelog_bg = Frame(frm_right_servicelog, bg='#DDDDDD')
     frm_right_servicelog_bg.place(x=276, y=228, width=750, height=600)
-    Label(frm_right_servicelog_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    Label(frm_right_servicelog_bg, text='Phone no. : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=60)          #from database
     Button(frm_right_servicelog_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
-    Label(frm_right_servicelog_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
+    Label(frm_right_servicelog_bg, text='Full name : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=120)             #from database
-    Label(frm_right_servicelog_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
+    Label(frm_right_servicelog_bg, text='Room no. : ', bg='#DDDDDD').place(x=232, y=180)
     entry_roomnum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=180)
     #room type
-    Label(frm_right_servicelog_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
+    Label(frm_right_servicelog_bg, text='Room type : ', bg='#DDDDDD').place(x=200, y= 240)
     entry_roomtype_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=240)
-    Label(frm_right_servicelog_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
+    Label(frm_right_servicelog_bg, text='Floor : ', bg='#DDDDDD').place(x=275, y= 300)
     entry_floor_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=300)
     Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
 
@@ -1379,7 +1333,7 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
     frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
     frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
-    Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+    Label(frm_right_servicelogsave_bg, text='Room no. : ', bg='#DDDDDD').place(x=150, y=60)
     entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=60)
     Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
     entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=120)
@@ -1391,7 +1345,7 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=300)
     Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
     entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=360)
-    Label(frm_right_servicelogsave_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=600, y=360)
+    Label(frm_right_servicelogsave_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=600, y=360)
     Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=400, y=500)
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
@@ -1422,10 +1376,10 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     Label(frm_right_income_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
     Label(frm_right_income_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
     entry_startdate_income = Entry(frm_right_income_bg).place(x=280, y=120)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
+    Label(frm_right_income_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=610, y=120)
     Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
     entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
+    Label(frm_right_income_bg, text='(DD/MM/YYYY)', bg='#DDDDDD').place(x=610, y=180)
     Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=incometable_fn).place(x=330, y=350)
     
 def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
@@ -1506,10 +1460,10 @@ def pay_fn() :
     Label(frm_right_pay, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
     Label(frm_right_pay, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
     entry_startdate_pay = Entry(frm_right_pay).place(x=260, y=120) 
-    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_pay, text='(DD/MM/YYYY)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
     Label(frm_right_pay, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
     entry_endate_pay = Entry(frm_right_pay).place(x=260, y=180) 
-    Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
+    Label(frm_right_pay, text='(DD/MM/YYYY)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
     Button(frm_right_pay, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
     Button(frm_right_pay,image=btn_back, bd=0 ,  bg="#DDDDDD",command=datareport_fn).place(x=560,y=790) 
 
@@ -1561,10 +1515,10 @@ def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโ
     Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
     frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
     frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
-    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    Label(frm_right_paymentstatus_bg, text='Phone no. : ', bg='#DDDDDD').place(x=100, y=60)
     entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=60)
     Button(frm_right_paymentstatus_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
-    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+    Label(frm_right_paymentstatus_bg, text='Full name : ', bg='#DDDDDD').place(x=105, y=120)
     entry_name_paymentstatus= Entry(frm_right_paymentstatus_bg).place(x=270, y=120)
     Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
     payment_status = [" ", "ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
@@ -1601,10 +1555,10 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
     Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
     entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=260, y=120)
-    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_totalamt, text='(DD/MM/YYYY)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
     Label(frm_right_totalamt, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
     entry_endate_totalamt = Entry(frm_right_totalamt).place(x=260, y=180)
-    Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
+    Label(frm_right_totalamt, text='(DD/MM/YYYY)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
     Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
@@ -1659,7 +1613,7 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     #CREATE HEADING
     my_tree.heading("#0",text='',anchor=W)
     my_tree.heading("date_",text='วันที่',anchor=CENTER)
-    my_tree.heading("admin_",text='เจ้าหน้าที่',anchor=CENTER)
+    my_tree.heading("admin_",text='Officer',anchor=CENTER)
     my_tree.heading("topic_",text='เรื่องที่แจ้ง',anchor=CENTER)
     my_tree.place(x=50,y=50,height=640,width=702)
 
@@ -1682,7 +1636,9 @@ w = 1920
 h = 1080
 
 createconnection()
-root = mainwindow()
+root = windowConfig()
+
+imgImport()
 
 #Spy's Job
 userentry = StringVar()
@@ -1703,16 +1659,6 @@ road_addcus = StringVar()
 subdistrict_addcus = StringVar()
 district_addcus = StringVar()
 province_addcus = StringVar()
-roomtype_addroom = StringVar()
-roomnumber_addroom = StringVar()
-floor_addroom = StringVar()
-
-#Image import
-img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
-img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
-img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
-
-
 
 #Button import
 btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
