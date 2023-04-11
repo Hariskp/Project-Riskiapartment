@@ -291,14 +291,14 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     Label(frm_right_checkout_bg, text='Phone no. : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)
     Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)       #from database
-    Label(frm_right_checkout_bg, text='Full name : ', bg='#DDDDDD').place(x=183, y=120)
+    Label(frm_right_checkout_bg, text='Full name : ', bg='#DDDDDD').place(x=180, y=120)
     entry_name_checkout = Entry(frm_right_checkout_bg).place(x=350, y=120)             #from database
-    Label(frm_right_checkout_bg, text='Room no. : ', bg='#DDDDDD').place(x=232, y=180)
+    Label(frm_right_checkout_bg, text='Room no. : ', bg='#DDDDDD').place(x=180, y=180)
     entry_roomnum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=180)
     #room type
-    Label(frm_right_checkout_bg, text='Room type : ', bg='#DDDDDD').place(x=200, y= 240)
+    Label(frm_right_checkout_bg, text='Room type : ', bg='#DDDDDD').place(x=180, y= 240)
     entry_roomtype_checkout = Entry(frm_right_checkout_bg).place(x=350, y=240)
-    Label(frm_right_checkout_bg, text='Floor : ', bg='#DDDDDD').place(x=275, y= 300)
+    Label(frm_right_checkout_bg, text='Floor : ', bg='#DDDDDD').place(x=180, y= 300)
     entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
