@@ -179,7 +179,7 @@ def checkinout_fn() : #เสร็จแล้ว #หน้า Main Check In/O
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-def checkin_fn() : #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
     frm_main_checkin = Frame(root, bg='black')
@@ -507,7 +507,7 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
         entry_phone_addempaccount.delete(0, END)
     addempaccount_fn()
     
-def editempaccount_fn() : #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def editempaccount_fn() : #เสร็จแล้ว#หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global entry_findphone_editempaccount, entry_name_editempaccount, entry_surname_editempaccount, entry_username_editempaccount, entry_password_editempaccount, entry_phone_editempaccount
     #MAIN
     root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
@@ -711,7 +711,7 @@ def addcustomerinfo_backend() : #เสร็จแล้ว โดย Haris
     sql = "SELECT * FROM customer WHERE phonenumber=?"
     cursor.execute(sql, [phone_addemp.get()])
     db_phonecheck = cursor.fetchone()
-    room = "ว่าง"
+    room = "-"
 
     status = "U"
     #Existence Check
@@ -748,7 +748,7 @@ def addcustomerinfo_backend() : #เสร็จแล้ว โดย Haris
         entry_province_addcusinfo.delete (0, END)
     addcustomerinfo_fn()
 
-def searchcusinfo_fn() :  # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def searchcusinfo_fn() :  #เสร็จแล้ว # search หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05 
     global entry_phone_searchcusinfo, entry_name_searchcusinfo
     #MAIN
     root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
@@ -809,7 +809,7 @@ def searchcusinfo_search_backend() : #เสร็จแล้ว โดย Hari
     else :
         name_searchcusinfo.set(db_customer[2] + " " + db_customer[3])
 
-def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def editcusinfo_fn() : #เสร็จแล้ว # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_name_editcusinfo, entry_surname_editcusinfo, entry_phone_editcusinfo, entry_ethnicity_editcusinfo, entry_nation_editcusinfo, entry_number_editcusinfo, entry_village_editcusinfo,  entry_road_editcusinfo, entry_subdistrict_editcusinfo, entry_district_editcusinfo, entry_province_editcusinfo
     #MAIN
     root.title("Riski Apartment : แก้ไขข้อมูลลูกค้า")
@@ -899,7 +899,10 @@ def editcusinfo_fn() :  # หน้าแก้ไขข้อมูลลูก
     province_editcusinfo.set(db_customer[9])
 
 def editcusinfo_edit_backend() : #เสร็จแล้ว โดย Haris #แก้เพิ่มห้อง
-    room = "ระบบยังไม่พร้อม"
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [searchphone])
+    db_customer = cursor.fetchone()
+    room = db_customer[1]
     sql = '''
             UPDATE customer
             SET phonenumber=?, room=?, name=?, lastname=?, house_number=?, village=?,
@@ -910,16 +913,16 @@ def editcusinfo_edit_backend() : #เสร็จแล้ว โดย Haris #�
     conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "แก้ไขข้อมูลของเรียบร้อย")
     entry_name_editcusinfo.delete(0, END)
-    entry_surname_editcusinfo.delete (0, END)
-    entry_phone_editcusinfo.delete (0, END)
-    entry_nation_editcusinfo.delete (0, END)
-    entry_ethnicity_editcusinfo.delete (0, END)
-    entry_number_editcusinfo.delete (0, END)
-    entry_village_editcusinfo.delete (0, END)
-    entry_road_editcusinfo.delete (0, END)
-    entry_subdistrict_editcusinfo.delete (0, END)
-    entry_district_editcusinfo.delete (0, END)
-    entry_province_editcusinfo.delete (0, END)
+    entry_surname_editcusinfo.delete(0, END)
+    entry_phone_editcusinfo.delete(0, END)
+    entry_nation_editcusinfo.delete(0, END)
+    entry_ethnicity_editcusinfo.delete(0, END)
+    entry_number_editcusinfo.delete(0, END)
+    entry_village_editcusinfo.delete(0, END)
+    entry_road_editcusinfo.delete(0, END)
+    entry_subdistrict_editcusinfo.delete(0, END)
+    entry_district_editcusinfo.delete(0, END)
+    entry_province_editcusinfo.delete(0, END)
     editcusinfo_fn()
 
 def editcusinfo_delete_backend() : #เสร็จแล้ว
@@ -933,7 +936,7 @@ def editcusinfo_delete_backend() : #เสร็จแล้ว
         messagebox.showinfo("Riski Apartment : Success", "ลบลูกค้าออกเรียบร้อย")
         entry_phone_searchcusinfo.delete(0, END)
         entry_name_searchcusinfo.delete(0, END)
-        entry_phone_searchcusinfo.focus_force()
+        entry_phone_searchcusinfo.focus_force()   
     searchcusinfo_fn()
 
 def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
@@ -1176,7 +1179,7 @@ def editRoom_delete_backend() : #เสร็จแล้ว โดย Haris
         entry_roomnumber_editRoom.focus_force()
         editRoom_fn()
 
-def service_fn() : #หน้า Main บริการต่าง ๆ #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 14:34 07/04/2023
+def service_fn() : #เสร็จแล้ว #หน้า Main บริการต่าง ๆ #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 14:34 07/04/2023
     #MAIN
     root.title("Riski Apartment : บริการต่าง ๆ")
     frm_main_service = Frame(root, bg='black')
@@ -1227,7 +1230,7 @@ def service_fn() : #หน้า Main บริการต่าง ๆ #โค
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:01 07/04/2023
+def ratemanage_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:01 07/04/2023
     #MAIN
     root.title("Riski Apartment : กำหนดอัตราค่าบริการ")
     frm_main_ratemanage = Frame(root, bg='black')
@@ -1261,6 +1264,7 @@ def ratemanage_fn() : #หน้า Rate manage #โค้ดนี้กำล�
     Label(frm_right_ratemanage, text='ค่าน้ำ/ไฟ', bg='white', fg='#084235').place(x=900, y=720)
 
 def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
+    global entry_oldrate_roomrate, entry_newrate_roomrate
     #MAIN
     root.title("Riski Apartment : ค่าห้องพัก")
     frm_main_roomrate = Frame(root, bg='black')
@@ -1288,13 +1292,42 @@ def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลั
     frm_right_roomrate_bg = Frame(frm_right_roomrate, bg='#DDDDDD')
     frm_right_roomrate_bg.place(x=276, y=158, width=750, height=400)
     Label(frm_right_roomrate_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=170, y=60)
-    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_roomrate_bg, *room_type).place(x=320, y=60, width=310)
+    room_type = ["รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
+    roomtype = OptionMenu(frm_right_roomrate_bg, roomtype_roomrate, *room_type).place(x=320, y=60, width=310) #Spy
+    roomtype_roomrate.set('ประเภทห้อง')
     Label(frm_right_roomrate_bg, text='ราคาเดิม : ', bg='#DDDDDD').place(x=190, y=120)
-    entry_oldrate_roomrate = Entry(frm_right_roomrate_bg).place(x=320, y=120)
+    entry_oldrate_roomrate = Entry(frm_right_roomrate_bg, textvariable=oldrate_roomrate) #Spy
+    entry_oldrate_roomrate.place(x=320, y=120)
     Label(frm_right_roomrate_bg, text='ราคาใหม่ : ', bg='#DDDDDD').place(x=189, y=180)
-    entry_oldrate_roomrate = Entry(frm_right_roomrate_bg).place(x=320, y=180)
-    Button(frm_right_roomrate_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=450, y=280)
+    entry_newrate_roomrate = Entry(frm_right_roomrate_bg, textvariable=newrate_roomrate) #Spy
+    entry_newrate_roomrate.place(x=320, y=180)
+    Button(frm_right_roomrate_bg, image=btn_save, bg='#DDDDDD', bd=0, command=roomrate_backend).place(x=450, y=280)
+    Button(frm_right_roomrate_bg, image=btn_search, bg='#DDDDDD', bd=0, command=roomrate_search_backend).place(x=650, y=65)
+
+
+def roomrate_search_backend() : #เสร็ขแล้ว โดย Haris
+    #INSERT DATA
+    room_execute = conn.execute('SELECT * FROM room')
+    for db_room in room_execute :
+        if db_room[2] == roomtype_roomrate.get() :
+            roomtype_price = db_room[3]
+            oldrate_roomrate.set(roomtype_price)
+
+def roomrate_backend() : #เสร็จแล้ว โดย Haris
+    room_execute = conn.execute('SELECT * FROM room')
+    for db_room in room_execute :
+        if db_room[2] == roomtype_roomrate.get() :
+            roomtype_price = int(newrate_roomrate.get())
+            break
+    sql = '''
+            UPDATE room
+            SET price=?
+            WHERE room_type=?    
+    '''
+    cursor.execute(sql, [roomtype_price, roomtype_roomrate.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "แก้ไขราคาห้อง %s เรียบร้อยแล้ว" % (roomtype_roomrate.get()))
+    roomrate_fn()
 
 def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
     #MAIN
@@ -1942,6 +1975,10 @@ road_editcusinfo = StringVar()
 subdistrict_editcusinfo = StringVar()
 district_editcusinfo = StringVar()
 province_editcusinfo = StringVar()
+#roomrate
+roomtype_roomrate = StringVar()
+oldrate_roomrate = StringVar()
+newrate_roomrate = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
