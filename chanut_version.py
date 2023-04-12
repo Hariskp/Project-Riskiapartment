@@ -1353,31 +1353,31 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     Button(frm_left_waterelec, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_waterelec, text='ค่าน้ำ/ไฟ ต่อหน่วย', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=475, y=30)
+    Label(frm_right_waterelec, text='ค่าน้ำ / ไฟ ต่อหน่วย', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=455, y=80)
     #WATER RATE
-    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=120)
-    Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=270, y=150)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=220) 
-    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=225)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=400)
-    #WATER CHARGE
-    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=120)
-    Label(frm_right_waterelec, text='Charge ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=150)
-    Label(frm_right_waterelec, text='บวกเพิ่ม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=220) 
-    entry_watercharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=850, y=225)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=905, y=400)
+    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=300)
+    Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=280, y=340)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
+    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=260, y=450)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=310, y=570)
     #ELECTRICITY RATE
-    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=550)
-    Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=270, y=590)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
-    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=655)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=800)
+    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=300)
+    Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=875, y=340)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
+    entry_watercharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=865, y=450)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=920, y=570)
+    #ELECTRICITY RATE
+    #Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=550)
+    #Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=290, y=590)
+    #Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
+    #entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=655)
+    #Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=800)
     #ELECTRICITY CHARGE
-    Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=550)
-    Label(frm_right_waterelec, text='Charge ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=590)
-    Label(frm_right_waterelec, text='บวกเพิ่ม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=650)
-    entry_electriccharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=850, y=655)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=905, y=800)
+    #Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=550)
+    #Label(frm_right_waterelec, text='Charge ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=590)
+    #Label(frm_right_waterelec, text='บวกเพิ่ม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=650)
+    #entry_electriccharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=850, y=655)
+    #Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=905, y=800)
 
 def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
     #MAIN
