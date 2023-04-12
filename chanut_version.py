@@ -618,6 +618,7 @@ def editRoom_fn(): #แก้ไขห้องพัก #โค้ดนี้�
     Label(frm_right_editRoom_bg, text='สถานะห้อง : ', bg='#DDDDDD').place(x=198, y=250)
     room_state = ["ว่าง","ว่าง", "ไม่ว่าง"]
     roomstate = OptionMenu(frm_right_editRoom_bg, *room_state).place(x=350, y=250, width=310)
+    Button(frm_right_editRoom_bg, image=btn_delete, bd=0, bg='#DDDDDD').place(x=250, y=350)
     Button(frm_right_editRoom_bg, image=btn_edit,bd=0, bg='#DDDDDD',).place(x=485, y=350)
 
 def service_fn() : #หน้า Main บริการต่าง ๆ #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 14:34 07/04/2023
