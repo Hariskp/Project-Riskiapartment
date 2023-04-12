@@ -1545,7 +1545,7 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
         Label(frm_right_datareport, text='รายได้สุทธิ', fg='#376957', bg='white').place(x=242, y=900)
         Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=535, y=530)
         Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=610, y=900)
-        Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0).place(x=900, y=530)
+        Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0, command=savepayment_fn).place(x=900, y=530)
         Label(frm_right_datareport, text='บันทึกรายจ่าย', fg='#376957', bg='white').place(x=970, y=900)
     if db_user[5] == "U" :
         Button(frm_right_datareport, image=btn_doc, width=250, height=350, bg='#DDDDDD', bd=0, command=servicelog_fn).place(x=170, y=100)
@@ -1554,8 +1554,44 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
         Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=630, y=470)
         Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=900, y=100)
         Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=970, y=470)
-        Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0).place(x=170, y=530)
+        Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0, command=savepayment_fn).place(x=170, y=530)
         Label(frm_right_datareport, text='บันทึกรายจ่าย', fg='#376957', bg='white').place(x=235, y=900)
+
+def savepayment_fn() :
+    #MAIN
+    root.title("Riski Apartment : บันทึกรายจ่าย")
+    frm_main_savepayment = Frame(root, bg='black')
+    frm_main_savepayment.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_savepayment = Frame(frm_main_savepayment, bg='#084235')
+    frm_left_savepayment.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_savepayment = Frame(frm_main_savepayment, bg='white')
+    frm_right_savepayment.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_savepayment, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+    
+    #LEFT
+    Button(frm_left_savepayment, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_savepayment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_savepayment, text='บันทึกค่าใช้จ่าย', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=465, y=110)
+    frm_right_savepayment_bg = Frame(frm_right_savepayment, bg='#DDDDDD')
+    frm_right_savepayment_bg.place(x=220, y=270, width=800, height=500)
+    Label(frm_right_savepayment_bg, text='ค่าน้ำ / ค่าไฟ : ', bg='#DDDDDD').place(x=90, y=65)
+    entry_waterelectric_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=65)
+    Label(frm_right_savepayment_bg, text='อื่น ๆ : ', bg='#DDDDDD').place(x=173, y=165)
+    entry_others_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=165)
+    Label(frm_right_savepayment_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=121, y=265)
+    entry_savedate_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=265)
+    Label(frm_right_savepayment_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=600, y=265)
+    Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=385, y=350)
+    
+
 
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
