@@ -206,19 +206,23 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
     frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
-    entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
+    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    entry_phonenum_checkin = Entry(frm_right_checkin_bg, textvariable=phone_checkin) #Spy
+    entry_phonenum_checkin.place(x=350, y=60)
     Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58) 
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
+    entry_name_checkin = Entry(frm_right_checkin_bg, textvariable=name_checkin) #Spy
+    entry_name_checkin.place(x=350, y=120)
     Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
     #room type
     room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
     roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
     Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=271, y= 240)
-    entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
+    entry_floor_checkin = Entry(frm_right_checkin_bg, textvariable=floor_checkin) #Spy
+    entry_floor_checkin.place(x=350, y=240)
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
-    entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
+    entry_price_checkin = Entry(frm_right_checkin_bg, textvariable=price_checkin) #Spy
+    entry_price_checkin.place(x=350, y=300)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
@@ -1458,8 +1462,6 @@ def payment_search_backend() : #เสร็จแล้ว โดย Haris
         electric_payment.set("ยังไม่มีข้อมูล")
         water_payment.set("ยังไม่มีข้อมูล")
         total_payment.set("ยังไม่มีข้อมูล")
-
-
     payment_fn()
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
@@ -2061,14 +2063,16 @@ rent_payment = StringVar()
 electric_payment = StringVar()
 water_payment = StringVar()
 total_payment = StringVar()
+#checkin
+phone_checkin = StringVar()
+name_checkin = StringVar()
+floor_checkin = StringVar() 
+price_checkin = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
 img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
-
-
-
 #Button import
 btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
 btn_login = PhotoImage(file='button/btn_login.png')
@@ -2122,8 +2126,5 @@ btn_paystat = PhotoImage(file='button/btn_paystat.png')
 btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 btn_savepayment = PhotoImage(file='button/btn_savepayment.png')
 
-
-#Background
-bg_login = PhotoImage(file = 'img/img_bglogin.png')
 login_fn()
 root.mainloop()
