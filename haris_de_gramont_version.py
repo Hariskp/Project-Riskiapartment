@@ -1328,7 +1328,8 @@ def roomrate_backend() : #เสร็จแล้ว โดย Haris
     messagebox.showinfo("Riski Apartment : Success", "แก้ไขราคาห้อง %s เรียบร้อยแล้ว" % (roomtype_roomrate.get()))
     roomrate_fn()
 
-def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
+def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
+    global entry_waterrate_waterelec, entry_electricrate_waterelec
     #MAIN
     root.title("Riski Apartment : กำหนดค่าน้ำ ค่าไฟ")
     frm_main_waterelec = Frame(root, bg='black')
@@ -1357,16 +1358,32 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=300)
     Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=280, y=340)
     Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
-    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15) #Spy
+    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=waterrate_waterelec) #Spy
     entry_waterrate_waterelec.place(x=260, y=450)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=310, y=570)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=waterrate_save_backend).place(x=310, y=570)
     #ELECTRICITY RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=300)
     Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=875, y=340)
     Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
-    entry_watercharge_waterelec = Entry(frm_right_waterelec, width=15) #Spy
-    entry_watercharge_waterelec.place(x=865, y=450)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=920, y=570)
+    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=electricrate_waterelec) #Spy
+    entry_electricrate_waterelec.place(x=865, y=450)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=electricrate_save_backend).place(x=920, y=570)
+
+def waterrate_save_backend() : #เสร็จแล้ว โดย Haris
+    sql = "UPDATE room SET water_rate = ?"
+    cursor.execute(sql, [waterrate_waterelec.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าน้ำเรียบร้อยแล้ว")
+    entry_waterrate_waterelec.delete(0, END)
+    waterelectricrate_fn()
+
+def electricrate_save_backend() : #เสร็จแล้ว โดย Haris
+    sql = "UPDATE room SET electric_rate = ?"
+    cursor.execute(sql, [electricrate_waterelec.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าไฟเรียบร้อยแล้ว")
+    entry_electricrate_waterelec.delete(0, END)
+    waterelectricrate_fn()
 
 def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
     #MAIN
@@ -1401,22 +1418,45 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     frm_right_payment_bg = Frame(frm_right_payment, bg='#DDDDDD')
     frm_right_payment_bg.place(x=276, y=158, width=750, height=750)
     Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
-    entry_phone_payment = Entry(frm_right_payment_bg).place(x=270, y=60)
+    entry_phone_payment = Entry(frm_right_payment_bg, textvariable=phone_payment) #Spy
+    entry_phone_payment.place(x=270, y=60)
     Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
     Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
-    entry_name_payment = Entry(frm_right_payment_bg).place(x=270, y=120)
+    entry_name_payment = Entry(frm_right_payment_bg, textvariable=name_payment) #Spy
+    entry_name_payment.place(x=270, y=120)
     Label(frm_right_payment_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=120, y=180)
-    entry_roomtype_payment = Entry(frm_right_payment_bg).place(x=270, y=180)
+    entry_roomtype_payment = Entry(frm_right_payment_bg, textvariable=roomtype_payment) #Spy
+    entry_roomtype_payment.place(x=270, y=180)
     Label(frm_right_payment_bg, text='ค่าเช่าห้อง : ', bg='#DDDDDD').place(x=130, y=240)
-    entry_rent_payment = Entry(frm_right_payment_bg).place(x=270, y=240)
+    entry_rent_payment = Entry(frm_right_payment_bg, textvariable=rent_payment) #Spy
+    entry_rent_payment.place(x=270, y=240)
     Label(frm_right_payment_bg, text='ค่าไฟ : ', bg='#DDDDDD').place(x=175, y=300)
-    entry_electric_payment = Entry(frm_right_payment_bg).place(x=270, y=300)
+    entry_electric_payment = Entry(frm_right_payment_bg, textvariable=electric_payment) #Spy
+    entry_electric_payment.place(x=270, y=300)
     Label(frm_right_payment_bg, text='ค่าน้ำ : ', bg='#DDDDDD').place(x=175, y=360)
-    entry_water_payment = Entry(frm_right_payment_bg).place(x=270, y=360)
+    entry_water_payment = Entry(frm_right_payment_bg, textvariable=water_payment) #Spy
+    entry_water_payment.place(x=270, y=360)
     Label(frm_right_payment_bg, text='รวม : ', bg='#DDDDDD').place(x=190, y=420)
-    entry_total_payment = Entry(frm_right_payment_bg).place(x=270, y=420)
+    entry_total_payment = Entry(frm_right_payment_bg, textvariable=total_payment) #Spy
+    entry_total_payment.place(x=270, y=420)
     Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
     Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=600)
+
+def payment_search_backend() : 
+    # sql = 'SELECT * FROM user WHERE phonenumber=?'
+    # cursor.execute(sql, [findphone_editempaccount.get()])
+    # db_emp = cursor.fetchone() 
+    # if db_emp is None or findphone_editempaccount.get() != db_emp[0]:
+    #     messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s" %(findphone_editempaccount.get()))
+    #     entry_phone_editempaccount.delete(0, END)
+    #     entry_phone_editempaccount.focus_force
+    # else :
+    #     phone_editempaccount.set(db_emp[0])
+    #     username_editempaccount.set(db_emp[1])
+    #     password_editempaccount.set(db_emp[2])
+    #     name_editempaccount.set(db_emp[3])
+    #     lastname_editempaccount.set(db_emp[4])
+    payment_fn()
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
     #MAIN
@@ -2006,6 +2046,17 @@ province_editcusinfo = StringVar()
 roomtype_roomrate = StringVar()
 oldrate_roomrate = StringVar()
 newrate_roomrate = StringVar()
+#waterelectricrate
+waterrate_waterelec = StringVar()
+electricrate_waterelec = StringVar()
+#payment
+phone_payment = StringVar()
+name_payment = StringVar()
+roomtype_payment = StringVar()
+rent_payment = StringVar()
+electric_payment = StringVar()
+water_payment = StringVar()
+total_payment = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
