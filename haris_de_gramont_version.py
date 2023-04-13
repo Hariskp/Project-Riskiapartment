@@ -180,6 +180,7 @@ def checkinout_fn() : #เสร็จแล้ว #หน้า Main Check In/O
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_phonenum_checkin, entry_name_checkin, entry_floor_checkin, entry_price_checkin, treecheckin, entry_roomtype_checkin
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
     frm_main_checkin = Frame(root, bg='black')
@@ -203,27 +204,83 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Button(frm_left_checkin, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=70)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
-    frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
+    frm_right_checkin_bg.place(x=276, y=160, width=750, height=520)
     Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkin = Entry(frm_right_checkin_bg, textvariable=phone_checkin) #Spy
     entry_phonenum_checkin.place(x=350, y=60)
-    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58) 
+    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD', command=checkin_search_backend).place(x=670, y=58) 
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
     entry_name_checkin = Entry(frm_right_checkin_bg, textvariable=name_checkin) #Spy
     entry_name_checkin.place(x=350, y=120)
-    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
-    #room type
-    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
-    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=271, y= 240)
+    Label(frm_right_checkin_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=210, y=180)
+    entry_number_checkin = Entry(frm_right_checkin_bg, textvariable=number_checkin) #Spy
+    entry_number_checkin.place(x=350, y=180)
+    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=240, y= 240)
     entry_floor_checkin = Entry(frm_right_checkin_bg, textvariable=floor_checkin) #Spy
     entry_floor_checkin.place(x=350, y=240)
-    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
+    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=180, y= 300)
+    entry_roomtype_checkin = Entry(frm_right_checkin_bg, textvariable=roomtype_checkin) #Spy
+    entry_roomtype_checkin.place(x=350, y=300)
+    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=230, y= 360)
     entry_price_checkin = Entry(frm_right_checkin_bg, textvariable=price_checkin) #Spy
-    entry_price_checkin.place(x=350, y=300)
+    entry_price_checkin.place(x=350, y=360)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
+    entry_phonenum_checkin.delete(0, END)
+    entry_name_checkin.delete(0, END)
+    entry_number_checkin.delete(0, END)
+    entry_floor_checkin.delete(0, END)
+    entry_roomtype_checkin.delete(0, END)
+    entry_price_checkin.delete(0, END)
+
+
+
+    #Create Treeview
+    treecheckin = ttk.Treeview(root)
+    treecheckin= ttk.Treeview(frm_right_checkin, columns=("floor_", "roomnum_", "roomtype_", "roomrate_"), height=2)
+    #create headings
+    treecheckin.heading('#0', text='') #default
+    treecheckin.heading('floor_', text="ชั้น", anchor=CENTER)
+    treecheckin.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    treecheckin.heading('roomtype_', text="ประเภทห้อง", anchor=CENTER)
+    treecheckin.heading('roomrate_', text="ราคา", anchor=CENTER)
+    #format columns
+    treecheckin.column("#0", width=0, minwidth=0)
+    treecheckin.column('floor_', anchor=CENTER, width=150)
+    treecheckin.column('roomnum_', anchor=CENTER, width=150)
+    treecheckin.column('roomtype_', anchor=CENTER, width=150)
+    treecheckin.column('roomrate_', anchor=CENTER, width=150)
+    treecheckin.place(x=100, y=700, width=1052, height=250)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        if i[5] == "ว่าง" :
+            treecheckin.insert("", 'end', values=(i[1], i[0], i[2], i[3]))
+    #Tree bind
+    treecheckin.bind("<Double-1>", checkin_insert_backend)
+
+def checkin_insert_backend(event) : #เสร็จแล้ว โดย Haris
+    db_room = conn.execute('SELECT * FROM room')
+    for i in db_room :
+        i = treecheckin.item(treecheckin.focus(), "values")
+        number_checkin.set(i[1])
+        floor_checkin.set(i[0])
+        roomtype_checkin.set(i[2])
+        price_checkin.set(i[3])
+
+
+def checkin_search_backend() : #เสร็จแล้ว โดย Haris
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkin.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_checkin.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า')
+        entry_phonenum_checkin.delete(0, END)
+    else : 
+        name_checkin.set(db_customer[2] + ' ' + db_customer[3])
 
 def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -1462,7 +1519,6 @@ def payment_search_backend() : #เสร็จแล้ว โดย Haris
         electric_payment.set("ยังไม่มีข้อมูล")
         water_payment.set("ยังไม่มีข้อมูล")
         total_payment.set("ยังไม่มีข้อมูล")
-    payment_fn()
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
     #MAIN
@@ -2068,6 +2124,8 @@ phone_checkin = StringVar()
 name_checkin = StringVar()
 floor_checkin = StringVar() 
 price_checkin = StringVar()
+roomtype_checkin = StringVar()
+number_checkin = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
