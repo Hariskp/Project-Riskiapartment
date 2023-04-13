@@ -1263,7 +1263,7 @@ def ratemanage_fn() : #เสร็จแล้ว #หน้า Rate manage #�
     Label(frm_right_ratemanage, text='ค่าห้องพัก', bg='white', fg='#084235').place(x=300, y=720)
     Label(frm_right_ratemanage, text='ค่าน้ำ/ไฟ', bg='white', fg='#084235').place(x=900, y=720)
 
-def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
+def roomrate_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
     global entry_oldrate_roomrate, entry_newrate_roomrate
     #MAIN
     root.title("Riski Apartment : ค่าห้องพัก")
@@ -1386,6 +1386,7 @@ def electricrate_save_backend() : #เสร็จแล้ว โดย Haris
     waterelectricrate_fn()
 
 def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+    global entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment
     #MAIN
     root.title("Riski Apartment : ชำระค่าบริการ")
     frm_main_payment = Frame(root, bg='black')
@@ -1420,7 +1421,7 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
     entry_phone_payment = Entry(frm_right_payment_bg, textvariable=phone_payment) #Spy
     entry_phone_payment.place(x=270, y=60)
-    Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
+    Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD', command=payment_search_backend).place(x=600, y=60)
     Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
     entry_name_payment = Entry(frm_right_payment_bg, textvariable=name_payment) #Spy
     entry_name_payment.place(x=270, y=120)
@@ -1456,6 +1457,30 @@ def payment_search_backend() :
     #     password_editempaccount.set(db_emp[2])
     #     name_editempaccount.set(db_emp[3])
     #     lastname_editempaccount.set(db_emp[4])
+
+# phone_payment = StringVar()
+# name_payment = StringVar()
+# roomtype_payment = StringVar()
+# rent_payment = StringVar()
+# electric_payment = StringVar()
+# water_payment = StringVar()
+# total_payment = StringVar()
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_payment.get()])
+    db_cus= cursor.fetchone()
+    if db_cus is None or phone_payment.get() != db_cus[0] :
+        messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s"%(phone_payment.get()))
+        #entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment
+        entry_phone_payment.delete(0, END)
+    else :
+        name_payment.set(db_cus[2] + " " + db_cus[3])
+        roomtype_payment.set("ยังไม่มีข้อมูล")
+        rent_payment.set("ยังไม่มีข้อมูล")
+        electric_payment.set("ยังไม่มีข้อมูล")
+        water_payment.set("ยังไม่มีข้อมูล")
+        total_payment.set("ยังไม่มีข้อมูล")
+
+
     payment_fn()
 
 def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
