@@ -1443,28 +1443,7 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
     Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=600)
 
-def payment_search_backend() : 
-    # sql = 'SELECT * FROM user WHERE phonenumber=?'
-    # cursor.execute(sql, [findphone_editempaccount.get()])
-    # db_emp = cursor.fetchone() 
-    # if db_emp is None or findphone_editempaccount.get() != db_emp[0]:
-    #     messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s" %(findphone_editempaccount.get()))
-    #     entry_phone_editempaccount.delete(0, END)
-    #     entry_phone_editempaccount.focus_force
-    # else :
-    #     phone_editempaccount.set(db_emp[0])
-    #     username_editempaccount.set(db_emp[1])
-    #     password_editempaccount.set(db_emp[2])
-    #     name_editempaccount.set(db_emp[3])
-    #     lastname_editempaccount.set(db_emp[4])
-
-# phone_payment = StringVar()
-# name_payment = StringVar()
-# roomtype_payment = StringVar()
-# rent_payment = StringVar()
-# electric_payment = StringVar()
-# water_payment = StringVar()
-# total_payment = StringVar()
+def payment_search_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_payment.get()])
     db_cus= cursor.fetchone()
