@@ -322,6 +322,7 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
     Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
 
 def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_phonenum_checkout, entry_name_checkout, entry_floor_checkout, treecheckout, entry_roomtype_checkout
     #MAIN
     root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkout = Frame(root, bg='black')
@@ -349,18 +350,34 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     frm_right_checkout_bg = Frame(frm_right_checkout, bg='#DDDDDD')
     frm_right_checkout_bg.place(x=276, y=258, width=750, height=600)
     Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
-    entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)
-    Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)       #from database
+    entry_phonenum_checkout = Entry(frm_right_checkout_bg,textvariable=phone_checkout)
+    entry_phonenum_checkout.place(x=350, y=60)
+    Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD',command=checkout_search_backend).place(x=670, y=58)       #from database
     Label(frm_right_checkout_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_checkout = Entry(frm_right_checkout_bg).place(x=350, y=120)             #from database
+    entry_name_checkout = Entry(frm_right_checkout_bg,textvariable=name_checkout)
+    entry_name_checkout.place(x=350, y=120)             #from database
     Label(frm_right_checkout_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
-    entry_roomnum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=180)
+    entry_roomnum_checkout = Entry(frm_right_checkout_bg,textvariable=number_checkout)
+    entry_roomnum_checkout.place(x=350, y=180)
     #room type
     Label(frm_right_checkout_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
-    entry_roomtype_checkout = Entry(frm_right_checkout_bg).place(x=350, y=240)
+    entry_roomtype_checkout = Entry(frm_right_checkout_bg,textvariable=roomtype_checkout)
+    entry_roomtype_checkout.place(x=350, y=240)
     Label(frm_right_checkout_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
-    entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
+    entry_floor_checkout = Entry(frm_right_checkout_bg,textvariable=floor_checkout)
+    entry_floor_checkout.place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
+
+def checkout_search_backend() : 
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkout.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_checkout.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบหมายเลขโทรศัพท์นี้')
+        entry_phonenum_checkout.delete(0, END)
+    else : 
+        name_checkout.set(db_customer[2] + ' ' + db_customer[3])
 
 def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     #MAIN
@@ -2126,6 +2143,13 @@ floor_checkin = StringVar()
 price_checkin = StringVar()
 roomtype_checkin = StringVar()
 number_checkin = StringVar()
+#checkout
+phone_checkout = StringVar()
+name_checkout = StringVar()
+number_checkout = StringVar()
+roomtype_checkout = StringVar()
+floor_checkout = StringVar()
+
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
