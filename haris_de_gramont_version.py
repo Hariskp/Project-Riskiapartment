@@ -2177,8 +2177,8 @@ employee_checkindate = StringVar()
 phone_servicelog = StringVar()
 name_servicelog = StringVar()
 number_servicelog = StringVar()
-roomtpye_servicelog = StringVar()
-floor_service = StringVar()
+roomtype_servicelog = StringVar()
+floor_servicelog = StringVar()
 
 
 #Image import
