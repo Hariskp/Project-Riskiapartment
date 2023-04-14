@@ -1040,7 +1040,7 @@ def editcusinfo_delete_backend() : #เสร็จแล้ว
         entry_phone_searchcusinfo.focus_force()   
     searchcusinfo_fn()
 
-def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+def roommanage_fn(): #เสร็จแล้ว โดย Haris #RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : เช็คห้องพัก")
     frm_main_roommanage = Frame(root, bg='black')
@@ -1714,17 +1714,22 @@ def servicelog_fn() : # หน้าบันทึกการใช้บร�
     frm_right_servicelog_bg = Frame(frm_right_servicelog, bg='#DDDDDD')
     frm_right_servicelog_bg.place(x=276, y=228, width=750, height=600)
     Label(frm_right_servicelog_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
-    entry_phonenum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=60)          #from database
+    entry_phonenum_servicelog = Entry(frm_right_servicelog_bg, textvariable=phone_servicelog) #Spy
+    entry_phonenum_servicelog.place(x=350, y=60)          #from database
     Button(frm_right_servicelog_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
     Label(frm_right_servicelog_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=120)             #from database
+    entry_name_servicelog = Entry(frm_right_servicelog_bg, textvariable=name_servicelog) #Spy
+    entry_name_servicelog.place(x=350, y=120)             #from database
     Label(frm_right_servicelog_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
-    entry_roomnum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=180)
+    entry_roomnum_servicelog = Entry(frm_right_servicelog_bg, textvaiable=number_servicelog) #Spy
+    entry_roomnum_servicelog.place(x=350, y=180)
     #room type
     Label(frm_right_servicelog_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
-    entry_roomtype_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=240)
+    entry_roomtype_servicelog = Entry(frm_right_servicelog_bg, textvariable=roomtype_servicelog) #Spy
+    entry_roomtype_servicelog.place(x=350, y=240)
     Label(frm_right_servicelog_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
-    entry_floor_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=300)
+    entry_floor_servicelog = Entry(frm_right_servicelog_bg, textvariable=floor_servicelog) #Spy
+    entry_floor_servicelog.place(x=350, y=300)
     Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
 
 def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
@@ -2168,6 +2173,13 @@ roomtype_checkin = StringVar()
 number_checkin = StringVar()
 #checkin date
 employee_checkindate = StringVar()
+#servicelog
+phone_servicelog = StringVar()
+name_servicelog = StringVar()
+number_servicelog = StringVar()
+roomtpye_servicelog = StringVar()
+floor_service = StringVar()
+
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
