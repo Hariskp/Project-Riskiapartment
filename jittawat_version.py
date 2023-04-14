@@ -359,7 +359,6 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     Label(frm_right_checkout_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
     entry_roomnum_checkout = Entry(frm_right_checkout_bg,textvariable=number_checkout)
     entry_roomnum_checkout.place(x=350, y=180)
-    
     #room type
     Label(frm_right_checkout_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
     entry_roomtype_checkout = Entry(frm_right_checkout_bg,textvariable=roomtype_checkout)
