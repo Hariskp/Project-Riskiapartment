@@ -322,7 +322,7 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
     Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
 
 def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    global entry_phonenum_checkout, entry_name_checkout, entry_floor_checkout, treecheckout, entry_roomtype_checkout
+    global entry_phonenum_checkout, entry_name_checkout, entry_floor_checkout, entry_roomtype_checkout, treecheckout
     #MAIN
     root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkout = Frame(root, bg='black')
@@ -366,9 +366,9 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     Label(frm_right_checkout_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
     entry_floor_checkout = Entry(frm_right_checkout_bg,textvariable=floor_checkout)
     entry_floor_checkout.place(x=350, y=300)
-    Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
+    Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)  #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
-def checkout_search_backend() : 
+def checkout_search_backend() : #เสร็จแล้ว โดย จอม
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_checkout.get()])
     db_customer = cursor.fetchone()
@@ -376,8 +376,10 @@ def checkout_search_backend() :
     if db_customer is None or phone_checkout.get() != db_customer[0] :
         messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบหมายเลขโทรศัพท์นี้')
         entry_phonenum_checkout.delete(0, END)
+        entry_phonenum_checkout.focus_foce()
     else : 
         name_checkout.set(db_customer[2] + ' ' + db_customer[3])
+        number_checkout.set(db_customer[1])
 
 def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     #MAIN
