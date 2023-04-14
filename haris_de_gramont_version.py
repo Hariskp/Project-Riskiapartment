@@ -2,6 +2,7 @@ from tkinter import*
 import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
+from tkcalendar import DateEntry
 
 #เวอร์ชั่นนี้เป็นเวอร์ชันทดลองเท่านั้น อาจจะมี ERROR ก็เป็นได้
 
@@ -270,7 +271,6 @@ def checkin_insert_backend(event) : #เสร็จแล้ว โดย Haris
         roomtype_checkin.set(i[2])
         price_checkin.set(i[3])
 
-
 def checkin_search_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_checkin.get()])
@@ -282,7 +282,10 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
     else : 
         name_checkin.set(db_customer[2] + ' ' + db_customer[3])
 
-def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    name_user = db_user[3] + " " + db_user[4]
+    global calendar1, calendar2, entry_user_in, btn_logic
+    btn_logic = 'F'
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
     frm_main_checkindate = Frame(root, bg='black')
@@ -310,16 +313,52 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
     frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
     frm_right_checkindate_bg.place(x=276, y=258, width=750, height=500)
     Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    entry_startdate_in = Entry(frm_right_checkindate_bg).place(x=250, y=60)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
+    calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+    calendar1.place(x=250, y=60)
     Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    entry_enddate_in = Entry(frm_right_checkindate_bg).place(x=250, y=120)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
+    calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+    calendar2.place(x=250, y=120)
     Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_user_in = Entry(frm_right_checkindate_bg).place(x=250, y=180)
-    Button(frm_right_checkindate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
-    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
+    entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
+    entry_user_in.place(x=250, y=180)
+    employee_checkindate.set(name_user)
+    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=250)
+    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=250)
     Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
+
+def get_date() : #เสร็จแล้ว โดย Haris
+    global btn_logic
+    btn_logic = 'T'
+    date = calendar1.get_date()
+    date_string1 = date.strftime("%d/%m/%Y")
+    date = calendar2.get_date()
+    date_string2 = date.strftime("%d/%m/%Y")   
+    return date_string1, date_string2
+
+def checkindate_backend() : #เสร็จแล้ว โดย Haris
+    if btn_logic == "T" :
+        date1, date2 = get_date()
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_checkin.get()])
+        db_customer = cursor.fetchone()
+        status = "ไม่ว่าง"
+        sql = '''
+                UPDATE customer
+                SET room=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [number_checkin.get(), db_customer[0]])
+        conn.commit()
+        sql = '''
+                UPDATE room
+                SET customer_name=?, check_in_date=?, status=?
+                WHERE room_number=?
+        '''    
+        cursor.execute(sql, [db_customer[2] + " " + db_customer[3], date1, status, number_checkin.get()])
+        conn.commit()
+        checkin_date()
+    else :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาบันทึกก่อน")
 
 def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -2126,6 +2165,8 @@ floor_checkin = StringVar()
 price_checkin = StringVar()
 roomtype_checkin = StringVar()
 number_checkin = StringVar()
+#checkin date
+employee_checkindate = StringVar()
 
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
