@@ -1713,6 +1713,6 @@ btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 
 
 #Background
-bg_login = PhotoImage(file = 'img/img_bglogin.png')
+#bg_login = PhotoImage(file = 'img/img_bglogin.png')
 login_fn()
 root.mainloop()
