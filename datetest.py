@@ -51,8 +51,27 @@
 # print(f"Total rent is {total_rent} baht for {num_months} months of stay.")
 
 
+# from datetime import datetime
+# import sqlite3
+# # Input check-in date
+# check_in = input("Enter check-in date (in format DD/MM/YYYY): ")
+# check_in_date = datetime.strptime(check_in, "%d/%m/%Y")
+
+# # Input check-out date
+# check_out = input("Enter check-out date (in format DD/MM/YYYY): ")
+# check_out_date = datetime.strptime(check_out, "%d/%m/%Y")
+
+# # Calculate the duration of stay
+# duration = (check_out_date - check_in_date).days
+
+# # Calculate the total rent
+# rent_per_month = 5000
+# rent_total = rent_per_month * ((duration // 30))
+# print("Total rent is", rent_total, "baht for", (duration // 30), "months of stay.")
+
+
 from datetime import datetime
-import sqlite3
+
 # Input check-in date
 check_in = input("Enter check-in date (in format DD/MM/YYYY): ")
 check_in_date = datetime.strptime(check_in, "%d/%m/%Y")
@@ -67,4 +86,13 @@ duration = (check_out_date - check_in_date).days
 # Calculate the total rent
 rent_per_month = 5000
 rent_total = rent_per_month * ((duration // 30))
+
+# Calculate payment date
+start_date = datetime(check_in_date.year, check_in_date.month, 1).date()
+end_date = datetime(check_out_date.year, check_out_date.month+1, 1).date()
+payment_date = start_date
+while payment_date < end_date:
+    print("Payment due on", payment_date.strftime("%d/%m/%Y"), "is", rent_per_month, "baht.")
+    payment_date = datetime(payment_date.year, payment_date.month+1, 1).date()
+
 print("Total rent is", rent_total, "baht for", (duration // 30), "months of stay.")
