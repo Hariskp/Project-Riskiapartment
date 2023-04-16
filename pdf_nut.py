@@ -1,5 +1,4 @@
 from fpdf import FPDF
-from PIL import Image
 
 renter_name = "Haris Kirdpakdee" #data base
 room_number = "101" #data base
