@@ -1965,6 +1965,8 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     global entry_roomnum_servicelogsave, entry_electric_servicelogsave, entry_water_servicelogsave, entry_watermeter_servicelogsave, entry_electricmeter_servicelogsave, servicelog_logic
     global savedate
     servicelog_logic = "F"
+    now = datetime.now()
+    current_date = now.strftime("%d/%m/%Y")
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelogsave = Frame(root, bg='black')
@@ -2005,10 +2007,13 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
     entry_electricmeter_servicelogsave.place(x=270, y=300)
     Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-    savedate = DateEntry(frm_right_servicelogsave_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-    savedate.place(x=270, y=360)
+    # savedate = DateEntry(frm_right_servicelogsave_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+    # savedate.place(x=270, y=360)
+    entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+    entry_date_servicelogsave.place(x=270, y=360)
+    date_servicelogsave.set(current_date)
     Button(frm_right_servicelogsave_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=400, y=500)
-    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=200, y=500)
+    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=200, y=500)
     #Insert data
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
@@ -2020,15 +2025,15 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     electric_servicelogsave.set(db_room[7])
     water_servicelogsave.set(db_room[6])
 
-def get_date() : #เสร็จแล้ว โดย Haris
-    global servicelog_logic
-    servicelog_logic = "T"
-    date = savedate.get_date()
-    save_date = date.strftime("%d/%m/%Y")   
-    return save_date
+# def get_date() : #เสร็จแล้ว โดย Haris
+#     global servicelog_logic
+#     servicelog_logic = "T"
+#     date = savedate.get_date()
+#     save_date = date.strftime("%d/%m/%Y")   
+#     return save_date
 
 def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
-    save_date = get_date()
+    save_date = date_servicelogsave.get()
     #Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
@@ -2095,7 +2100,7 @@ def calculaterent_backend() :
     print(total_rent)
     print(payment_list)
 
-    payment_status = db_log[10] #เตือนตัวเองตอนตื่นนอน ค้างอยู่ตรงนี้ ให้ตื่นมาทำตัวเช็คสถานะการเช็คเงิน จาก table service_log
+    #เตือนตัวเองตอนตื่นนอน ค้างอยู่ตรงนี้ ให้ตื่นมาทำตัวเช็คสถานะการเช็คเงิน จาก table service_log
     #แนวคิดระบบนี้พิมไว้ใน chatgpt ไปอ่านทวนความจำ
     #Check payment status
     paid = True #"ชำระเงินแล้ว"
@@ -2103,7 +2108,10 @@ def calculaterent_backend() :
         if row[4] != 'paid':
             paid = False #"ยังไม่ได้ชำระเงิน" 
             break
-    if paid:
+
+    # payment_status = db_log[10]
+    # for row in db_log[10] :
+    if db_log[10] == 'ชำระเงินแล้ว':
         print("ชำระเงินแล้ว")
         #Show new payment list to customer
         current_month = datetime.now().month
