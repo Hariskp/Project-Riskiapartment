@@ -340,8 +340,11 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         water_bill = 0
         electric_meter = 0
         water_meter = 0
-        payment_status = '-'
+        payment_status = 'ยังไม่ได้ชำระเงิน'
         room_bill = 0
+        total = 0
+        electric_meter_old = 0
+        water_meter_old = 0
         #Update customer
         sql = '''
                 UPDATE customer
@@ -366,9 +369,9 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         db_room = cursor.fetchone()
 
         #Insert data to service_log
-        sql = '''INSERT INTO service_log (phonenumber, date, roomnumber, name, roomtype, floor, electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)'''
-        cursor.execute(sql, [db_customer[0], date1, db_room[0], db_customer[2] + " " + db_customer[3], db_room[2], db_room[1], electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill])
+        sql = '''INSERT INTO service_log (phonenumber, date, roomnumber, name, roomtype, floor, electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill, total, electric_meter_old, water_meter_old)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [db_customer[0], date1, db_room[0], db_customer[2] + " " + db_customer[3], db_room[2], db_room[1], electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill, total, electric_meter_old, water_meter_old])
         conn.commit()
         name_checkin.set("")
         roomtype_checkin.set("")
@@ -1658,19 +1661,42 @@ def payment_search_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM service_log WHERE phonenumber=?'
     cursor.execute(sql, [db_customer[0]])
     db_log = cursor.fetchone()
+    #Fetch room
+    sql = 'SELECT * FROM room WHERE room_number=?'
+    cursor.execute(sql, [db_customer[1]])
+    db_room = cursor.fetchone()
 
     if db_customer is None or phone_payment.get() != db_customer[0] :
         messagebox.showwarning("Riski Apartment : Warning", "ไม่พบเบอร์โทรศัพท์ %s"%(phone_payment.get()))
         #entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment
         entry_phone_payment.delete(0, END)
     else :
+        # electric_bill = db_log[8] * db_room[7]
+        # water_bill = db_log[9] * db_room[6]
+
+        #Calculate Electric bill
+        electricmeter_now = db_log[8] - db_log[13]
+        electric_bill = electricmeter_now * db_room[7]
+        #Calculate Water bill
+        watermeter_now = db_log[9] - db_log[14]
+        water_bill = watermeter_now * db_room[6]
+
+
+        electric_payment.set(electric_bill)
+        water_payment.set(water_bill)
         name_payment.set(db_customer[2] + " " + db_customer[3])
         roomtype_payment.set(db_log[4])
         rent_payment.set(db_log[11])
-        electric_payment.set(db_log[6])
-        water_payment.set(db_log[7])
-        total = db_log[11] + db_log[6] + db_log[7]
+        total = db_log[11] + electric_bill + water_bill
         total_payment.set(total)
+        sql = '''
+                UPDATE service_log
+                SET total=?, electric_meter_old=?, water_meter_old=?, electric_bill=?, water_bill=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [total, db_log[8], db_log[9], electric_bill, water_bill,db_customer[0]])
+        conn.commit()
+
 
 def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     global entry_phone_paymentstatus, entry_name_paymentstatus
@@ -1963,7 +1989,6 @@ def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
 
 def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_roomnum_servicelogsave, entry_electric_servicelogsave, entry_water_servicelogsave, entry_watermeter_servicelogsave, entry_electricmeter_servicelogsave, servicelog_logic
-    global savedate
     servicelog_logic = "F"
     now = datetime.now()
     current_date = now.strftime("%d/%m/%Y")
@@ -2007,8 +2032,6 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
     entry_electricmeter_servicelogsave.place(x=270, y=300)
     Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-    # savedate = DateEntry(frm_right_servicelogsave_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-    # savedate.place(x=270, y=360)
     entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
     entry_date_servicelogsave.place(x=270, y=360)
     date_servicelogsave.set(current_date)
@@ -2048,15 +2071,15 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     #Update service_log
     sql = '''
             UPDATE service_log
-            SET electric_meter=?, water_meter=?, date=?
+            SET electric_meter=?, water_meter=?, date=?, electric_bill=?, water_bill=?, room_bill=?
             WHERE phonenumber=?
     '''
-    cursor.execute(sql, [electricmeter_servicelogsave.get(), watermeter_servicelogsave.get(), save_date, db_customer[0]])
+    cursor.execute(sql, [electricmeter_servicelogsave.get(), watermeter_servicelogsave.get(), save_date, db_room[7], db_room[6], db_room[3],db_customer[0]])
     conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
-    calculaterent_backend()
+    # calculaterent_backend()
 
-def calculaterent_backend():
+def calculaterent_backend() :
     # Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
@@ -2135,9 +2158,6 @@ def calculaterent_backend():
     else:
         print("ยังไม่ได้ชำระเงิน")
         print(f"ยังไม่ได้ชำระเงิน ยอดค่าใช้จ่ายที่ต้องชำระ: {rent_total} บาท")
-
-
-
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
