@@ -2056,35 +2056,48 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
     calculaterent_backend()
 
-def calculaterent_backend() :
-    #Fetch customer
+def calculaterent_backend():
+    # Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
     db_customer = cursor.fetchone()
-    #Fetch room
+
+    # Fetch room
     sql = 'SELECT * FROM room WHERE room_number=?'
     cursor.execute(sql, [db_customer[1]])
     db_room = cursor.fetchone()
+
     #Fetch service_log
     sql = 'SELECT * FROM service_log WHERE phonenumber=?'
     cursor.execute(sql, [db_customer[0]])
     db_log = cursor.fetchone()
 
-    #Get Check in date
+    # Get check-in date
     check_in = db_room[9]
     check_in_date = datetime.strptime(check_in, "%d/%m/%Y")
-    #Get Check out date
+
+    # Get check-out date
     check_out = db_room[10]
     check_out_date = datetime.strptime(check_out, "%d/%m/%Y")
 
-    #Calculate duration of stay
+    # Calculate duration of stay
     duration = (check_out_date - check_in_date).days
 
-    #Calculate the total rent
+    # Calculate the total rent
     rent_per_month = db_room[3]
-    rent_total = rent_per_month * ((duration // 30))
+    rent_total = 0
 
-    #Calculate payment date
+    # Calculate the rent for full months
+    full_months = duration // 30
+    if full_months > 0:
+        rent_total += rent_per_month * full_months
+
+    # Calculate the rent for the partial month
+    partial_month_duration = duration % 30
+    if partial_month_duration > 0:
+        rent_total += rent_per_month * (partial_month_duration / 30)
+
+    # Calculate payment date
     start_date = datetime(check_in_date.year, check_in_date.month, 1).date()
     end_date = datetime(check_out_date.year, check_out_date.month+1, 1).date()
     payment_date = start_date
@@ -2093,38 +2106,37 @@ def calculaterent_backend() :
         payment_list.append(rent_per_month)
         payment_date = datetime(payment_date.year, payment_date.month+1, 1).date()
 
-    total_months = (duration // 30)
-    total_rent = rent_total
+    total_months = full_months
+    if partial_month_duration > 0:
+        total_months += 1
 
     print(total_months)
-    print(total_rent)
+    print(rent_total)
     print(payment_list)
 
-    #เตือนตัวเองตอนตื่นนอน ค้างอยู่ตรงนี้ ให้ตื่นมาทำตัวเช็คสถานะการเช็คเงิน จาก table service_log
-    #แนวคิดระบบนี้พิมไว้ใน chatgpt ไปอ่านทวนความจำ
-    #Check payment status
-    paid = True #"ชำระเงินแล้ว"
+    # Check payment status
+    paid = True  # "ชำระเงินแล้ว"
     for row in cursor.fetchall():
         if row[4] != 'paid':
-            paid = False #"ยังไม่ได้ชำระเงิน" 
+            paid = False  # "ยังไม่ได้ชำระเงิน"
             break
 
-    # payment_status = db_log[10]
-    # for row in db_log[10] :
     if db_log[10] == 'ชำระเงินแล้ว':
         print("ชำระเงินแล้ว")
-        #Show new payment list to customer
+        # Show new payment list to customer
         current_month = datetime.now().month
         current_year = datetime.now().year
         payment_list_display = []
         for payment_month in range(current_month, current_month+total_months):
             payment_list_display.append(f"{payment_month}/{current_year}")
         print("ค่าห้องในรอบถัดไปที่ต้องชำระ:")
-        for payment in payment_list_display[1:]:
-            print(f" - {db_room[1]}: {db_room[3]} บาท ({payment})")
+        for i, payment in enumerate(payment_list_display[1:]):
+            print(f" - {payment}: {rent_per_month} บาท ({i+1}/{total_months})")
     else:
         print("ยังไม่ได้ชำระเงิน")
-    #return total_months, total_rent, payment_list
+        print(f"ยังไม่ได้ชำระเงิน ยอดค่าใช้จ่ายที่ต้องชำระ: {rent_total} บาท")
+
+
 
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
