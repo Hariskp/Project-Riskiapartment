@@ -376,8 +376,6 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         room_bill = 0
         total = 0 
         payment_status = 'check in'
-
-        #แก้
         sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
         cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
@@ -1681,8 +1679,6 @@ def payment_search_backend() : #เสร็จแล้ว โดย Haris
         #entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment
         entry_phone_payment.delete(0, END)
     else :
-        # electric_bill = db_log[8] * db_room[7]
-        # water_bill = db_log[9] * db_room[6]
 
         #Calculate Electric bill
         electricmeter_now = db_log[8] - db_log[13]
@@ -1706,6 +1702,8 @@ def payment_search_backend() : #เสร็จแล้ว โดย Haris
         '''
         cursor.execute(sql, [total, db_log[8], db_log[9], electric_bill, water_bill,db_customer[0]])
         conn.commit()
+
+        #แก้ใต้นี้
 
 
 def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
@@ -2066,6 +2064,30 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
 #     return save_date
 
 def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
+    # save_date = date_servicelogsave.get()
+    # #Fetch customer
+    # sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    # cursor.execute(sql, [phone_servicelog.get()])
+    # db_customer = cursor.fetchone()
+    # #Fetch room
+    # sql = 'SELECT * FROM room WHERE room_number=?'
+    # cursor.execute(sql, [db_customer[1]])
+    # db_room = cursor.fetchone()
+    # #Fetch service_log
+    # sql = 'SELECT * FROM service_log WHERE phonenumber=?'
+    # cursor.execute(sql, [db_customer[0]])
+    # db_log = cursor.fetchone()
+    # #Update service_log
+    # sql = '''
+    #         UPDATE service_log
+    #         SET electric_meter=?, water_meter=?, date=?, electric_bill=?, water_bill=?, room_bill=?
+    #         WHERE phonenumber=?
+    # '''
+    # cursor.execute(sql, [electricmeter_servicelogsave.get(), watermeter_servicelogsave.get(), save_date, db_room[7], db_room[6], db_room[3],db_customer[0]])
+    # conn.commit()
+    # messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
+
+    #แก้ใต้นี้
     save_date = date_servicelogsave.get()
     #Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
@@ -2078,15 +2100,33 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     #Fetch service_log
     sql = 'SELECT * FROM service_log WHERE phonenumber=?'
     cursor.execute(sql, [db_customer[0]])
-    #Update service_log
-    sql = '''
-            UPDATE service_log
-            SET electric_meter=?, water_meter=?, date=?, electric_bill=?, water_bill=?, room_bill=?
-            WHERE phonenumber=?
-    '''
-    cursor.execute(sql, [electricmeter_servicelogsave.get(), watermeter_servicelogsave.get(), save_date, db_room[7], db_room[6], db_room[3],db_customer[0]])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
+    db_log = cursor.fetchone()
+    #Fetch First reccord from customer
+    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=0'
+    cursor.execute(sql, [db_customer[0]])
+    result = cursor.fetchone()
+    #Condition 
+    if result :
+        round = db_log[2] + 1
+        electric_meter = electricmeter_servicelogsave.get()
+        water_meter = watermeter_servicelogsave.get()
+        electric_bill = int(electric_meter) * db_room[7]
+        water_bill = int(water_meter) * db_room[6]
+        room_bill = db_room[3]
+        total = electric_bill + water_bill + room_bill
+        payment_status = 'ยังไม่ได้จ่าย'
+        sql = '''
+                UPDATE service_log
+                SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
+                , room_bill=?, total=?, payment_status=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+        conn.commit()
+        #ทำถึงตรงนี้
+    #Check reccord
+    
+
     # calculaterent_backend()
 
 # def calculaterent_backend() :
