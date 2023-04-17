@@ -2,6 +2,7 @@ from tkinter import*
 import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
+from fpdf import FPDF
 from tkcalendar import DateEntry
 
 #เวอร์ชั่นนี้เป็นเวอร์ชันทดลองเท่านั้น อาจจะมี ERROR ก็เป็นได้
@@ -2116,8 +2117,73 @@ def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโ
     Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
     payment_status = [" ", "ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
     paymentstatus = OptionMenu(frm_right_paymentstatus_bg, *payment_status).place(x=270, y=180, width=310)
-    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
+    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD',command=payreceipt_pdf).place(x=150, y=280)
     Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' ).place(x=450, y=280)
+
+def payreceipt_pdf():
+    renter_name = "Haris Kirdpakdee" #data base customer
+    room_number = "101" #data base customer & room
+    rent_amount = 1000
+    deposit_amount = 500
+    total_amount = rent_amount + deposit_amount
+    date = "April 16, 2023" #data base room
+    address = "123 Pachalam Khuen Bog" #data base 
+    admin_name = "Jittawat Praditseree" #data base user
+    phone_number = "099-182-8589" #data base user
+    phone_number_rent = "081-817-8555"
+
+    pdf = FPDF()
+    pdf.add_page()
+
+    pdf.set_font("Arial", size=22, style="B")
+    pdf.cell(0, 15, "RISKI APARTMENT RECEIPT", 0, 1, "C")
+    pdf.cell(0, 10, "", 0, 1)
+    pdf.line(10, 32, 200, 32)
+    pdf.image("img/img_riskilogo_black.png", x=10, y=1, w=30, h=30)
+
+    pdf.cell(0, 10, "", 0, 1) #space
+    
+    pdf.set_font("Arial", size=12, style="B")
+    pdf.cell(50, 10, "Date :", 0 )
+    pdf.cell(0, 10, date, 0, 1,"C")
+    pdf.cell(50, 10, "Renter Name :", 0)
+    pdf.cell(0, 10, renter_name, 0, 1,"C")
+    pdf.cell(50, 10, "Phone Number :", 0)
+    pdf.cell(0, 10, phone_number_rent, 0, 1,"C")
+
+    pdf.cell(0, 10, "", 0, 1) #space
+
+    pdf.cell(50, 10, "Room Number :", 0)
+    pdf.cell(0, 10, room_number, 0, 1,"C")
+
+    pdf.cell(0, 10, "", 0, 1) #space
+
+    pdf.cell(50, 10, "Rent Amount :", 0)
+    pdf.cell(0, 10, f"${rent_amount}", 0, 1,"C")
+    pdf.cell(50, 10, "Deposit Amount :", 0)
+    pdf.cell(0, 10, f"${deposit_amount}", 0, 1,"C")
+    pdf.cell(50, 10, "Total Amount :", 0)
+    pdf.cell(0, 10, f"${total_amount}", 0, 1,"C")
+
+    pdf.cell(0, 10, "", 0, 1) #space
+
+    pdf.cell(0, 10, "", 0, 1) #space
+
+    pdf.cell(50, 10, "Admin Name :", 0)
+    pdf.cell(0, 10, admin_name, 0, 1,"C")
+    pdf.cell(50, 10, "Phone Number :", 0)
+    pdf.cell(0, 10, phone_number, 0, 1,"C")
+    pdf.cell(50, 10, "Address :", 0)
+    pdf.cell(0, 10, address, 0, 1,"C")
+
+    pdf.set_font("Arial", size=8, style="I")
+
+    pdf.cell(0, 20, "", 0, 1) #space
+
+    pdf.cell(0, 10, "Thank you for your payment!", 0, 1, "C")
+    pdf.cell(0, 10, "Please contact us if you have any questions.", 0, 1, "C")
+    pdf.line(10, 144, 200, 144)
+    pdf.output('riski_apartment.pdf')
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     #MAIN
