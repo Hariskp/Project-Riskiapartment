@@ -260,11 +260,26 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
 def clearEtr_checkin():
     #unlock state
     entry_name_checkin["state"] = "normal"
+    entry_number_checkin["state"] = "normal"
+    entry_floor_checkin["state"] = "normal"
+    entry_price_checkin["state"] = "normal"
+    entry_roomtype_checkin["state"] = "normal"
+
     #clear entry
     entry_phonenum_checkin.delete(0,END)
     entry_name_checkin.delete(0,END)
+    entry_name_checkin["state"] = "readonly"
+    entry_number_checkin.delete(0,END)
+    entry_number_checkin["state"] = "readonly"
+    entry_floor_checkin.delete(0,END)
+    entry_floor_checkin["state"] = "readonly"
+    entry_price_checkin.delete(0,END)
+    entry_price_checkin["state"] = "readonly"
+    entry_roomtype_checkin.delete(0,END)
+    entry_roomtype_checkin["state"] = "readonly"
+
     #entry focus
-    entry_name_checkin.focus_force()
+    entry_phonenum_checkin.focus_force()
 
 def checkin_insert_backend(event) : #เสร็จแล้ว โดย Haris
     db_room = conn.execute('SELECT * FROM room')
