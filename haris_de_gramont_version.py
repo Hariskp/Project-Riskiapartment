@@ -2088,7 +2088,7 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     # messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
 
     #แก้ใต้นี้
-    save_date = date_servicelogsave.get()
+    now = datetime.now()
     #Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
@@ -2121,9 +2121,46 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
                 , room_bill=?, total=?, payment_status=?
                 WHERE phonenumber=?
         '''
-        cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+        cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
         conn.commit()
         #ทำถึงตรงนี้
+    else : #Newest reccord
+        oldcal = 'Yes'
+        sql = '''
+                UPDATE service_log
+                SET calculate=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [oldcal, ])
+        #Insert data to service_log
+        phonenumber = db_customer[0]
+        date = now.strftime("%d/%m/%Y")
+        round = db_log[2] + 1
+        calculate = 'None'
+        floor = db_room[1]
+        roomnumber = db_room[0]
+        roomtype = db_room[2]
+        name = db_customer[2]
+        #Meter old
+        electric_meter_old = db_log[8]
+        water_meter_old = db_log[9]
+        #Meter now
+        electric_meter = electricmeter_servicelogsave.get()
+        water_meter = watermeter_servicelogsave.get()
+        #Meter new for calculate bill
+        electric_meter_new = int(electric_meter) - int(electric_meter_old)
+        water_meter_new = int(water_meter) - int(water_meter_old)
+        #Calculate usage bill
+        electric_bill = int(electric_meter_new) * db_room[7]
+        water_bill = int(water_meter_new) * db_room[6]
+        room_bill = db_log[12]
+        total = electric_bill + water_bill + room_bill
+        payment_status = 'check in'
+        sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+        conn.commit()
+
     #Check reccord
     
 
