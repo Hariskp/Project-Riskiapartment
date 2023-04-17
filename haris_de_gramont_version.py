@@ -331,20 +331,12 @@ def get_date() : #เสร็จแล้ว โดย Haris
 def checkindate_backend() : #เสร็จแล้ว โดย Haris
     if btn_logic == "T" :
         date1, date2 = get_date()
+        now = datetime.now()
+        status = "ไม่ว่าง"
         #Fetch customer
         sql = 'SELECT * FROM customer WHERE phonenumber=?'
         cursor.execute(sql, [phone_checkin.get()])
         db_customer = cursor.fetchone()
-        status = "ไม่ว่าง"
-        electric_bill = 0
-        water_bill = 0
-        electric_meter = 0
-        water_meter = 0
-        payment_status = 'ยังไม่ได้ชำระเงิน'
-        room_bill = 0
-        total = 0
-        electric_meter_old = 0
-        water_meter_old = 0
         #Update customer
         sql = '''
                 UPDATE customer
@@ -369,10 +361,28 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         db_room = cursor.fetchone()
 
         #Insert data to service_log
-        sql = '''INSERT INTO service_log (phonenumber, date, roomnumber, name, roomtype, floor, electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill, total, electric_meter_old, water_meter_old)
+        phonenumber = db_customer[0]
+        date = now.strftime("%d/%m/%Y")
+        round = 0
+        calculate = 'None'
+        floor = db_room[1]
+        roomnumber = db_room[0]
+        roomtype = db_room[2]
+        name = db_customer[2]
+        electric_meter = 0
+        water_meter = 0
+        electric_bill = 0
+        water_bill = 0
+        room_bill = 0
+        total = 0 
+        payment_status = 'check in'
+
+        #แก้
+        sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
-        cursor.execute(sql, [db_customer[0], date1, db_room[0], db_customer[2] + " " + db_customer[3], db_room[2], db_room[1], electric_bill, water_bill, electric_meter, water_meter, payment_status, room_bill, total, electric_meter_old, water_meter_old])
+        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
         conn.commit()
+
         name_checkin.set("")
         roomtype_checkin.set("")
         number_checkin.set("")
@@ -1652,7 +1662,7 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
     Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=600)
 
-def payment_search_backend() : #เสร็จแล้ว โดย Haris
+def payment_search_backend() : #เสร็จแล้ว โดย Haris 
     #Fetch customer
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_payment.get()])
@@ -2079,85 +2089,85 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     messagebox.showinfo("Riski Apartment : Success", "บันทึก Service log เรียบร้อย")
     # calculaterent_backend()
 
-def calculaterent_backend() :
-    # Fetch customer
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_servicelog.get()])
-    db_customer = cursor.fetchone()
+# def calculaterent_backend() :
+#     # Fetch customer
+#     sql = 'SELECT * FROM customer WHERE phonenumber=?'
+#     cursor.execute(sql, [phone_servicelog.get()])
+#     db_customer = cursor.fetchone()
 
-    # Fetch room
-    sql = 'SELECT * FROM room WHERE room_number=?'
-    cursor.execute(sql, [db_customer[1]])
-    db_room = cursor.fetchone()
+#     # Fetch room
+#     sql = 'SELECT * FROM room WHERE room_number=?'
+#     cursor.execute(sql, [db_customer[1]])
+#     db_room = cursor.fetchone()
 
-    #Fetch service_log
-    sql = 'SELECT * FROM service_log WHERE phonenumber=?'
-    cursor.execute(sql, [db_customer[0]])
-    db_log = cursor.fetchone()
+#     #Fetch service_log
+#     sql = 'SELECT * FROM service_log WHERE phonenumber=?'
+#     cursor.execute(sql, [db_customer[0]])
+#     db_log = cursor.fetchone()
 
-    # Get check-in date
-    check_in = db_room[9]
-    check_in_date = datetime.strptime(check_in, "%d/%m/%Y")
+#     # Get check-in date
+#     check_in = db_room[9]
+#     check_in_date = datetime.strptime(check_in, "%d/%m/%Y")
 
-    # Get check-out date
-    check_out = db_room[10]
-    check_out_date = datetime.strptime(check_out, "%d/%m/%Y")
+#     # Get check-out date
+#     check_out = db_room[10]
+#     check_out_date = datetime.strptime(check_out, "%d/%m/%Y")
 
-    # Calculate duration of stay
-    duration = (check_out_date - check_in_date).days
+#     # Calculate duration of stay
+#     duration = (check_out_date - check_in_date).days
 
-    # Calculate the total rent
-    rent_per_month = db_room[3]
-    rent_total = 0
+#     # Calculate the total rent
+#     rent_per_month = db_room[3]
+#     rent_total = 0
 
-    # Calculate the rent for full months
-    full_months = duration // 30
-    if full_months > 0:
-        rent_total += rent_per_month * full_months
+#     # Calculate the rent for full months
+#     full_months = duration // 30
+#     if full_months > 0:
+#         rent_total += rent_per_month * full_months
 
-    # Calculate the rent for the partial month
-    partial_month_duration = duration % 30
-    if partial_month_duration > 0:
-        rent_total += rent_per_month * (partial_month_duration / 30)
+#     # Calculate the rent for the partial month
+#     partial_month_duration = duration % 30
+#     if partial_month_duration > 0:
+#         rent_total += rent_per_month * (partial_month_duration / 30)
 
-    # Calculate payment date
-    start_date = datetime(check_in_date.year, check_in_date.month, 1).date()
-    end_date = datetime(check_out_date.year, check_out_date.month+1, 1).date()
-    payment_date = start_date
-    payment_list = []
-    while payment_date < end_date:
-        payment_list.append(rent_per_month)
-        payment_date = datetime(payment_date.year, payment_date.month+1, 1).date()
+#     # Calculate payment date
+#     start_date = datetime(check_in_date.year, check_in_date.month, 1).date()
+#     end_date = datetime(check_out_date.year, check_out_date.month+1, 1).date()
+#     payment_date = start_date
+#     payment_list = []
+#     while payment_date < end_date:
+#         payment_list.append(rent_per_month)
+#         payment_date = datetime(payment_date.year, payment_date.month+1, 1).date()
 
-    total_months = full_months
-    if partial_month_duration > 0:
-        total_months += 1
+#     total_months = full_months
+#     if partial_month_duration > 0:
+#         total_months += 1
 
-    print(total_months)
-    print(rent_total)
-    print(payment_list)
+#     print(total_months)
+#     print(rent_total)
+#     print(payment_list)
 
-    # Check payment status
-    paid = True  # "ชำระเงินแล้ว"
-    for row in cursor.fetchall():
-        if row[4] != 'paid':
-            paid = False  # "ยังไม่ได้ชำระเงิน"
-            break
+#     # Check payment status
+#     paid = True  # "ชำระเงินแล้ว"
+#     for row in cursor.fetchall():
+#         if row[4] != 'paid':
+#             paid = False  # "ยังไม่ได้ชำระเงิน"
+#             break
 
-    if db_log[10] == 'ชำระเงินแล้ว':
-        print("ชำระเงินแล้ว")
-        # Show new payment list to customer
-        current_month = datetime.now().month
-        current_year = datetime.now().year
-        payment_list_display = []
-        for payment_month in range(current_month, current_month+total_months):
-            payment_list_display.append(f"{payment_month}/{current_year}")
-        print("ค่าห้องในรอบถัดไปที่ต้องชำระ:")
-        for i, payment in enumerate(payment_list_display[1:]):
-            print(f" - {payment}: {rent_per_month} บาท ({i+1}/{total_months})")
-    else:
-        print("ยังไม่ได้ชำระเงิน")
-        print(f"ยังไม่ได้ชำระเงิน ยอดค่าใช้จ่ายที่ต้องชำระ: {rent_total} บาท")
+#     if db_log[10] == 'ชำระเงินแล้ว':
+#         print("ชำระเงินแล้ว")
+#         # Show new payment list to customer
+#         current_month = datetime.now().month
+#         current_year = datetime.now().year
+#         payment_list_display = []
+#         for payment_month in range(current_month, current_month+total_months):
+#             payment_list_display.append(f"{payment_month}/{current_year}")
+#         print("ค่าห้องในรอบถัดไปที่ต้องชำระ:")
+#         for i, payment in enumerate(payment_list_display[1:]):
+#             print(f" - {payment}: {rent_per_month} บาท ({i+1}/{total_months})")
+#     else:
+#         print("ยังไม่ได้ชำระเงิน")
+#         print(f"ยังไม่ได้ชำระเงิน ยอดค่าใช้จ่ายที่ต้องชำระ: {rent_total} บาท")
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
