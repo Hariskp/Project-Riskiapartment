@@ -1701,7 +1701,7 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     db_log = conn.execute('SELECT * FROM service_log')
     #Insert Data to tree
     for i in db_log :
-        if i[14] == "ยังไม่ได้จ่าย" :
+        if i[14] == "ยังไม่ได้ชำระเงิน" :
             treepayment.insert("", "end", values=(i[1], i[2], i[5], i[7], i[0], i[13]))
     #Tree bind
     treepayment.bind("<Double-1>", payment_search_backend)
@@ -1785,12 +1785,22 @@ def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ด�
     name_paymentstatus.set(db_log[7])
 
 def paymentstatus_backend() : #ยังไม่สมบูรณ์
+    #Fetch customer
+    db_log_insert = conn.execute('SELECT * FROM service_log')
+    for i in db_log_insert :
+        i = treepayment.item(treepayment.focus(), "values")
+        round = i[1] 
+        phone = i[4]
+    #Fetch service_log
+    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=?'
+    cursor.execute(sql, [phone, round])
+    db_log = cursor.fetchone()
     sql = '''
             UPDATE service_log
             SET payment_status=?
             WHERE phonenumber=?
     '''
-    cursor.execute(sql, [status_paymentstatus.get(), phone_payment.get()])
+    cursor.execute(sql, [status_paymentstatus.get(), db_log[0]])
     conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "อัพเดทสถานะการชำระเงิน")
     entry_phone_payment.delete(0, END)
@@ -2103,7 +2113,7 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
         water_bill = int(water_meter) * db_room[6]
         room_bill = db_room[3]
         total = electric_bill + water_bill + room_bill
-        payment_status = 'ยังไม่ได้จ่าย'
+        payment_status = 'ยังไม่ได้ชำระเงิน'
         sql = '''
                 UPDATE service_log
                 SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
@@ -2143,7 +2153,7 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
         water_bill = int(water_meter_new) * db_room[6]
         room_bill = db_log[12]
         total = electric_bill + water_bill + room_bill
-        payment_status = 'ยังไม่ชำระค่าบริการ'
+        payment_status = 'ยังไม่ได้ชำระเงิน'
         sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
         cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
