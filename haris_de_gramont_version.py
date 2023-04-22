@@ -1774,7 +1774,7 @@ def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ด�
 def paymentstatus_backend() : #ยังไม่สมบูรณ์
     #Fetch customer
     db_log_insert = conn.execute('SELECT * FROM service_log')
-    for i in db_log_insert :
+    for i in db_log_insert : 
         i = treepayment.item(treepayment.focus(), "values")
         round = i[1] 
         phone = i[4]
