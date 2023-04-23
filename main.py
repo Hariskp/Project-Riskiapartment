@@ -605,7 +605,7 @@ def accountmanage_fn() : #เสร็จแล้ว #หน้า Main จั�
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย Ford 23/04/2023 เวลา 2:37 PM
     global db_employee, entry_name_addempaccount, entry_surname_addempaccount, entry_username_addempaccount, entry_password_addempaccount, entry_phone_addempaccount
     #MAIN
     root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
@@ -651,6 +651,12 @@ def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่�
     Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
     entry_phone_addempaccount.place(x=270, y=190, width=230)
+    #Select role for employee
+    drop_down_role = ["Admin", "Employee"]
+    Label(frm_right_addempaccount_bg, text="Role", bg='#DDDDDD').place(x=152, y=250)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=472, y=245)
+    drop_down_list_role = OptionMenu(frm_right_addempaccount_bg, roleSelect, *drop_down_role).place(x=270, y=250, width=200)
+    roleSelect.set("-")
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
@@ -2457,6 +2463,7 @@ lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+roleSelect = StringVar() #Added by Ford at 23/04/2566 2:38 PM
 #addcustomer
 name_addcus = StringVar()
 lastname_addcus = StringVar()
