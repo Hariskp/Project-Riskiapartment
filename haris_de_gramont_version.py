@@ -202,7 +202,6 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Button(frm_left_checkin, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
     Button(frm_left_checkin, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
     Button(frm_left_checkin, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
     #RIGHT
     Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=70)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
@@ -276,8 +275,9 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
 def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     name_user = db_user[3] + " " + db_user[4]
     global calendar1, calendar2, entry_user_in, btn_logic
-    # watermeter_checkindate.set("")
-    # electricmeter_checkindate.set("")
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkin.get()])
+    db_customer = cursor.fetchone()
     btn_logic = 'F'
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
@@ -300,39 +300,72 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
     Button(frm_left_checkindate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
     Button(frm_left_checkindate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
     Button(frm_left_checkindate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
-    frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-    frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
-    Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-    calendar1.place(x=250, y=60)
-    Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-    calendar2.place(x=250, y=120)
-    Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_cus_in = Entry(frm_right_checkindate_bg) #Spy
-    entry_cus_in.place(x=250, y=180)
-    Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
-    roomnumber = Entry(frm_right_checkindate_bg) # room num from Database
-    roomnumber.place(x=250, y=240)
-    Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
-    floor = Entry(frm_right_checkindate_bg) # floor from Database
-    floor.place(x=250, y=300)
-    Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
-    water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
-    water_meter_checkindate.place(x=330, y=360)
-    Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
-    electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
-    electric_meter_checkindate.place(x=330, y=420)
-    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
-    entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
-    entry_user_in.place(x=250, y=480)
-    employee_checkindate.set(name_user)
-    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
-    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
-    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
+    if roomtype_checkin.get() == 'รายวันแอร์' :
+        #RIGHT
+        Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+        frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
+        frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
+        Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+        calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+        calendar1.place(x=250, y=60)
+        Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+        calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+        calendar2.place(x=250, y=120)
+        Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+        entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
+        entry_cus_in.place(x=250, y=180)
+        name_checkindate.set(db_customer[2] + " " + db_customer[3])
+        Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+        roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
+        roomnumber.place(x=250, y=240)
+        roomnum_checkindate.set(number_checkin.get())
+        Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+        floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
+        floor.place(x=250, y=300)
+        floor_checkindate.set(floor_checkin.get())
+        Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=360)
+        entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate)
+        entry_user_in.place(x=250, y=360)
+        employee_checkindate.set(name_user)
+        Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=450)
+        Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=450)
+        Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=540)
+    else :
+        #RIGHT
+        Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+        frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
+        frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
+        Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+        calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+        calendar1.place(x=250, y=60)
+        Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+        calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+        calendar2.place(x=250, y=120)
+        Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+        entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
+        entry_cus_in.place(x=250, y=180)
+        name_checkindate.set(db_customer[2] + " " + db_customer[3])
+        Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+        roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
+        roomnumber.place(x=250, y=240)
+        roomnum_checkindate.set(number_checkin.get())
+        Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+        floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
+        floor.place(x=250, y=300)
+        floor_checkindate.set(floor_checkin.get())
+        Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
+        water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
+        water_meter_checkindate.place(x=330, y=360)
+        Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
+        electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
+        electric_meter_checkindate.place(x=330, y=420)
+        Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
+        entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
+        entry_user_in.place(x=250, y=480)
+        employee_checkindate.set(name_user)
+        Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
+        Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
+        Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
 
 def get_date() : #เสร็จแล้ว โดย Haris
     global btn_logic
@@ -2044,7 +2077,13 @@ def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
     db_customer = cursor.fetchone()
-
+    sql = 'SELECT * FROM room WHERE room_number=?'
+    cursor.execute(sql, [db_customer[1]])
+    db_room = cursor.fetchone()
+    # if db_room[2] == 'รายวันแอร์' :
+    #     messagebox.showwarning('Riski Apartment : Warning', 'ห้องพักรายวันไม่ต้องบันทึกการใช้บริการ')
+    #     servicelog_fn() 
+    #else :
     if db_customer is None or phone_servicelog.get() != db_customer[0] :
         messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า หรือเบอร์โทรศัพท์ไม่ถูกต้อง')
     else : 
@@ -2066,6 +2105,14 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     servicelog_logic = "F"
     now = datetime.now()
     current_date = now.strftime("%d/%m/%Y")
+    #Insert data
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_servicelog.get()])
+    db_customer = cursor.fetchone()
+    number_servicelogsave.set(db_customer[1])
+    sql = 'SELECT * FROM room WHERE room_number=?'
+    cursor.execute(sql, [db_customer[1]])
+    db_room = cursor.fetchone()
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelogsave = Frame(root, bg='black')
@@ -2085,42 +2132,63 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     #LEFT
     Button(frm_left_servicelogsave, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
     Button(frm_left_servicelogsave, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
-    frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
-    frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
-    Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
-    entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
-    entry_roomnum_servicelogsave.place(x=270, y=60)
-    Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
-    entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electric_servicelogsave, state='readonly') #Spy
-    entry_electric_servicelogsave.place(x=270, y=120)
-    Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
-    entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=water_servicelogsave, state='readonly') #Spy
-    entry_water_servicelogsave.place(x=270, y=180)
-    Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
-    entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=watermeter_servicelogsave) #Spy
-    entry_watermeter_servicelogsave.place(x=270, y=240)
-    Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
-    entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
-    entry_electricmeter_servicelogsave.place(x=270, y=300)
-    Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-    entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
-    entry_date_servicelogsave.place(x=270, y=360)
-    date_servicelogsave.set(current_date)
-    Button(frm_right_servicelogsave_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=400, y=500)
-    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=200, y=500)
-    #Insert data
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_servicelog.get()])
-    db_customer = cursor.fetchone()
-    number_servicelogsave.set(db_customer[1])
-    sql = 'SELECT * FROM room WHERE room_number=?'
-    cursor.execute(sql, [db_customer[1]])
-    db_room = cursor.fetchone()
-    electric_servicelogsave.set(db_room[7])
-    water_servicelogsave.set(db_room[6])
+    if db_room[2] == 'รายวันแอร์' :
+        #messagebox.showwarning("Riski Apartment : Warning", "ห้องพักรายวันไม่ต้องบันทึกการใช้บริการ")
+        #RIGHT
+        Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+        frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
+        frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
+        Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+        entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
+        entry_roomnum_servicelogsave.place(x=270, y=60)
+        number_servicelogsave.set(db_room[0])
+        Label(frm_right_servicelogsave_bg, text='ชั้น : ', bg='#DDDDDD').place(x=190, y=120)
+        entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=floor_servicelogsave, state='readonly') #Spy
+        entry_electric_servicelogsave.place(x=270, y=120)
+        floor_servicelogsave.set(db_room[1])
+        Label(frm_right_servicelogsave_bg, text='ประเภทห้องพัก : ', bg='#DDDDDD').place(x=92, y=180)
+        entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=roomtype_servicelogsave, state='readonly') #Spy
+        entry_water_servicelogsave.place(x=270, y=180)
+        roomtype_servicelogsave.set(db_room[2])
+        Label(frm_right_servicelogsave_bg, text='ราคาห้องพักต่อวัน : ', bg='#DDDDDD').place(x=60, y=240)
+        entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=price_servicelogsave, state='readonly') #Spy
+        entry_watermeter_servicelogsave.place(x=270, y=240)
+        price_servicelogsave.set(db_room[3])
+        Label(frm_right_servicelogsave_bg, text='จำนวนวันที่เข้าพัก : ', bg='#DDDDDD').place(x=60, y=300)
+        spin_date = Spinbox(frm_right_servicelogsave_bg, textvariable=staydate_servicelogsave, from_=1, to=14, width=8, justify=RIGHT) #Spy
+        spin_date.place(x=270, y=300)
+        Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
+        entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+        entry_date_servicelogsave.place(x=270, y=360)
+        date_servicelogsave.set(current_date)
+        Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
+    else :
+        #RIGHT
+        Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+        frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
+        frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
+        Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+        entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
+        entry_roomnum_servicelogsave.place(x=270, y=60)
+        Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
+        entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electric_servicelogsave, state='readonly') #Spy
+        entry_electric_servicelogsave.place(x=270, y=120)
+        Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
+        entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=water_servicelogsave, state='readonly') #Spy
+        entry_water_servicelogsave.place(x=270, y=180)
+        Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
+        entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=watermeter_servicelogsave) #Spy
+        entry_watermeter_servicelogsave.place(x=270, y=240)
+        Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
+        entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
+        entry_electricmeter_servicelogsave.place(x=270, y=300)
+        Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
+        entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+        entry_date_servicelogsave.place(x=270, y=360)
+        date_servicelogsave.set(current_date)
+        Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
+        electric_servicelogsave.set(db_room[7])
+        water_servicelogsave.set(db_room[6])
 
 def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     now = datetime.now()
@@ -2140,63 +2208,111 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=0'
     cursor.execute(sql, [db_customer[0]])
     result = cursor.fetchone()
-    #Condition 
-    if result :
-        round = db_log[2] + 1
-        electric_meter = electricmeter_servicelogsave.get()
-        water_meter = watermeter_servicelogsave.get()
-        electric_call = int(electricmeter_servicelogsave.get()) - result[8]
-        water_call = int(watermeter_servicelogsave.get()) - result[9]
-        electric_bill = int(electric_call) * db_room[7]
-        water_bill = int(water_call) * db_room[6]
-        room_bill = db_room[3]
-        total = electric_bill + water_bill + room_bill
-        payment_status = 'ยังไม่ได้ชำระเงิน'
-        sql = '''
-                UPDATE service_log
-                SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
-                , room_bill=?, total=?, payment_status=?
-                WHERE phonenumber=?
-        '''
-        cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
-        conn.commit()
-        messagebox.showinfo("Riski Apartment : Successfull", "บันทึกข้อมูลเรียบร้อย")
-    else : #Newest reccord
-        oldcal = 'Yes'
-        sql = '''
-                UPDATE service_log
-                SET calculate=?
-                WHERE phonenumber=?
-        '''
-        cursor.execute(sql, [oldcal, db_customer[0]])
-        #Insert data to service_log
-        phonenumber = db_customer[0]
-        date = now.strftime("%d/%m/%Y")
-        round = db_log[2] + 1
-        calculate = 'None'
-        floor = db_room[1]
-        roomnumber = db_room[0]
-        roomtype = db_room[2]
-        name = db_customer[2] + " " + db_customer[3]
-        #Meter old
-        electric_meter_old = db_log[8]
-        water_meter_old = db_log[9]
-        #Meter now
-        electric_meter = electricmeter_servicelogsave.get()
-        water_meter = watermeter_servicelogsave.get()
-        #Meter new for calculate bill
-        electric_meter_new = int(electric_meter) - int(electric_meter_old)
-        water_meter_new = int(water_meter) - int(water_meter_old)
-        #Calculate usage bill
-        electric_bill = int(electric_meter_new) * db_room[7]
-        water_bill = int(water_meter_new) * db_room[6]
-        room_bill = db_log[12]
-        total = electric_bill + water_bill + room_bill
-        payment_status = 'ยังไม่ได้ชำระเงิน'
-        sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
-        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
-        conn.commit()
+    if db_room[2] == 'รายวันแอร์' :
+        if db_room[2] == 'รายวันแอร์' and result :
+            round = db_log[2] + 1
+            electric_meter = 0
+            water_meter = 0
+            electric_bill = 0
+            water_bill = 0
+            room_bill = db_room[3]
+            total = staydate_servicelogsave.get() * int(room_bill)
+            payment_status = 'ยังไม่ได้ชำระเงิน'
+            sql = '''
+                    UPDATE service_log
+                    SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
+                    , room_bill=?, total=?, payment_status=?
+                    WHERE phonenumber=?
+            '''
+            cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
+            conn.commit()
+            messagebox.showinfo("Riski Apartment : Successfull", "บันทึกข้อมูลเรียบร้อย")
+        elif db_room[2] == 'รายวันแอร์' : 
+            oldcal = 'Yes'
+            sql = '''
+                    UPDATE service_log
+                    SET calculate=?
+                    WHERE phonenumber=?
+            '''
+            cursor.execute(sql, [oldcal, db_customer[0]])
+            #Insert data to service_log
+            phonenumber = db_customer[0]
+            date = now.strftime("%d/%m/%Y")
+            round = db_log[2] + 1
+            calculate = 'None'
+            floor = db_room[1]
+            roomnumber = db_room[0]
+            roomtype = db_room[2]
+            name = db_customer[2] + " " + db_customer[3]
+            electric_meter = 0
+            water_meter = 0
+            electric_bill = 0
+            water_bill = 0 
+            room_bill = db_log[12]
+            total = staydate_servicelogsave.get() * int(room_bill)
+            payment_status = 'ยังไม่ได้ชำระเงิน'
+            sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+            cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+            conn.commit()
+    else :
+        #Condition 
+        if result :
+            round = db_log[2] + 1
+            electric_meter = electricmeter_servicelogsave.get()
+            water_meter = watermeter_servicelogsave.get()
+            electric_call = int(electricmeter_servicelogsave.get()) - result[8]
+            water_call = int(watermeter_servicelogsave.get()) - result[9]
+            electric_bill = int(electric_call) * db_room[7]
+            water_bill = int(water_call) * db_room[6]
+            room_bill = db_room[3]
+            total = electric_bill + water_bill + room_bill
+            payment_status = 'ยังไม่ได้ชำระเงิน'
+            sql = '''
+                    UPDATE service_log
+                    SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
+                    , room_bill=?, total=?, payment_status=?
+                    WHERE phonenumber=?
+            '''
+            cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
+            conn.commit()
+            messagebox.showinfo("Riski Apartment : Successfull", "บันทึกข้อมูลเรียบร้อย")
+        else : #Newest reccord
+            oldcal = 'Yes'
+            sql = '''
+                    UPDATE service_log
+                    SET calculate=?
+                    WHERE phonenumber=?
+            '''
+            cursor.execute(sql, [oldcal, db_customer[0]])
+            #Insert data to service_log
+            phonenumber = db_customer[0]
+            date = now.strftime("%d/%m/%Y")
+            round = db_log[2] + 1
+            calculate = 'None'
+            floor = db_room[1]
+            roomnumber = db_room[0]
+            roomtype = db_room[2]
+            name = db_customer[2] + " " + db_customer[3]
+            #Meter old
+            electric_meter_old = db_log[8]
+            water_meter_old = db_log[9]
+            #Meter now
+            electric_meter = electricmeter_servicelogsave.get()
+            water_meter = watermeter_servicelogsave.get()
+            #Meter new for calculate bill
+            electric_meter_new = int(electric_meter) - int(electric_meter_old)
+            water_meter_new = int(water_meter) - int(water_meter_old)
+            #Calculate usage bill
+            electric_bill = int(electric_meter_new) * db_room[7]
+            water_bill = int(water_meter_new) * db_room[6]
+            room_bill = db_log[12]
+            total = electric_bill + water_bill + room_bill
+            payment_status = 'ยังไม่ได้ชำระเงิน'
+            sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
+                VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+            cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+            conn.commit()
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
@@ -2560,6 +2676,9 @@ number_checkin = StringVar()
 employee_checkindate = StringVar()
 watermeter_checkindate = StringVar()
 electricmeter_checkindate = StringVar()
+name_checkindate = StringVar()
+roomnum_checkindate = StringVar()
+floor_checkindate = StringVar()
 #servicelog
 phone_servicelog = StringVar()
 name_servicelog = StringVar()
@@ -2583,6 +2702,10 @@ water_servicelogsave = StringVar()
 watermeter_servicelogsave = StringVar()
 electricmeter_servicelogsave = StringVar()
 date_servicelogsave = StringVar()
+floor_servicelogsave = StringVar()
+roomtype_servicelogsave = StringVar()
+price_servicelogsave = StringVar()
+staydate_servicelogsave = IntVar()
 #payment status
 phone_paymentstatus = StringVar()
 name_paymentstatus = StringVar()
