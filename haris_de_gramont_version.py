@@ -18,7 +18,6 @@ def mainwindow() :
     root.rowconfigure((0,1,2,3), weight=1)
     root.columnconfigure((0,1,2,3),weight=1)
     return root
-
 #CREATE CONNECTION WITH SQLITE3
 def createconnection() : 
     global conn, cursor
@@ -1795,7 +1794,7 @@ def payment_search_backend(event) : #เสร็จแล้ว โดย Haris
     water_payment.set(db_log[11])
     total_payment.set(db_log[13])
 
-def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
+def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     global entry_phone_paymentstatus, entry_name_paymentstatus
     #MAIN
     root.title("Riski Apartment : สถานะการชำระเงิน")
@@ -1853,7 +1852,7 @@ def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ด�
     phone_paymentstatus.set(db_log[0])
     name_paymentstatus.set(db_log[7])
 
-def paymentstatus_backend() : #ยังไม่สมบูรณ์
+def paymentstatus_backend() : #เสร็จแล้ว โดย Haris
     #Fetch customer
     db_log_insert = conn.execute('SELECT * FROM service_log')
     for i in db_log_insert : 
@@ -1941,7 +1940,7 @@ def help_backend() : #เสร็จแล้ว โดย Haris
     date_help.set("")
     help_fn()
 
-def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def datareporttable_fn() : #เสร็จแล้ว โดย น้องนัท # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
 
     #MAIN
     root.title("Riski Apartment : ข้อมูล / รายงาน")
@@ -1983,7 +1982,7 @@ def datareporttable_fn() :  # หน้าข้อมูล / รายงา�
     for i in db_room :
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
-def datareport_fn() : # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def datareport_fn() : #เสร็จแล้ว โดย น้องนัท # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : ข้อมูล / รายงาน")
     frm_main_datareport = Frame(root, bg='black')
@@ -2133,7 +2132,6 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     Button(frm_left_servicelogsave, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
     Button(frm_left_servicelogsave, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
     if db_room[2] == 'รายวันแอร์' :
-        #messagebox.showwarning("Riski Apartment : Warning", "ห้องพักรายวันไม่ต้องบันทึกการใช้บริการ")
         #RIGHT
         Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
         frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
