@@ -304,26 +304,35 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
     #RIGHT
     Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-    frm_right_checkindate_bg.place(x=276, y=258, width=750, height=650)
+    frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
     Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
     calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
     calendar1.place(x=250, y=60)
     Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
     calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
     calendar2.place(x=250, y=120)
-    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
-    entry_user_in.place(x=250, y=180)
-    employee_checkindate.set(name_user)
-    Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=240)
+    Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+    entry_cus_in = Entry(frm_right_checkindate_bg) #Spy
+    entry_cus_in.place(x=250, y=180)
+    Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+    roomnumber = Entry(frm_right_checkindate_bg) # room num from Database
+    roomnumber.place(x=250, y=240)
+    Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+    floor = Entry(frm_right_checkindate_bg) # floor from Database
+    floor.place(x=250, y=300)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
     water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
-    water_meter_checkindate.place(x=330, y=240)
-    Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=300)
+    water_meter_checkindate.place(x=330, y=360)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
     electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
-    electric_meter_checkindate.place(x=330, y=300)
-    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=440)
-    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=440)
-    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=550)
+    electric_meter_checkindate.place(x=330, y=420)
+    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
+    entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
+    entry_user_in.place(x=250, y=480)
+    employee_checkindate.set(name_user)
+    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
+    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
+    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
 
 def get_date() : #เสร็จแล้ว โดย Haris
     global btn_logic

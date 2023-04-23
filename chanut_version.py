@@ -2,8 +2,8 @@ from tkinter import*
 import sqlite3
 from tkinter import ttk 
 from tkinter import messagebox
-
-#เวอร์ชั่นนี้เป็นเวอร์ชันทดลองเท่านั้น อาจจะมี ERROR ก็เป็นได้
+from tkcalendar import DateEntry
+from datetime import datetime
 
 #CREATE MAINWINDOW
 def mainwindow() : 
@@ -71,7 +71,7 @@ def login_fn() :#เสร็จแล้ว #หน้า Login #By Haris
     userentry.set('')
     frm_left_login_entry_username.place(x=380, y=400, height=50)
     Label(frm_left_login, text='Password', bg='white', fg='#3F9878', font = 'Calibri 40').place(x=360, y=480)
-    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="*", textvariable=passwordentry) #Spy
+    frm_left_login_entry_password = Entry(frm_left_login, width=30, bg='#E6E6E6', bd=0,show="●", textvariable=passwordentry) #Spy
     frm_left_login_entry_password.place(x=380, y=580, height=50)
     passwordentry.set('')
     Button(frm_left_login, image=btn_login, bd=0, bg='white', command=login_backend).place(x=480, y=680)
@@ -110,8 +110,8 @@ def home_fn() : #เสร็จแล้ว #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
     #Welcome
-    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
-    name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
+    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 20 bold').place(x=300, y=30)
+    Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 18 bold').place(x=300, y=80)
     #Add some style
     style = ttk.Style()
     #Configure our treeview color
@@ -180,6 +180,7 @@ def checkinout_fn() : #เสร็จแล้ว #หน้า Main Check In/O
         mytree.insert("", 'end', values=(i[1], i[0], i[5]))
 
 def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global entry_phonenum_checkin, entry_name_checkin, entry_floor_checkin, entry_price_checkin, treecheckin, entry_roomtype_checkin
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
     frm_main_checkin = Frame(root, bg='black')
@@ -203,25 +204,81 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Button(frm_left_checkin, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+    Label(frm_right_checkin, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=70)
     frm_right_checkin_bg = Frame(frm_right_checkin, bg='#DDDDDD')
-    frm_right_checkin_bg.place(x=276, y=258, width=750, height=600)
-    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)     # ต้องใส่ปุ่มค้นหา
-    entry_phonenum_checkin = Entry(frm_right_checkin_bg).place(x=350, y=60)
-    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58) 
+    frm_right_checkin_bg.place(x=276, y=160, width=750, height=520)
+    Label(frm_right_checkin_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
+    entry_phonenum_checkin = Entry(frm_right_checkin_bg, textvariable=phone_checkin) #Spy
+    entry_phonenum_checkin.place(x=350, y=60)
+    Button(frm_right_checkin_bg, image=btn_search, bd=0, bg='#DDDDDD', command=checkin_search_backend).place(x=670, y=58) 
     Label(frm_right_checkin_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_checkin = Entry(frm_right_checkin_bg).place(x=350, y=120)
-    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=198, y=180)
-    #room type
-    room_type = ["รายเดือนแอร์", "รายเดือนแอร์", "รายเดือนพัดลม", "รายวันแอร์", "ห้องแถว"]
-    roomtype = OptionMenu(frm_right_checkin_bg, *room_type).place(x=350, y=180, width=310)
-    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=271, y= 240)
-    entry_floor_checkin = Entry(frm_right_checkin_bg).place(x=350, y=240)
-    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=259, y= 300)
-    entry_price_checkin = Entry(frm_right_checkin_bg).place(x=350, y=300)
+    entry_name_checkin = Entry(frm_right_checkin_bg, textvariable=name_checkin, state='readonly') #Spy
+    entry_name_checkin.place(x=350, y=120)
+    Label(frm_right_checkin_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=210, y=180)
+    entry_number_checkin = Entry(frm_right_checkin_bg, textvariable=number_checkin, state='readonly') #Spy
+    entry_number_checkin.place(x=350, y=180)
+    Label(frm_right_checkin_bg, text='ชั้น : ', bg='#DDDDDD').place(x=240, y= 240)
+    entry_floor_checkin = Entry(frm_right_checkin_bg, textvariable=floor_checkin, state='readonly') #Spy
+    entry_floor_checkin.place(x=350, y=240)
+    Label(frm_right_checkin_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=180, y= 300)
+    entry_roomtype_checkin = Entry(frm_right_checkin_bg, textvariable=roomtype_checkin, state='readonly') #Spy
+    entry_roomtype_checkin.place(x=350, y=300)
+    Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=230, y= 360)
+    entry_price_checkin = Entry(frm_right_checkin_bg, textvariable=price_checkin, state='readonly') #Spy
+    entry_price_checkin.place(x=350, y=360)
     Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
+    
+    #Create Treeview
+    treecheckin = ttk.Treeview(root)
+    treecheckin= ttk.Treeview(frm_right_checkin, columns=("floor_", "roomnum_", "roomtype_", "roomrate_"), height=2)
+    #create headings
+    treecheckin.heading('#0', text='') #default
+    treecheckin.heading('floor_', text="ชั้น", anchor=CENTER)
+    treecheckin.heading('roomnum_', text="เลขห้อง", anchor=CENTER)
+    treecheckin.heading('roomtype_', text="ประเภทห้อง", anchor=CENTER)
+    treecheckin.heading('roomrate_', text="ราคา", anchor=CENTER)
+    #format columns
+    treecheckin.column("#0", width=0, minwidth=0)
+    treecheckin.column('floor_', anchor=CENTER, width=150)
+    treecheckin.column('roomnum_', anchor=CENTER, width=150)
+    treecheckin.column('roomtype_', anchor=CENTER, width=150)
+    treecheckin.column('roomrate_', anchor=CENTER, width=150)
+    treecheckin.place(x=100, y=700, width=1052, height=250)
+    #Connect Database room table
+    db_room = conn.execute('SELECT * FROM room')
+    #Insert Data to tree
+    for i in db_room :
+        if i[5] == "ว่าง" :
+            treecheckin.insert("", 'end', values=(i[1], i[0], i[2], i[3]))
+    #Tree bind
+    treecheckin.bind("<Double-1>", checkin_insert_backend)
 
-def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def checkin_insert_backend(event) : #เสร็จแล้ว โดย Haris
+    db_room = conn.execute('SELECT * FROM room')
+    for i in db_room :
+        i = treecheckin.item(treecheckin.focus(), "values")
+        number_checkin.set(i[1])
+        floor_checkin.set(i[0])
+        roomtype_checkin.set(i[2])
+        price_checkin.set(i[3])
+
+def checkin_search_backend() : #เสร็จแล้ว โดย Haris
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkin.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_checkin.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า')
+        entry_phonenum_checkin.delete(0, END)
+    else : 
+        name_checkin.set(db_customer[2] + ' ' + db_customer[3])
+
+def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    name_user = db_user[3] + " " + db_user[4]
+    global calendar1, calendar2, entry_user_in, btn_logic
+    # watermeter_checkindate.set("")
+    # electricmeter_checkindate.set("")
+    btn_logic = 'F'
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
     frm_main_checkindate = Frame(root, bg='black')
@@ -247,20 +304,110 @@ def checkin_date() : #หน้า Check In ที่ 2 #โค้ดนี้�
     #RIGHT
     Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-    frm_right_checkindate_bg.place(x=276, y=258, width=750, height=500)
+    frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
     Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    entry_startdate_in = Entry(frm_right_checkindate_bg).place(x=250, y=60)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=60)
+    calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+    calendar1.place(x=250, y=60)
     Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    entry_enddate_in = Entry(frm_right_checkindate_bg).place(x=250, y=120)
-    Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
-    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_user_in = Entry(frm_right_checkindate_bg).place(x=250, y=180)
-    Button(frm_right_checkindate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkin_fn).place(x=150, y=250)
-    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
-    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
+    calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+    calendar2.place(x=250, y=120)
+    Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+    entry_cus_in = Entry(frm_right_checkindate_bg) #Spy
+    entry_cus_in.place(x=250, y=180)
+    Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+    roomnumber = Entry(frm_right_checkindate_bg) # room num from Database
+    roomnumber.place(x=250, y=240)
+    Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+    floor = Entry(frm_right_checkindate_bg) # floor from Database
+    floor.place(x=250, y=300)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
+    water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
+    water_meter_checkindate.place(x=330, y=360)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
+    electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
+    electric_meter_checkindate.place(x=330, y=420)
+    Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
+    entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
+    entry_user_in.place(x=250, y=480)
+    employee_checkindate.set(name_user)
+    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
+    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
+    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
 
-def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+
+def get_date() : #เสร็จแล้ว โดย Haris
+    global btn_logic
+    btn_logic = 'T'
+    date = calendar1.get_date()
+    date_string1 = date.strftime("%d/%m/%Y")
+    date = calendar2.get_date()
+    date_string2 = date.strftime("%d/%m/%Y")   
+    return date_string1, date_string2
+
+def checkindate_backend() : #เสร็จแล้ว โดย Haris
+    if btn_logic == "T" :
+        date1, date2 = get_date()
+        now = datetime.now()
+        status = "ไม่ว่าง"
+        #Fetch customer
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_checkin.get()])
+        db_customer = cursor.fetchone()
+        #Update customer
+        sql = '''
+                UPDATE customer
+                SET room=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [number_checkin.get(), db_customer[0]])
+        conn.commit()
+        #Update room
+        sql = '''
+                UPDATE room
+                SET customer_name=?, check_in_date=?, status=?, check_out_date=?
+                WHERE room_number=?
+        '''    
+        cursor.execute(sql, [db_customer[2] + " " + db_customer[3], date1, status, date2,number_checkin.get()])
+        conn.commit()
+        checkin_date()
+        messagebox.showinfo("Riski Apartment : Success", "เช็คอินลูกค้า %s เรียบร้อย"%(db_customer[2]))
+        #Fetch room
+        sql = '''SELECT * FROM room WHERE room_number=?'''
+        cursor.execute(sql, [number_checkin.get()])
+        db_room = cursor.fetchone()
+
+        #Insert data to service_log
+        phonenumber = db_customer[0]
+        date = now.strftime("%d/%m/%Y")
+        round = 0
+        calculate = 'None'
+        floor = db_room[1]
+        roomnumber = db_room[0]
+        roomtype = db_room[2]
+        name = db_customer[2] + " " + db_customer[3]
+        electric_bill = 0
+        water_bill = 0
+        room_bill = 0
+        total = 0 
+        payment_status = 'check in'
+        sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electricmeter_checkindate.get(), watermeter_checkindate.get(), electric_bill, water_bill, room_bill, total, payment_status])
+        conn.commit()
+
+        name_checkin.set("")
+        roomtype_checkin.set("")
+        number_checkin.set("")
+        floor_checkin.set("")
+        price_checkin.set("")
+
+    else :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาบันทึกก่อน")
+
+def checkout_fn() : #เสร็จแล้ว #หน้า Check Out #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    global checkout_logic
+    checkout_logic = "F"
+    global entry_phonenum_checkout, entry_name_checkout,  entry_roomnum_checkout, entry_floor_checkout, entry_roomtype_checkout
     #MAIN
     root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkout = Frame(root, bg='black')
@@ -288,55 +435,138 @@ def checkout_fn() : #หน้า Check Out #โค้ดนี้กำลั�
     frm_right_checkout_bg = Frame(frm_right_checkout, bg='#DDDDDD')
     frm_right_checkout_bg.place(x=276, y=258, width=750, height=600)
     Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
-    entry_phonenum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=60)
-    Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)       #from database
+    entry_phonenum_checkout = Entry(frm_right_checkout_bg, textvariable=phone_checkout) #Spy
+    entry_phonenum_checkout.place(x=350, y=60)
+    Button(frm_right_checkout_bg, image=btn_search, bd=0, bg='#DDDDDD', command=checkout_search_backend).place(x=670, y=58)       #from database
     Label(frm_right_checkout_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_checkout = Entry(frm_right_checkout_bg).place(x=350, y=120)             #from database
+    entry_name_checkout = Entry(frm_right_checkout_bg, textvariable=name_checkout, state='readonly') #Spy
+    entry_name_checkout.place(x=350, y=120)             #from database
     Label(frm_right_checkout_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
-    entry_roomnum_checkout = Entry(frm_right_checkout_bg).place(x=350, y=180)
-    #room type
+    entry_roomnum_checkout = Entry(frm_right_checkout_bg, textvariable=number_checkout, state='readonly') #Spy
+    entry_roomnum_checkout.place(x=350, y=180)
     Label(frm_right_checkout_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
-    entry_roomtype_checkout = Entry(frm_right_checkout_bg).place(x=350, y=240)
+    entry_roomtype_checkout = Entry(frm_right_checkout_bg, textvariable=roomtype_checkout, state='readonly') #Spy
+    entry_roomtype_checkout.place(x=350, y=240)
     Label(frm_right_checkout_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
-    entry_floor_checkout = Entry(frm_right_checkout_bg).place(x=350, y=300)
+    entry_floor_checkout = Entry(frm_right_checkout_bg, textvariable=floor_checkout, state='readonly') #Spy
+    entry_floor_checkout.place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
-def checkout_date() : #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
-    #MAIN
-    root.title("Riski Apartment : เช็คเอ้าท์")
-    frm_main_checkoutdate = Frame(root, bg='black')
-    frm_main_checkoutdate.place(x=0, y=0, width = w, height = h)
+def checkout_date() :#เสร็จแล้ว #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
+    global checkout_logic
+    #date1, date2 = get_date()
+    name_user = db_user[3] + " " + db_user[4]
+    if checkout_logic == 'T' :
+        #MAIN
+        root.title("Riski Apartment : เช็คเอ้าท์")
+        frm_main_checkoutdate = Frame(root, bg='black')
+        frm_main_checkoutdate.place(x=0, y=0, width = w, height = h)
 
-    #FRAME LEFT
-    frm_left_checkoutdate = Frame(frm_main_checkoutdate, bg='#084235')
-    frm_left_checkoutdate.place(x=0, y=0, width=650, height=1080)
+        #FRAME LEFT
+        frm_left_checkoutdate = Frame(frm_main_checkoutdate, bg='#084235')
+        frm_left_checkoutdate.place(x=0, y=0, width=650, height=1080)
 
-    #FRAME RIGHT
-    frm_right_checkoutdate = Frame(frm_main_checkoutdate, bg='white')
-    frm_right_checkoutdate.place(x=651,y=0, width= 1269, height=1080)
+        #FRAME RIGHT
+        frm_right_checkoutdate = Frame(frm_main_checkoutdate, bg='white')
+        frm_right_checkoutdate.place(x=651,y=0, width= 1269, height=1080)
 
-    #LOGO
-    Button(frm_left_checkoutdate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+        #LOGO
+        Button(frm_left_checkoutdate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
-    #LEFT
-    Button(frm_left_checkoutdate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
-    Button(frm_left_checkoutdate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
-    Button(frm_left_checkoutdate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
-    Button(frm_left_checkoutdate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+        #LEFT
+        Button(frm_left_checkoutdate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+        Button(frm_left_checkoutdate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+        Button(frm_left_checkoutdate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
+        Button(frm_left_checkoutdate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-    #RIGHT
-    Label(frm_right_checkoutdate, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
-    frm_right_checkoutdate_bg = Frame(frm_right_checkoutdate, bg='#DDDDDD')
-    frm_right_checkoutdate_bg.place(x=276, y=258, width=750, height=400)
-    Label(frm_right_checkoutdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-    entry_startdate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=60)
-    Label(frm_right_checkoutdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-    entry_endate_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=120)
-    Label(frm_right_checkoutdate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=570, y=120)
-    Label(frm_right_checkoutdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
-    entry_user_out = Entry(frm_right_checkoutdate_bg).place(x=250, y=180)
-    Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
-    Button(frm_right_checkoutdate_bg, image=btn_finish,bd=0, bg='#DDDDDD').place(x=450, y=250)
+        #RIGHT
+        Label(frm_right_checkoutdate, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+        frm_right_checkoutdate_bg = Frame(frm_right_checkoutdate, bg='#DDDDDD')
+        frm_right_checkoutdate_bg.place(x=276, y=258, width=750, height=400)
+        Label(frm_right_checkoutdate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+        entry_startdate_out = Entry(frm_right_checkoutdate_bg, textvariable=startdate_checkoutdate, state='readonly') #Spy
+        entry_startdate_out.place(x=250, y=60)
+        Label(frm_right_checkoutdate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+        entry_endate_out = Entry(frm_right_checkoutdate_bg, textvariable=enddate_checkoutdate, state='readonly') #Spy
+        entry_endate_out.place(x=250, y=120)
+        Label(frm_right_checkoutdate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=180)
+        entry_user_out = Entry(frm_right_checkoutdate_bg, textvariable=user_checkoutdate, state='readonly') #Spy
+        entry_user_out.place(x=250, y=180)
+        user_checkoutdate.set(name_user)
+        Button(frm_right_checkoutdate_bg, image=btn_back,bd=0, bg='#DDDDDD', command=checkout_fn).place(x=150, y=250)
+        Button(frm_right_checkoutdate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkoutdate_backend).place(x=450, y=250)
+        #Fetching data to insert date
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_checkout.get()])
+        db_customer = cursor.fetchone()
+
+        sql = 'SELECT * FROM room WHERE room_number=?'
+        cursor.execute(sql, [db_customer[1]])
+        db_room = cursor.fetchone()
+
+        startdate_checkoutdate.set(db_room[9])
+        enddate_checkoutdate.set(db_room[10])
+    else :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกเบอร์ลูกค้า')
+
+def checkout_search_backend() : #เสร็จแล้ว โดย Haris
+    global checkout_logic
+    checkout_logic = "T"
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkout.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_checkout.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า')
+    else :
+        name_checkout.set(db_customer[2] + ' ' + db_customer[3])
+    if db_customer[1] == '-' :
+        messagebox.showwarning('Riski Apartment : Warning', 'ลูกค้ายังไม่ได้ Check In')
+        entry_phonenum_checkout.delete(0, END)
+        entry_name_checkout.delete(0, END)
+    else : 
+        number_checkout.set(db_customer[1])
+        sql = 'SELECT * FROM room WHERE room_number=?'
+        cursor.execute(sql, [db_customer[1]])
+        db_room = cursor.fetchone()
+        roomtype_checkout.set(db_room[2])
+        floor_checkout.set(db_room[1])
+
+def checkoutdate_insert_backend() : #เสร็จแล้ว โดย Haris
+    date1, date2 = get_date()
+    startdate_checkoutdate.set(date1)
+    enddate_checkoutdate.set(date2)
+
+def checkoutdate_backend() : #เสร็จแล้ว โดย Haris
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_checkout.get()])
+    db_customer = cursor.fetchone()
+    status = "ว่าง"
+    room = '-'
+    sql = '''
+            UPDATE room
+            SET customer_name=?, check_in_date=?, status=?, check_out_date=?
+            WHERE room_number=?
+    '''
+    cursor.execute(sql, ["", "", status, "", db_customer[1]])
+    conn.commit()
+    sql = '''
+            UPDATE customer
+            SET room=?
+            WHERE phonenumber=?
+    '''
+    cursor.execute(sql, [room, db_customer[0]])
+    conn.commit()
+    sql = '''DELETE FROM service_log WHERE phonenumber=?'''
+    cursor.execute(sql, [db_customer[0]])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "เช็คเอาท์ลูกค้า %s เรียบร้อย"%(db_customer[2]))
+    entry_phonenum_checkout.delete(0, END)
+    name_checkout.set("")
+    number_checkout.set("")
+    roomtype_checkout.set("")
+    floor_checkout.set("")
+    checkout_fn()
 
 def accountmanage_fn() : #เสร็จแล้ว #หน้า Main จัดการบัญชี #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     #MAIN
@@ -423,20 +653,32 @@ def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่�
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=45)
     entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp) #Spy
     entry_name_addempaccount.place(x=270, y=50, width=230) 
     Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=962, y=45)
     entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp) #Spy
     entry_surname_addempaccount.place(x=730, y=50, width=230)
     Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=115)
     entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp) #Spy
     entry_username_addempaccount.place(x=270, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120) 
+    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=962, y=115) 
     entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp) #Spy
     entry_password_addempaccount.place(x=730, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
+    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=185)
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
     entry_phone_addempaccount.place(x=270, y=190, width=230)
+    #Select role for employee
+    drop_down_role = ["Admin", "Employee"]
+    Label(frm_right_addempaccount_bg, text="Role", bg='#DDDDDD').place(x=152, y=250)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=472, y=245)
+    drop_down_list_role = OptionMenu(frm_right_addempaccount_bg, roleSelect, *drop_down_role).place(x=270, y=250, width=200)
+    roleSelect.set("-")
+
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
@@ -468,8 +710,11 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
     sql = "SELECT * FROM user WHERE phonenumber=?"
     cursor.execute(sql, [phone_addemp.get()])
     db_phonecheck = cursor.fetchone()
-
-    status = "U"
+    roleSelect.get()
+    if roleSelect.get() == "Admin" :
+        status = "A"
+    else :
+        status = "U"
     #Existence Check
     if name_addemp.get() == '' :
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชื่อ")
@@ -507,7 +752,7 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
         entry_phone_addempaccount.delete(0, END)
     addempaccount_fn()
     
-def editempaccount_fn() : #เสร็จแล้ว#หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+def editempaccount_fn() : #เสร็จแล้ว #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global entry_findphone_editempaccount, entry_name_editempaccount, entry_surname_editempaccount, entry_username_editempaccount, entry_password_editempaccount, entry_phone_editempaccount
     #MAIN
     root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
@@ -939,7 +1184,7 @@ def editcusinfo_delete_backend() : #เสร็จแล้ว
         entry_phone_searchcusinfo.focus_force()   
     searchcusinfo_fn()
 
-def roommanage_fn(): # RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
+def roommanage_fn(): #เสร็จแล้ว โดย Haris #RoomManagement(Admin) เช็คห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
     #MAIN
     root.title("Riski Apartment : เช็คห้องพัก")
     frm_main_roommanage = Frame(root, bg='black')
@@ -1263,7 +1508,7 @@ def ratemanage_fn() : #เสร็จแล้ว #หน้า Rate manage #�
     Label(frm_right_ratemanage, text='ค่าห้องพัก', bg='white', fg='#084235').place(x=300, y=720)
     Label(frm_right_ratemanage, text='ค่าน้ำ/ไฟ', bg='white', fg='#084235').place(x=900, y=720)
 
-def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
+def roomrate_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:11 07/04/2023
     global entry_oldrate_roomrate, entry_newrate_roomrate
     #MAIN
     root.title("Riski Apartment : ค่าห้องพัก")
@@ -1304,8 +1549,7 @@ def roomrate_fn() : #หน้า Rate manage #โค้ดนี้กำลั
     Button(frm_right_roomrate_bg, image=btn_save, bg='#DDDDDD', bd=0, command=roomrate_backend).place(x=450, y=280)
     Button(frm_right_roomrate_bg, image=btn_search, bg='#DDDDDD', bd=0, command=roomrate_search_backend).place(x=650, y=65)
 
-
-def roomrate_search_backend() : #เสร็ขแล้ว โดย Haris
+def roomrate_search_backend() : #เสร็จแล้ว โดย Haris
     #INSERT DATA
     room_execute = conn.execute('SELECT * FROM room')
     for db_room in room_execute :
@@ -1329,7 +1573,16 @@ def roomrate_backend() : #เสร็จแล้ว โดย Haris
     messagebox.showinfo("Riski Apartment : Success", "แก้ไขราคาห้อง %s เรียบร้อยแล้ว" % (roomtype_roomrate.get()))
     roomrate_fn()
 
-def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
+def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
+    global entry_waterrate_waterelec, entry_electricrate_waterelec, entry_newwaterrate_waterelec, entry_newelectricrate_waterelec
+    sql = 'SELECT * FROM room'
+    cursor.execute(sql)
+    db_rate = cursor.fetchone()
+    oldwaterrate = db_rate[6]
+    oldelectricrate = db_rate[7]
+    newwaterrate_waterelec.set("")
+    newelectricrate_waterelec.set("")
+
     #MAIN
     root.title("Riski Apartment : กำหนดค่าน้ำ ค่าไฟ")
     frm_main_waterelec = Frame(root, bg='black')
@@ -1357,29 +1610,44 @@ def waterelectricrate_fn() : #หน้า กำหนดค่าน้ำค�
     #WATER RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=300)
     Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=280, y=340)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
-    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=260, y=450)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=310, y=570)
+    Label(frm_right_waterelec, text='ราคาเดิม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
+    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=waterrate_waterelec, state = 'readonly') #Spy
+    entry_waterrate_waterelec.place(x=260, y=450)
+    waterrate_waterelec.set(oldwaterrate)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=500) 
+    entry_newwaterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=newwaterrate_waterelec) #Spy
+    entry_newwaterrate_waterelec.place(x=260, y=500)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=waterrate_save_backend).place(x=310, y=570)
     #ELECTRICITY RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=300)
     Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=875, y=340)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
-    entry_watercharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=865, y=450)
-    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=920, y=570)
-    #ELECTRICITY RATE
-    #Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=550)
-    #Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=290, y=590)
-    #Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=130, y=650) 
-    #entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15).place(x=250, y=655)
-    #Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=305, y=800)
-    #ELECTRICITY CHARGE
-    #Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=550)
-    #Label(frm_right_waterelec, text='Charge ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=820, y=590)
-    #Label(frm_right_waterelec, text='บวกเพิ่ม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=650)
-    #entry_electriccharge_waterelec = Entry(frm_right_waterelec, width=15).place(x=850, y=655)
-    #Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD').place(x=905, y=800)
+    Label(frm_right_waterelec, text='ราคาเดิม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
+    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=electricrate_waterelec, state = 'readonly') #Spy
+    entry_electricrate_waterelec.place(x=865, y=450)
+    electricrate_waterelec.set(oldelectricrate)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=500)
+    entry_newelectricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=newelectricrate_waterelec) #Spy
+    entry_newelectricrate_waterelec.place(x=865, y=500)
+    Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=electricrate_save_backend).place(x=920, y=570)
 
-def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+def waterrate_save_backend() : #เสร็จแล้ว โดย Haris
+    sql = "UPDATE room SET water_rate = ?"
+    cursor.execute(sql, [newwaterrate_waterelec.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าน้ำเรียบร้อยแล้ว")
+    entry_waterrate_waterelec.delete(0, END)
+    waterelectricrate_fn()
+
+def electricrate_save_backend() : #เสร็จแล้ว โดย Haris
+    sql = "UPDATE room SET electric_rate = ?"
+    cursor.execute(sql, [newelectricrate_waterelec.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าไฟเรียบร้อยแล้ว")
+    entry_electricrate_waterelec.delete(0, END)
+    waterelectricrate_fn()
+
+def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
+    global entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment, treepayment
     #MAIN
     root.title("Riski Apartment : ชำระค่าบริการ")
     frm_main_payment = Frame(root, bg='black')
@@ -1410,26 +1678,179 @@ def payment_fn() : #หน้า Rate manage #โค้ดนี้กำลั�
     #RIGHT
     Label(frm_right_payment, text='ชำระค่าบริการ', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=475, y=30)
     frm_right_payment_bg = Frame(frm_right_payment, bg='#DDDDDD')
-    frm_right_payment_bg.place(x=276, y=158, width=750, height=750)
+    frm_right_payment_bg.place(x=276, y=100, width=750, height=560)
     Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
-    entry_phone_payment = Entry(frm_right_payment_bg).place(x=270, y=60)
-    Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
+    entry_phone_payment = Entry(frm_right_payment_bg, textvariable=phone_payment, state='readonly') #Spy
+    entry_phone_payment.place(x=270, y=60)
+    #Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD', command=payment_search_backend).place(x=600, y=60) #ลบด้วย
     Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
-    entry_name_payment = Entry(frm_right_payment_bg).place(x=270, y=120)
+    entry_name_payment = Entry(frm_right_payment_bg, textvariable=name_payment, state='readonly') #Spy
+    entry_name_payment.place(x=270, y=120)
     Label(frm_right_payment_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=120, y=180)
-    entry_roomtype_payment = Entry(frm_right_payment_bg).place(x=270, y=180)
+    entry_roomtype_payment = Entry(frm_right_payment_bg, textvariable=roomtype_payment, state='readonly') #Spy
+    entry_roomtype_payment.place(x=270, y=180)
     Label(frm_right_payment_bg, text='ค่าเช่าห้อง : ', bg='#DDDDDD').place(x=130, y=240)
-    entry_rent_payment = Entry(frm_right_payment_bg).place(x=270, y=240)
+    entry_rent_payment = Entry(frm_right_payment_bg, textvariable=rent_payment, state='readonly') #Spy
+    entry_rent_payment.place(x=270, y=240)
     Label(frm_right_payment_bg, text='ค่าไฟ : ', bg='#DDDDDD').place(x=175, y=300)
-    entry_electric_payment = Entry(frm_right_payment_bg).place(x=270, y=300)
+    entry_electric_payment = Entry(frm_right_payment_bg, textvariable=electric_payment, state='readonly') #Spy
+    entry_electric_payment.place(x=270, y=300)
     Label(frm_right_payment_bg, text='ค่าน้ำ : ', bg='#DDDDDD').place(x=175, y=360)
-    entry_water_payment = Entry(frm_right_payment_bg).place(x=270, y=360)
+    entry_water_payment = Entry(frm_right_payment_bg, textvariable=water_payment, state='readonly') #Spy
+    entry_water_payment.place(x=270, y=360)
     Label(frm_right_payment_bg, text='รวม : ', bg='#DDDDDD').place(x=190, y=420)
-    entry_total_payment = Entry(frm_right_payment_bg).place(x=270, y=420)
-    Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=600)
-    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=600)
+    entry_total_payment = Entry(frm_right_payment_bg, textvariable=total_payment) #Spy
+    entry_total_payment.place(x=270, y=420)
+    Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=470)
+    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=470)
+    phone_payment.set("")
+    name_payment.set("")
+    roomtype_payment.set("")
+    rent_payment.set("")
+    electric_payment.set("")
+    water_payment.set("")
+    total_payment.set("")
 
-def help_fn() : #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
+    #Create Treeview
+    treepayment = ttk.Treeview(root)
+    treepayment = ttk.Treeview(frm_right_payment, columns=("date_", "round_", "roomnumber_", "name_", "phonenumber_", "total_"), height=2)
+    #Create headings
+    treepayment.heading('#0', text='') #default
+    treepayment.heading('date_', text="วันที่", anchor=CENTER)
+    treepayment.heading('round_', text="รอบที่", anchor=CENTER)
+    treepayment.heading('roomnumber_', text="เลขห้อง", anchor=CENTER)
+    treepayment.heading('name_', text="ชื่อลูกค้า", anchor=CENTER)
+    treepayment.heading('phonenumber_', text="เบอร์โทรศัพท์", anchor=CENTER)
+    treepayment.heading('total_', text="ค่าบริการ", anchor=CENTER)
+    #format columns
+    treepayment.column("#0", width=0, minwidth=0)
+    treepayment.column('date_', anchor=CENTER, width=150)
+    treepayment.column('round_', anchor=CENTER, width=150)
+    treepayment.column('roomnumber_', anchor=CENTER, width=150)
+    treepayment.column('name_', anchor=CENTER, width=150)
+    treepayment.column('phonenumber_', anchor=CENTER, width=150)
+    treepayment.column('total_', anchor=CENTER, width=150)
+    treepayment.place(x=100, y=700, width=1050, height=250)
+    #Connect Database service_log table
+    db_log = conn.execute('SELECT * FROM service_log')
+    #Insert Data to tree
+    for i in db_log :
+        if i[14] == "ยังไม่ได้ชำระเงิน" :
+            treepayment.insert("", "end", values=(i[1], i[2], i[5], i[7], i[0], i[13]))
+    #Tree bind
+    treepayment.bind("<Double-1>", payment_search_backend)
+
+def payment_search_backend(event) : #เสร็จแล้ว โดย Haris 
+    #Fetch customer
+    db_log_insert = conn.execute('SELECT * FROM service_log')
+    for i in db_log_insert :
+        i = treepayment.item(treepayment.focus(), "values")
+        round = i[1] 
+        phone = i[4]
+    #Fetch service_log
+    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=?'
+    cursor.execute(sql, [phone, round])
+    db_log = cursor.fetchone()
+
+    phone_payment.set(db_log[0])
+    name_payment.set(db_log[7])
+    rent_payment.set(db_log[12])
+    roomtype_payment.set(db_log[6])
+    electric_payment.set(db_log[10])
+    water_payment.set(db_log[11])
+    total_payment.set(db_log[13])
+
+def paymentstatus_fn() : #ยังไม่สมบูรณ์ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
+    global entry_phone_paymentstatus, entry_name_paymentstatus
+    #MAIN
+    root.title("Riski Apartment : สถานะการชำระเงิน")
+    frm_main_paymentstatus = Frame(root, bg='black')
+    frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
+
+    #FRAME LEFT 
+    frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
+    frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
+
+    #LOGO
+    Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #FRAME RIGHT
+    frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
+    frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
+
+    #LEFT
+    if db_user[5] == "A" :
+        Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+    if db_user[5] == "U" :
+        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
+    frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
+    frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
+    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+    entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=phone_paymentstatus) #Spy
+    entry_phone_paymentstatus.place(x=270, y=60)
+    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+    entry_name_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=name_paymentstatus) #Spy
+    entry_name_paymentstatus.place(x=270, y=120)
+    Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180)
+    payment_status = ["ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
+    paymentstatus = OptionMenu(frm_right_paymentstatus_bg, status_paymentstatus, *payment_status).place(x=270, y=180, width=310) #Spy
+    status_paymentstatus.set("สถานะการชำระเงิน")
+
+    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
+    Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' , command=paymentstatus_backend).place(x=450, y=280)
+    #Insert Data
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_payment.get()])
+    db_customer = cursor.fetchone()
+
+    sql = 'SELECT * FROM service_log WHERE phonenumber=?'
+    cursor.execute(sql, [db_customer[0]])
+    db_log = cursor.fetchone()
+
+    phone_paymentstatus.set(db_log[0])
+    name_paymentstatus.set(db_log[7])
+
+def paymentstatus_backend() : #ยังไม่สมบูรณ์
+    #Fetch customer
+    db_log_insert = conn.execute('SELECT * FROM service_log')
+    for i in db_log_insert : 
+        i = treepayment.item(treepayment.focus(), "values")
+        round = i[1] 
+        phone = i[4]
+    #Fetch service_log
+    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=?'
+    cursor.execute(sql, [phone, round])
+    db_log = cursor.fetchone()
+    sql = '''
+            UPDATE service_log
+            SET payment_status=?
+            WHERE phonenumber=?
+    '''
+    cursor.execute(sql, [status_paymentstatus.get(), db_log[0]])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "อัพเดทสถานะการชำระเงิน")
+    entry_phone_payment.delete(0, END)
+    name_payment.set("")
+    roomtype_payment.set("")
+    rent_payment.set("")
+    electric_payment.set("")
+    water_payment.set("")
+    total_payment.set("")
+    payment_fn()
+
+def help_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
+    global entry_date_help, entry_inform_help, entry_adminname_help
+    name_user = db_user[3] + " " + db_user[4]
+    now = datetime.now()
+    current_date = now.strftime("%d/%m/%Y")
     #MAIN
     root.title("Riski Apartment : บริการช่วยเหลือ")
     frm_main_help = Frame(root, bg='black')
@@ -1458,17 +1879,32 @@ def help_fn() : #หน้า Rate manage #โค้ดนี้กำลัง�
         Button(frm_left_help, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
     #RIGHT
-    Label(frm_right_help, text='บริการช่วยเหลือ', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=475, y=160)
+    Label(frm_right_help, text='บริการช่วยเหลือ', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=475, y=80)
     frm_right_help_bg = Frame(frm_right_help, bg='#DDDDDD')
-    frm_right_help_bg.place(x=276, y=270, width=750, height=320)
+    frm_right_help_bg.place(x=276, y=200, width=750, height=320)
     Label(frm_right_help_bg, text='วันที่ : ', bg='#DDDDDD').place(x=160, y=50)
-    entry_date_help = Entry(frm_right_help_bg).place(x=230, y=50)
-    Label(frm_right_help_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=550, y=50)
+    entry_date_help = Entry(frm_right_help_bg, textvariable=date_help, state='readonly') #Spy
+    entry_date_help.place(x=230, y=50)
+    date_help.set(current_date)
     Label(frm_right_help_bg, text='เรื่องที่แจ้ง : ', bg='#DDDDDD').place(x=115, y=110)
-    entry_inform_help = Entry(frm_right_help_bg).place(x=230, y=110)
-    Label(frm_right_help_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=120, y=170)
-    entry_adminname_help = Entry(frm_right_help_bg).place(x=230, y=170)
-    Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0).place(x=360, y=240)
+    entry_inform_help = Entry(frm_right_help_bg, textvariable=request_help) #Spy
+    entry_inform_help.place(x=230, y=110)
+    Label(frm_right_help_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD', ).place(x=120, y=170)
+    entry_adminname_help = Entry(frm_right_help_bg, textvariable=admin_help, state='readonly') #Spy
+    entry_adminname_help.place(x=230, y=170)
+    admin_help.set(name_user)
+    Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0, command=help_backend).place(x=360, y=240)
+
+def help_backend() : #เสร็จแล้ว โดย Haris
+    name_user = db_user[3] + " " + db_user[4]
+    now = datetime.now()
+    current_date = now.strftime("%d/%m/%Y")
+    sql = '''INSERT INTO report_problem (date, employee_name, report_details) VALUES (?,?,?)'''
+    cursor.execute(sql, [current_date, name_user, request_help.get()])
+    conn.commit()
+    messagebox.showinfo("Riski Apartment : Success", "รับเรื่องเรียบร้อย")
+    date_help.set("")
+    help_fn()
 
 def datareporttable_fn() :  # หน้าข้อมูล / รายงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
 
@@ -1553,47 +1989,12 @@ def datareport_fn() : # หน้าข้อมูล / รายงาน #โ
         Button(frm_right_datareport, image=btn_pay, width=250, height=350, bg='#DDDDDD', bd=0, command=pay_fn).place(x=535, y=100)
         Label(frm_right_datareport, text='รายจ่าย', fg='#376957', bg='white').place(x=630, y=470)
         Button(frm_right_datareport, image=btn_information, width=250, height=350, bg='#DDDDDD', bd=0, command=receivenoti_fn).place(x=900, y=100)
-        Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=970, y=470)
+        Label(frm_right_datareport, text='เรื่องที่รับแจ้ง', fg='#376957', bg='white').place(x=994, y=470)
         Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0, command=savepayment_fn).place(x=170, y=530)
         Label(frm_right_datareport, text='บันทึกรายจ่าย', fg='#376957', bg='white').place(x=235, y=900)
 
-def savepayment_fn() :
-    #MAIN
-    root.title("Riski Apartment : บันทึกรายจ่าย")
-    frm_main_savepayment = Frame(root, bg='black')
-    frm_main_savepayment.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_savepayment = Frame(frm_main_savepayment, bg='#084235')
-    frm_left_savepayment.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_savepayment = Frame(frm_main_savepayment, bg='white')
-    frm_right_savepayment.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_savepayment, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-    
-    #LEFT
-    Button(frm_left_savepayment, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
-    Button(frm_left_savepayment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_savepayment, text='บันทึกค่าใช้จ่าย', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=465, y=110)
-    frm_right_savepayment_bg = Frame(frm_right_savepayment, bg='#DDDDDD')
-    frm_right_savepayment_bg.place(x=220, y=270, width=800, height=500)
-    Label(frm_right_savepayment_bg, text='ค่าน้ำ / ค่าไฟ : ', bg='#DDDDDD').place(x=90, y=65)
-    entry_waterelectric_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=65)
-    Label(frm_right_savepayment_bg, text='อื่น ๆ : ', bg='#DDDDDD').place(x=173, y=165)
-    entry_others_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=165)
-    Label(frm_right_savepayment_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=121, y=265)
-    entry_savedate_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=265)
-    Label(frm_right_savepayment_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=600, y=265)
-    Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=385, y=350)
-    
-
-
 def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    global entry_phonenum_servicelog, entry_name_servicelog, entry_roomnum_servicelog, entry_roomtype_servicelog, entry_floor_servicelog
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelog = Frame(root, bg='black')
@@ -1619,20 +2020,50 @@ def servicelog_fn() : # หน้าบันทึกการใช้บร�
     frm_right_servicelog_bg = Frame(frm_right_servicelog, bg='#DDDDDD')
     frm_right_servicelog_bg.place(x=276, y=228, width=750, height=600)
     Label(frm_right_servicelog_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
-    entry_phonenum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=60)          #from database
-    Button(frm_right_servicelog_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=670, y=58)
+    entry_phonenum_servicelog = Entry(frm_right_servicelog_bg, textvariable=phone_servicelog) #Spy
+    entry_phonenum_servicelog.place(x=350, y=60)
+    Button(frm_right_servicelog_bg, image=btn_search, bd=0, bg='#DDDDDD', command=servicelog_search_fn).place(x=670, y=58)
     Label(frm_right_servicelog_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=183, y=120)
-    entry_name_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=120)             #from database
+    entry_name_servicelog = Entry(frm_right_servicelog_bg, textvariable=name_servicelog, state='readonly') #Spy
+    entry_name_servicelog.place(x=350, y=120)
     Label(frm_right_servicelog_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=232, y=180)
-    entry_roomnum_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=180)
+    entry_roomnum_servicelog = Entry(frm_right_servicelog_bg, textvariable=number_servicelog, state='readonly') #Spy
+    entry_roomnum_servicelog.place(x=350, y=180)
     #room type
     Label(frm_right_servicelog_bg, text='ประเภทห้อง : ', bg='#DDDDDD').place(x=200, y= 240)
-    entry_roomtype_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=240)
+    entry_roomtype_servicelog = Entry(frm_right_servicelog_bg, textvariable=roomtype_servicelog, state='readonly') #Spy
+    entry_roomtype_servicelog.place(x=350, y=240)
     Label(frm_right_servicelog_bg, text='ชั้น : ', bg='#DDDDDD').place(x=275, y= 300)
-    entry_floor_servicelog = Entry(frm_right_servicelog_bg).place(x=350, y=300)
+    entry_floor_servicelog = Entry(frm_right_servicelog_bg, textvariable=floor_servicelog, state='readonly') #Spy
+    entry_floor_servicelog.place(x=350, y=300)
     Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
 
+def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_servicelog.get()])
+    db_customer = cursor.fetchone()
+
+    if db_customer is None or phone_servicelog.get() != db_customer[0] :
+        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า หรือเบอร์โทรศัพท์ไม่ถูกต้อง')
+    else : 
+        name_servicelog.set(db_customer[2] + ' ' + db_customer[3])
+    if db_customer[1] == '-' :
+        messagebox.showwarning('Riski Apartment : Warning', 'ลูกค้ายังไม่ได้ Check In หรือว่า ลูกค้าทำการ Check Out ไปแล้ว')
+        entry_phonenum_servicelog.delete(0, END)
+        entry_name_servicelog.delete(0, END)
+    else :
+        number_servicelog.set(db_customer[1])
+        sql = 'SELECT * FROM room WHERE room_number=?'
+        cursor.execute(sql, [db_customer[1]])
+        db_room = cursor.fetchone()
+        roomtype_servicelog.set(db_room[2])
+        floor_servicelog.set(db_room[1])
+
 def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    global entry_roomnum_servicelogsave, entry_electric_servicelogsave, entry_water_servicelogsave, entry_watermeter_servicelogsave, entry_electricmeter_servicelogsave, servicelog_logic
+    servicelog_logic = "F"
+    now = datetime.now()
+    current_date = now.strftime("%d/%m/%Y")
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelogsave = Frame(root, bg='black')
@@ -1658,19 +2089,111 @@ def servicelogsave_fn() : # บันทึกการใช้บริกา�
     frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
     frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
     Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
-    entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=60)
+    entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
+    entry_roomnum_servicelogsave.place(x=270, y=60)
     Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
-    entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=120)
+    entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electric_servicelogsave, state='readonly') #Spy
+    entry_electric_servicelogsave.place(x=270, y=120)
     Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
-    entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=180)
+    entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=water_servicelogsave, state='readonly') #Spy
+    entry_water_servicelogsave.place(x=270, y=180)
     Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
-    entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=240)
+    entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=watermeter_servicelogsave) #Spy
+    entry_watermeter_servicelogsave.place(x=270, y=240)
     Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
-    entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=300)
+    entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
+    entry_electricmeter_servicelogsave.place(x=270, y=300)
     Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-    entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg).place(x=270, y=360)
-    Label(frm_right_servicelogsave_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=600, y=360)
-    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=400, y=500)
+    entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+    entry_date_servicelogsave.place(x=270, y=360)
+    date_servicelogsave.set(current_date)
+    Button(frm_right_servicelogsave_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=400, y=500)
+    Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD').place(x=200, y=500)
+    #Insert data
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_servicelog.get()])
+    db_customer = cursor.fetchone()
+    number_servicelogsave.set(db_customer[1])
+    sql = 'SELECT * FROM room WHERE room_number=?'
+    cursor.execute(sql, [db_customer[1]])
+    db_room = cursor.fetchone()
+    electric_servicelogsave.set(db_room[7])
+    water_servicelogsave.set(db_room[6])
+
+def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
+    now = datetime.now()
+    #Fetch customer
+    sql = 'SELECT * FROM customer WHERE phonenumber=?'
+    cursor.execute(sql, [phone_servicelog.get()])
+    db_customer = cursor.fetchone()
+    #Fetch room
+    sql = 'SELECT * FROM room WHERE room_number=?'
+    cursor.execute(sql, [db_customer[1]])
+    db_room = cursor.fetchone()
+    #Fetch service_log
+    sql = 'SELECT * FROM service_log WHERE phonenumber=?'
+    cursor.execute(sql, [db_customer[0]])
+    db_log = cursor.fetchone()
+    #Fetch First reccord from customer
+    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=0'
+    cursor.execute(sql, [db_customer[0]])
+    result = cursor.fetchone()
+    #Condition 
+    if result :
+        round = db_log[2] + 1
+        electric_meter = electricmeter_servicelogsave.get()
+        water_meter = watermeter_servicelogsave.get()
+        electric_call = int(electricmeter_servicelogsave.get()) - result[8]
+        water_call = int(watermeter_servicelogsave.get()) - result[9]
+        electric_bill = int(electric_call) * db_room[7]
+        water_bill = int(water_call) * db_room[6]
+        room_bill = db_room[3]
+        total = electric_bill + water_bill + room_bill
+        payment_status = 'ยังไม่ได้ชำระเงิน'
+        sql = '''
+                UPDATE service_log
+                SET round=?, electric_meter=?, water_meter=?, electric_bill=?, water_bill=?
+                , room_bill=?, total=?, payment_status=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
+        conn.commit()
+    else : #Newest reccord
+        oldcal = 'Yes'
+        sql = '''
+                UPDATE service_log
+                SET calculate=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [oldcal, db_customer[0]])
+        #Insert data to service_log
+        phonenumber = db_customer[0]
+        date = now.strftime("%d/%m/%Y")
+        round = db_log[2] + 1
+        calculate = 'None'
+        floor = db_room[1]
+        roomnumber = db_room[0]
+        roomtype = db_room[2]
+        name = db_customer[2]
+        #Meter old
+        electric_meter_old = db_log[8]
+        water_meter_old = db_log[9]
+        #Meter now
+        electric_meter = electricmeter_servicelogsave.get()
+        water_meter = watermeter_servicelogsave.get()
+        #Meter new for calculate bill
+        electric_meter_new = int(electric_meter) - int(electric_meter_old)
+        water_meter_new = int(water_meter) - int(water_meter_old)
+        #Calculate usage bill
+        electric_bill = int(electric_meter_new) * db_room[7]
+        water_bill = int(water_meter_new) * db_room[6]
+        room_bill = db_log[12]
+        total = electric_bill + water_bill + room_bill
+        payment_status = 'ยังไม่ได้ชำระเงิน'
+        sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+        conn.commit()
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     #MAIN
@@ -1754,7 +2277,6 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     my_tree.column("water&electric_",anchor=CENTER,width=170)
     my_tree.column("total_",anchor=CENTER,width=250)
 
-#PAY FRAME [ ปุ่มข้อมูล/รายงาน หน้าหลัก หา , ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ] #หน้ารายจ่าย
 def pay_fn() :
     #MAIN
     root.title("Riski Apartment : รายจ่าย")
@@ -1806,49 +2328,6 @@ def pay_fn() :
     my_tree.column("date_",anchor=CENTER,width=216)
     my_tree.column("waterelectric_",anchor=CENTER,width=216)
     my_tree.column("amount_",anchor=CENTER,width=216)
-    
-def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
-    #MAIN
-    root.title("Riski Apartment : สถานะการชำระเงิน")
-    frm_main_paymentstatus = Frame(root, bg='black')
-    frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
-
-    #FRAME LEFT 
-    frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
-    frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
-
-    #LOGO
-    Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #FRAME RIGHT
-    frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
-    frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
-
-    #LEFT
-    if db_user[5] == "A" :
-        Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-    if db_user[5] == "U" :
-        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
-        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
-        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
-    frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
-    frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
-    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
-    entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg).place(x=270, y=60)
-    Button(frm_right_paymentstatus_bg, image=btn_search, bd=0, bg='#DDDDDD').place(x=600, y=60)
-    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
-    entry_name_paymentstatus= Entry(frm_right_paymentstatus_bg).place(x=270, y=120)
-    Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180) #ริสใส่listให้หน่อย
-    payment_status = [" ", "ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
-    paymentstatus = OptionMenu(frm_right_paymentstatus_bg, *payment_status).place(x=270, y=180, width=310)
-    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
-    Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' ).place(x=450, y=280)
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     #MAIN
@@ -1947,6 +2426,40 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
     my_tree.column("admin_",anchor=CENTER,width=150)
     my_tree.column("topic_",anchor=CENTER,width=400)
 
+def savepayment_fn() :
+    #MAIN
+    root.title("Riski Apartment : บันทึกรายจ่าย")
+    frm_main_savepayment = Frame(root, bg='black')
+    frm_main_savepayment.place(x=0, y=0, width = w, height = h)
+
+    #FRAME LEFT
+    frm_left_savepayment = Frame(frm_main_savepayment, bg='#084235')
+    frm_left_savepayment.place(x=0, y=0, width=650, height=1080)
+
+    #FRAME RIGHT
+    frm_right_savepayment = Frame(frm_main_savepayment, bg='white')
+    frm_right_savepayment.place(x=651,y=0, width= 1269, height=1080)
+
+    #LOGO
+    Button(frm_left_savepayment, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+    #LEFT
+    Button(frm_left_savepayment, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+    Button(frm_left_savepayment, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+
+    #RIGHT
+    Label(frm_right_savepayment, text='บันทึกค่าใช้จ่าย', bg='white', font = 'Calibri 40 bold', fg='#376957').place(x=465, y=110)
+    frm_right_savepayment_bg = Frame(frm_right_savepayment, bg='#DDDDDD')
+    frm_right_savepayment_bg.place(x=220, y=270, width=800, height=500)
+    Label(frm_right_savepayment_bg, text='ค่าน้ำ / ค่าไฟ : ', bg='#DDDDDD').place(x=90, y=65)
+    entry_waterelectric_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=65)
+    Label(frm_right_savepayment_bg, text='อื่น ๆ : ', bg='#DDDDDD').place(x=173, y=165)
+    entry_others_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=165)
+    Label(frm_right_savepayment_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=121, y=265)
+    entry_savedate_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=265)
+    Label(frm_right_savepayment_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=600, y=265)
+    Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=385, y=350)
+
 def retrivedata() :
     sql = "select * from user"
     cursor.execute(sql)
@@ -1972,6 +2485,7 @@ lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+roleSelect = StringVar()
 #addcustomer
 name_addcus = StringVar()
 lastname_addcus = StringVar()
@@ -2019,14 +2533,65 @@ province_editcusinfo = StringVar()
 roomtype_roomrate = StringVar()
 oldrate_roomrate = StringVar()
 newrate_roomrate = StringVar()
-
+#waterelectricrate
+waterrate_waterelec = StringVar()
+electricrate_waterelec = StringVar()
+newwaterrate_waterelec = StringVar()
+newelectricrate_waterelec = StringVar()
+#payment
+phone_payment = StringVar()
+name_payment = StringVar()
+roomtype_payment = StringVar()
+rent_payment = StringVar()
+electric_payment = StringVar()
+water_payment = StringVar()
+total_payment = StringVar()
+#checkin
+phone_checkin = StringVar()
+name_checkin = StringVar()
+floor_checkin = StringVar() 
+price_checkin = StringVar()
+roomtype_checkin = StringVar()
+number_checkin = StringVar()
+#checkin date
+employee_checkindate = StringVar()
+watermeter_checkindate = StringVar()
+electricmeter_checkindate = StringVar()
+#servicelog
+phone_servicelog = StringVar()
+name_servicelog = StringVar()
+number_servicelog = StringVar()
+roomtype_servicelog = StringVar()
+floor_servicelog = StringVar()
+#checkout
+phone_checkout = StringVar()
+name_checkout = StringVar()
+number_checkout = StringVar()
+roomtype_checkout = StringVar()
+floor_checkout = StringVar()
+#checkout date
+startdate_checkoutdate = StringVar()
+enddate_checkoutdate = StringVar()
+user_checkoutdate = StringVar()
+#servicelog save
+number_servicelogsave = StringVar()
+electric_servicelogsave = StringVar()
+water_servicelogsave = StringVar()
+watermeter_servicelogsave = StringVar()
+electricmeter_servicelogsave = StringVar()
+date_servicelogsave = StringVar()
+#payment status
+phone_paymentstatus = StringVar()
+name_paymentstatus = StringVar()
+status_paymentstatus = StringVar()
+#help
+date_help = StringVar()
+request_help = StringVar()
+admin_help = StringVar()
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
 img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
-
-
-
 #Button import
 btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
 btn_login = PhotoImage(file='button/btn_login.png')
@@ -2080,8 +2645,5 @@ btn_paystat = PhotoImage(file='button/btn_paystat.png')
 btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 btn_savepayment = PhotoImage(file='button/btn_savepayment.png')
 
-
-#Background
-bg_login = PhotoImage(file = 'img/img_bglogin.png')
 login_fn()
 root.mainloop()
