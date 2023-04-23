@@ -2027,7 +2027,7 @@ def datareport_fn() : #เสร็จแล้ว โดย น้องนั�
         Button(frm_right_datareport, image=btn_savepayment, width=250, height=350, bg='#DDDDDD', bd=0, command=savepayment_fn).place(x=170, y=530)
         Label(frm_right_datareport, text='บันทึกรายจ่าย', fg='#376957', bg='white').place(x=235, y=900)
 
-def servicelog_fn() : # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def servicelog_fn() : #เสร็จแล้ว โดย Haris # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_phonenum_servicelog, entry_name_servicelog, entry_roomnum_servicelog, entry_roomtype_servicelog, entry_floor_servicelog
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
@@ -2072,17 +2072,13 @@ def servicelog_fn() : # หน้าบันทึกการใช้บร�
     entry_floor_servicelog.place(x=350, y=300)
     Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
 
-def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
+def servicelog_search_fn() : #เสร็จแล้ว โดย Haris 
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
     cursor.execute(sql, [phone_servicelog.get()])
     db_customer = cursor.fetchone()
     sql = 'SELECT * FROM room WHERE room_number=?'
     cursor.execute(sql, [db_customer[1]])
     db_room = cursor.fetchone()
-    # if db_room[2] == 'รายวันแอร์' :
-    #     messagebox.showwarning('Riski Apartment : Warning', 'ห้องพักรายวันไม่ต้องบันทึกการใช้บริการ')
-    #     servicelog_fn() 
-    #else :
     if db_customer is None or phone_servicelog.get() != db_customer[0] :
         messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า หรือเบอร์โทรศัพท์ไม่ถูกต้อง')
     else : 
@@ -2539,9 +2535,14 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
 
     #FORMAT COLUMNS
     my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("date",anchor=CENTER,width=150)
+    my_tree.column("date_",anchor=CENTER,width=150)
     my_tree.column("admin_",anchor=CENTER,width=150)
     my_tree.column("topic_",anchor=CENTER,width=400)
+
+    db_help = conn.execute('SELECT * FROM report_problem')
+    #Insert Data to tree
+    for i in db_help :
+        my_tree.insert("", 'end', values=(i[0], i[1], i[2]))
 
 def savepayment_fn() :
     #MAIN
