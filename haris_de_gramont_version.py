@@ -2148,6 +2148,7 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
         '''
         cursor.execute(sql, [round, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status, db_customer[0]])
         conn.commit()
+        messagebox.showinfo("Riski Apartment : Successfull", "บันทึกข้อมูลเรียบร้อย")
     else : #Newest reccord
         oldcal = 'Yes'
         sql = '''
@@ -2164,7 +2165,7 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
         floor = db_room[1]
         roomnumber = db_room[0]
         roomtype = db_room[2]
-        name = db_customer[2]
+        name = db_customer[2] + " " + db_customer[3]
         #Meter old
         electric_meter_old = db_log[8]
         water_meter_old = db_log[9]
