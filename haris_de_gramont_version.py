@@ -919,12 +919,15 @@ def addcustomerinfo_fn() : #เสร็จแล้ว #หน้าเพิ�
     Label(frm_right_addcusinfo_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=110, y=50) #ตัวแปรเปลี่ยนชื่อได้ตามdatabaseที่ออกแบบไว้ได้เลยนะอันนี้เขียนไว้ก่อนเฉยๆ
     entry_name_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=name_addcus)
     entry_name_addcusinfo.place(x=170, y=50)
+    Label(frm_right_addcusinfo_bg, text='*', bg='#DDDDDD', fg='red', font='Verdana 13').place(x=485, y=49)
     Label(frm_right_addcusinfo_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=59, y=150)
     entry_surname_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=lastname_addcus)
     entry_surname_addcusinfo.place(x=170, y=150)
+    Label(frm_right_addcusinfo_bg, text='*', bg='#DDDDDD', fg='red', font='Verdana 13').place(x=485, y=149)
     Label(frm_right_addcusinfo_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=61, y=250)
     entry_phone_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=phone_addcus)
     entry_phone_addcusinfo.place(x=170, y=250)
+    Label(frm_right_addcusinfo_bg, text='*', bg='#DDDDDD', fg='red', font='Verdana 13').place(x=485, y=249)
     Label(frm_right_addcusinfo_bg, text='เชื้อชาติ : ', bg='#DDDDDD').place(x=65, y=350)
     entry_ethnicity_addcusinfo = Entry(frm_right_addcusinfo_bg, textvariable=ethinicity_addcus) #ศัพท์จาก apple translate
     entry_ethnicity_addcusinfo.place(x=170, y=350)
