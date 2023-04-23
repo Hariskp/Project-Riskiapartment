@@ -656,7 +656,7 @@ def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่�
     Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=185)
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
     entry_phone_addempaccount.place(x=270, y=190, width=230)
-    #Select ro;e for employee
+    #Select role for employee
     drop_down_role = ["Admin", "Employee"]
     Label(frm_right_addempaccount_bg, text="Role", bg='#DDDDDD').place(x=152, y=250)
     Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=472, y=245)
@@ -1370,7 +1370,7 @@ def editRoom_search_backend() : #เสร็จแล้ว โดย Haris
         roomtype_editroom.set(db_roomnumbercheck[2])
         roomstatus_editroom.set(db_roomnumbercheck[5])
 
-def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris
+def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris 
     roomtype_price = 0
     unit = 0
     room_execute = conn.execute('SELECT * FROM room')
