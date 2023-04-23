@@ -110,8 +110,8 @@ def home_fn() : #เสร็จแล้ว #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
     #Welcome
-    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
-    name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
+    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 20 bold').place(x=300, y=30)
+    Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 18 bold').place(x=300, y=80)
     #Add some style
     style = ttk.Style()
     #Configure our treeview color
