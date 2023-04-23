@@ -1287,8 +1287,8 @@ def addRoom_backend() : #เสร็จแล้ว เนื่องจาก
         
     addRoom_fn()
 
-def editRoom_fn(): #เสร็จแล้ว โดย Haris #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
-    global entry_roomnumber_editRoom, entry_floor_editRoom
+def editRoom_fn(): #เสร็จแล้ว โดย Haris #แก้ไขห้องพัก #โค้ดนี้แก้ไขโดย Ford 23/04/2023 เวลา 02:04 PM
+    global entry_roomnumber_editRoom, entry_floor_editRoom, room_status
     root.title("Riski Apartment : แก้ไขห้องพัก")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
@@ -1353,7 +1353,7 @@ def editRoom_search_backend() : #เสร็จแล้ว โดย Haris
         roomtype_editroom.set(db_roomnumbercheck[2])
         roomstatus_editroom.set(db_roomnumbercheck[5])
 
-def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris
+def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris #แก้ไขห้องพัก #โค้ดนี้แก้ไขโดย Ford 23/04/2023 เวลา 02:04 PM
     roomtype_price = 0
     unit = 0
     room_execute = conn.execute('SELECT * FROM room')
@@ -1362,14 +1362,19 @@ def editRoom_edit_backend() : #เสร็จแล้ว โดย Haris
             roomtype_price = db_room[3]
             unit = db_room[4]
             break  # exit the loop once a matching room type is found
-    sql = '''
+    if roomnumber_editroom.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาใส่ข้อมูลก่อนการแก้ไข")
+    elif roomstatus_editroom.get() == room_status[2]:
+        messagebox.showwarning("Riski Apartment : Warning", "ห้องนี้มีผู้พักอยู่")
+    else:
+        sql = '''
             UPDATE room
             SET room_number=?, floor=?, room_type=?, price=?, unit=?, status=?
             WHERE room_number=?    
         '''
-    cursor.execute(sql, [roomnumber_editroom.get(), floor_editroom.get(), roomtype_editroom.get(), roomtype_price, unit, roomstatus_editroom.get(), roomnumber_editroom.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "แก้ไขห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
+        cursor.execute(sql, [roomnumber_editroom.get(), floor_editroom.get(), roomtype_editroom.get(), roomtype_price, unit, roomstatus_editroom.get(), roomnumber_editroom.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "แก้ไขห้อง %s เรียบร้อยแล้ว" % (roomnumber_editroom.get()))
     entry_roomnumber_editRoom.delete(0, END)
     entry_floor_editRoom.delete(0, END)
     roomtype_editroom.set('ประเภทห้อง')
