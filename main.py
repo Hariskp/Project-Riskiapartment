@@ -2508,7 +2508,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("expenses_",anchor=CENTER,width=150)
     my_tree.column("totalamt_",anchor=CENTER,width=150)
 
-def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
+def receivenoti_fn() : #เสร็จแล้ว โดย Haris #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
     root.title("Riski Apartment : เรื่องที่รับแจ้ง")
     frm_main_receivenoti = Frame(root, bg='black')
@@ -2547,11 +2547,18 @@ def receivenoti_fn() : #โค้ดนี้กำลงแก้ไขโด�
 
     #FORMAT COLUMNS
     my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("date",anchor=CENTER,width=150)
+    my_tree.column("date_",anchor=CENTER,width=150)
     my_tree.column("admin_",anchor=CENTER,width=150)
     my_tree.column("topic_",anchor=CENTER,width=400)
 
+    db_help = conn.execute('SELECT * FROM report_problem')
+    #Insert Data to tree
+    for i in db_help :
+        my_tree.insert("", 'end', values=(i[0], i[1], i[2]))
+
 def savepayment_fn() :
+    now = datetime.now()
+    current_date = now.strftime("%d/%m/%Y")
     #MAIN
     root.title("Riski Apartment : บันทึกรายจ่าย")
     frm_main_savepayment = Frame(root, bg='black')
@@ -2577,13 +2584,26 @@ def savepayment_fn() :
     frm_right_savepayment_bg = Frame(frm_right_savepayment, bg='#DDDDDD')
     frm_right_savepayment_bg.place(x=220, y=270, width=800, height=500)
     Label(frm_right_savepayment_bg, text='ค่าน้ำ / ค่าไฟ : ', bg='#DDDDDD').place(x=90, y=65)
-    entry_waterelectric_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=65)
+    entry_waterelectric_savepayment = Entry(frm_right_savepayment_bg, textvariable=waterelectric_savepayment) #Spy
+    entry_waterelectric_savepayment.place(x=250, y=65)
     Label(frm_right_savepayment_bg, text='อื่น ๆ : ', bg='#DDDDDD').place(x=173, y=165)
-    entry_others_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=165)
+    entry_others_savepayment = Entry(frm_right_savepayment_bg, textvariable=other_savepayment) #Spy
+    entry_others_savepayment.place(x=250, y=165)
     Label(frm_right_savepayment_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=121, y=265)
-    entry_savedate_savepayment = Entry(frm_right_savepayment_bg).place(x=250, y=265)
-    Label(frm_right_savepayment_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD', fg='#969696').place(x=600, y=265)
-    Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0).place(x=385, y=350)
+    entry_savedate_savepayment = Entry(frm_right_savepayment_bg, textvariable=date_savepayment) #Spy
+    entry_savedate_savepayment.place(x=250, y=265)
+    date_savepayment.set(current_date)
+    Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0, command=savepayment_backend).place(x=385, y=350)
+
+def savepayment_backend() :
+    date = date_savepayment.get()
+    bill = waterelectric_savepayment.get()
+    other = other_savepayment.get()
+    total = float(bill) + float(other)
+    sql = '''INSERT INTO financial (date, bill, other, total) VALUES(?,?,?,?)'''
+    cursor.execute(sql, [date, bill, other, total])
+    conn.commit()
+    messagebox.showinfo('Riski Apartment : Successfully', 'บันทึกรายจ่ายเรียบร้อย')
 
 def retrivedata() :
     sql = "select * from user"
@@ -2720,6 +2740,10 @@ status_paymentstatus = StringVar()
 date_help = StringVar()
 request_help = StringVar()
 admin_help = StringVar()
+#savepayment
+waterelectric_savepayment = StringVar()
+other_savepayment = StringVar()
+date_savepayment = StringVar()
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
