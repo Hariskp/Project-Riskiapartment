@@ -1543,7 +1543,15 @@ def roomrate_backend() : #เสร็จแล้ว โดย Haris
     roomrate_fn()
 
 def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
-    global entry_waterrate_waterelec, entry_electricrate_waterelec
+    global entry_waterrate_waterelec, entry_electricrate_waterelec, entry_newwaterrate_waterelec, entry_newelectricrate_waterelec
+    sql = 'SELECT * FROM room'
+    cursor.execute(sql)
+    db_rate = cursor.fetchone()
+    oldwaterrate = db_rate[6]
+    oldelectricrate = db_rate[7]
+    newwaterrate_waterelec.set("")
+    newelectricrate_waterelec.set("")
+
     #MAIN
     root.title("Riski Apartment : กำหนดค่าน้ำ ค่าไฟ")
     frm_main_waterelec = Frame(root, bg='black')
@@ -1571,21 +1579,29 @@ def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำ�
     #WATER RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=100, y=300)
     Label(frm_right_waterelec, text='ค่าน้ำ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=280, y=340)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
-    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=waterrate_waterelec) #Spy
+    Label(frm_right_waterelec, text='ราคาเดิม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=450) 
+    entry_waterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=waterrate_waterelec, state = 'readonly') #Spy
     entry_waterrate_waterelec.place(x=260, y=450)
+    waterrate_waterelec.set(oldwaterrate)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=140, y=500) 
+    entry_newwaterrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=newwaterrate_waterelec) #Spy
+    entry_newwaterrate_waterelec.place(x=260, y=500)
     Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=waterrate_save_backend).place(x=310, y=570)
     #ELECTRICITY RATE
     Label(frm_right_waterelec, width=30, height=15, bd=0, bg='#DDDDDD').place(x=700, y=300)
     Label(frm_right_waterelec, text='ค่าไฟ', bg='#DDDDDD', fg='#084235', font = 'Calibri 30 bold').place(x=875, y=340)
-    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
-    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=electricrate_waterelec) #Spy
+    Label(frm_right_waterelec, text='ราคาเดิม :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=450) 
+    entry_electricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=electricrate_waterelec, state = 'readonly') #Spy
     entry_electricrate_waterelec.place(x=865, y=450)
+    electricrate_waterelec.set(oldelectricrate)
+    Label(frm_right_waterelec, text='ราคาใหม่ :', bg='#DDDDDD', fg='#084235', font = 'Calibri 19').place(x=740, y=500)
+    entry_newelectricrate_waterelec = Entry(frm_right_waterelec, width=15, textvariable=newelectricrate_waterelec) #Spy
+    entry_newelectricrate_waterelec.place(x=865, y=500)
     Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=electricrate_save_backend).place(x=920, y=570)
 
 def waterrate_save_backend() : #เสร็จแล้ว โดย Haris
     sql = "UPDATE room SET water_rate = ?"
-    cursor.execute(sql, [waterrate_waterelec.get()])
+    cursor.execute(sql, [newwaterrate_waterelec.get()])
     conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าน้ำเรียบร้อยแล้ว")
     entry_waterrate_waterelec.delete(0, END)
@@ -1593,7 +1609,7 @@ def waterrate_save_backend() : #เสร็จแล้ว โดย Haris
 
 def electricrate_save_backend() : #เสร็จแล้ว โดย Haris
     sql = "UPDATE room SET electric_rate = ?"
-    cursor.execute(sql, [electricrate_waterelec.get()])
+    cursor.execute(sql, [newelectricrate_waterelec.get()])
     conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าไฟเรียบร้อยแล้ว")
     entry_electricrate_waterelec.delete(0, END)
@@ -2486,6 +2502,8 @@ newrate_roomrate = StringVar()
 #waterelectricrate
 waterrate_waterelec = StringVar()
 electricrate_waterelec = StringVar()
+newwaterrate_waterelec = StringVar()
+newelectricrate_waterelec = StringVar()
 #payment
 phone_payment = StringVar()
 name_payment = StringVar()
