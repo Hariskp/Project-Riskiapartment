@@ -1027,7 +1027,7 @@ def searchcusinfo_fn() :  #เสร็จแล้ว # search หน้าแ�
     entry_name_searchcusinfo = Entry(frm_right_searchcusinfo_bg, textvariable=name_searchcusinfo) #Spy
     entry_name_searchcusinfo.place(x=300, y=140)
     Button(frm_right_searchcusinfo_bg, image=btn_deleteinfo, bd=0, bg='#DDDDDD', command=editcusinfo_delete_backend).place(x=200, y=270)
-    Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=editcusinfo_fn).place(x=430, y=270)
+    Button(frm_right_searchcusinfo_bg, image=btn_edit, bd=0, bg='#DDDDDD', command=checking_emptyEtr_editcus).place(x=430, y=270)
 
 def searchcusinfo_search_backend() : #เสร็จแล้ว โดย Haris
     global searchphone, name_searchcusinfo
@@ -1042,6 +1042,12 @@ def searchcusinfo_search_backend() : #เสร็จแล้ว โดย Hari
         entry_name_searchcusinfo.delete(0, END)
     else :
         name_searchcusinfo.set(db_customer[2] + " " + db_customer[3])
+    
+def checking_emptyEtr_editcus():
+    if entry_phone_searchcusinfo.get() == "":
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณาใส่เบอร์โทร')
+    else:
+        editcusinfo_fn()
 
 def editcusinfo_fn() : #เสร็จแล้ว # หน้าแก้ไขข้อมูลลูกค้า #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_name_editcusinfo, entry_surname_editcusinfo, entry_phone_editcusinfo, entry_ethnicity_editcusinfo, entry_nation_editcusinfo, entry_number_editcusinfo, entry_village_editcusinfo,  entry_road_editcusinfo, entry_subdistrict_editcusinfo, entry_district_editcusinfo, entry_province_editcusinfo
