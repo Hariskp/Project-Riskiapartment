@@ -110,8 +110,8 @@ def home_fn() : #เสร็จแล้ว #หน้า Home #By Haris
     Button(frm_left_home, image=btn_service, bd=0, bg='#084235', command=service_fn).place(x=180, y=580)
     Button(frm_left_home, image=btn_signout, bd=0, bg='#084235', command=login_fn).place(x=30, y=900)
     #Welcome
-    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=110, y=700)
-    name_lastname = Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 25 bold').place(x=200, y=760)
+    Label(frm_left_home, text='ยินดีต้อนรับ', bg='#084235', fg='white', font = 'Calibri 20 bold').place(x=300, y=30)
+    Label(frm_left_home, text=name_user, bg='#084235', fg='white', font = 'Calibri 18 bold').place(x=300, y=80)
     #Add some style
     style = ttk.Style()
     #Configure our treeview color
@@ -637,20 +637,32 @@ def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่�
     frm_right_addempaccount_bg = Frame(frm_right_addempaccount, bg='#DDDDDD')
     frm_right_addempaccount_bg.place(x=96, y=158, width=1090, height=350)
     Label(frm_right_addempaccount_bg, text='ชื่อ : ', bg='#DDDDDD').place(x=200, y=50)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=45)
     entry_name_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=name_addemp) #Spy
     entry_name_addempaccount.place(x=270, y=50, width=230) 
     Label(frm_right_addempaccount_bg, text='นามสกุล : ', bg='#DDDDDD').place(x=603, y=50)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=962, y=45)
     entry_surname_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=lastname_addemp) #Spy
     entry_surname_addempaccount.place(x=730, y=50, width=230)
     Label(frm_right_addempaccount_bg, text='Username : ', bg='#DDDDDD').place(x=111, y=120)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=115)
     entry_username_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=username_addemp) #Spy
     entry_username_addempaccount.place(x=270, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120) 
+    Label(frm_right_addempaccount_bg, text='Password : ', bg='#DDDDDD').place(x=570, y=120)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=962, y=115) 
     entry_password_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=password_addemp) #Spy
     entry_password_addempaccount.place(x=730, y=120, width=230)
-    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190) 
+    Label(frm_right_addempaccount_bg, text='เบอร์โทร : ', bg='#DDDDDD').place(x=152, y=190)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=502, y=185)
     entry_phone_addempaccount = Entry(frm_right_addempaccount_bg, textvariable=phone_addemp) #Spy
     entry_phone_addempaccount.place(x=270, y=190, width=230)
+    #Select role for employee
+    drop_down_role = ["Admin", "Employee"]
+    Label(frm_right_addempaccount_bg, text="Role", bg='#DDDDDD').place(x=152, y=250)
+    Label(frm_right_addempaccount_bg, text="*", font='Verdana 15', fg='red', bg='#DDDDDD').place(x=472, y=245)
+    drop_down_list_role = OptionMenu(frm_right_addempaccount_bg, roleSelect, *drop_down_role).place(x=270, y=250, width=200)
+    roleSelect.set("-")
+
     Button(frm_right_addempaccount_bg, image=btn_save, bd=0, bg='#DDDDDD', command=addempaccount_backend).place(x=790, y=220)
 
     #CALL TREEVIEW
@@ -682,8 +694,11 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
     sql = "SELECT * FROM user WHERE phonenumber=?"
     cursor.execute(sql, [phone_addemp.get()])
     db_phonecheck = cursor.fetchone()
-
-    status = "U"
+    roleSelect.get()
+    if roleSelect.get() == "Admin" :
+        status = "A"
+    else :
+        status = "U"
     #Existence Check
     if name_addemp.get() == '' :
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกชื่อ")
@@ -2452,6 +2467,7 @@ lastname_addemp = StringVar()
 username_addemp = StringVar()
 password_addemp = StringVar()
 phone_addemp = StringVar()
+roleSelect = StringVar()
 #addcustomer
 name_addcus = StringVar()
 lastname_addcus = StringVar()
