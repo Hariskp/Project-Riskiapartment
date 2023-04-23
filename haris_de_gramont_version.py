@@ -276,6 +276,8 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
 def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     name_user = db_user[3] + " " + db_user[4]
     global calendar1, calendar2, entry_user_in, btn_logic
+    # watermeter_checkindate.set("")
+    # electricmeter_checkindate.set("")
     btn_logic = 'F'
     #MAIN
     root.title("Riski Apartment : เช็คอิน")
@@ -302,7 +304,7 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
     #RIGHT
     Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-    frm_right_checkindate_bg.place(x=276, y=258, width=750, height=500)
+    frm_right_checkindate_bg.place(x=276, y=258, width=750, height=650)
     Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
     calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
     calendar1.place(x=250, y=60)
@@ -313,9 +315,15 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
     entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
     entry_user_in.place(x=250, y=180)
     employee_checkindate.set(name_user)
-    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=250)
-    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=250)
-    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=360)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=240)
+    water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
+    water_meter_checkindate.place(x=330, y=240)
+    Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=300)
+    electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
+    electric_meter_checkindate.place(x=330, y=300)
+    Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=440)
+    Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=440)
+    Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=550)
 
 def get_date() : #เสร็จแล้ว โดย Haris
     global btn_logic
@@ -367,8 +375,6 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         roomnumber = db_room[0]
         roomtype = db_room[2]
         name = db_customer[2] + " " + db_customer[3]
-        electric_meter = 0
-        water_meter = 0
         electric_bill = 0
         water_bill = 0
         room_bill = 0
@@ -376,7 +382,7 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
         payment_status = 'check in'
         sql = '''INSERT INTO service_log (phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
-        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
+        cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electricmeter_checkindate.get(), watermeter_checkindate.get(), electric_bill, water_bill, room_bill, total, payment_status])
         conn.commit()
 
         name_checkin.set("")
@@ -2127,8 +2133,10 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
         round = db_log[2] + 1
         electric_meter = electricmeter_servicelogsave.get()
         water_meter = watermeter_servicelogsave.get()
-        electric_bill = int(electric_meter) * db_room[7]
-        water_bill = int(water_meter) * db_room[6]
+        electric_call = int(electricmeter_servicelogsave.get()) - result[8]
+        water_call = int(watermeter_servicelogsave.get()) - result[9]
+        electric_bill = int(electric_call) * db_room[7]
+        water_bill = int(water_call) * db_room[6]
         room_bill = db_room[3]
         total = electric_bill + water_bill + room_bill
         payment_status = 'ยังไม่ได้ชำระเงิน'
@@ -2537,6 +2545,8 @@ roomtype_checkin = StringVar()
 number_checkin = StringVar()
 #checkin date
 employee_checkindate = StringVar()
+watermeter_checkindate = StringVar()
+electricmeter_checkindate = StringVar()
 #servicelog
 phone_servicelog = StringVar()
 name_servicelog = StringVar()
