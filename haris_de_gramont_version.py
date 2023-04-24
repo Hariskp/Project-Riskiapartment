@@ -1333,6 +1333,8 @@ def addRoom_fn(): #เสร็จแล้ว #เพิ่มห้องพ�
     root.title("Riski Apartment : เพิ่มห้องพัก")
     frm_main_addRoom = Frame(root, bg='black')
     frm_main_addRoom.place(x=0, y=0, width = w, height = h)
+    roomnumber_addroom.set("")
+    floor_addroom.set("")
 
     #FRAME LEFT
     frm_left_addRoom = Frame(frm_main_addRoom, bg='#084235')
@@ -1391,6 +1393,12 @@ def addRoom_backend() : #เสร็จแล้ว เนื่องจาก
     elif not roomnumber_addroom.get().isnumeric():
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้องเป็นตัวเลข")
         entry_roomnumber_addRoom.focus_force()
+    elif not floor_addroom.get().isnumeric():
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเลขห้องเป็นตัวเลข")
+        entry_floor_addRoom.focus_force()
+    elif roomtype_addroom.get() == 'ประเภทห้อง' :
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาเลือกประเภทห้อง")
+        addRoom_fn()
     else:
         sql = "SELECT * FROM room WHERE room_number=?"
         cursor.execute(sql, [roomnumber_addroom.get()])
