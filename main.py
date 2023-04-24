@@ -874,15 +874,20 @@ def editempaccount_search_backend() : #เสร็จแล้ว โดย Har
         name_editempaccount.set(db_emp[3])
         lastname_editempaccount.set(db_emp[4])
 
-def editempaccount_edit_backend() : #เสร็จแล้ว โดย Haris
-    sql = '''
-            UPDATE user
-            SET phonenumber=?, username=?, password=?, name=?, lastname=?, status=?
-            WHERE phonenumber=?   
-    '''
-    cursor.execute(sql, [phone_editempaccount.get(), username_editempaccount.get(), password_editempaccount.get(), name_editempaccount.get(), lastname_editempaccount.get(), db_user[5], findphone_editempaccount.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "แก้ไขข้อมูลของเรียบร้อย")
+def editempaccount_edit_backend() : #เสร็จแล้ว โดย Haris #Modify by Ford at 24/04/2566 9:59 AM
+    if entry_findphone_editempaccount.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรูณาใส่เบอร์โทรพนักงานที่ต้องการแก้ไข")
+    elif entry_phone_editempaccount.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรูณากดปุ่มค้นหาก่อน")
+    else:
+        sql = '''
+                UPDATE user
+                SET phonenumber=?, username=?, password=?, name=?, lastname=?, status=?
+                WHERE phonenumber=?   
+        '''
+        cursor.execute(sql, [phone_editempaccount.get(), username_editempaccount.get(), password_editempaccount.get(), name_editempaccount.get(), lastname_editempaccount.get(), db_user[5], findphone_editempaccount.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "แก้ไขข้อมูลของเรียบร้อย")
     entry_name_editempaccount.delete(0, END)
     entry_surname_editempaccount.delete(0, END)
     entry_username_editempaccount.delete(0, END)
