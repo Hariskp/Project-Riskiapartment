@@ -1755,20 +1755,26 @@ def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำ�
     Button(frm_right_waterelec, image=btn_save, bd=0, bg='#DDDDDD', command=electricrate_save_backend).place(x=920, y=570)
 
 def waterrate_save_backend() : #เสร็จแล้ว โดย Haris
-    sql = "UPDATE room SET water_rate = ?"
-    cursor.execute(sql, [newwaterrate_waterelec.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าน้ำเรียบร้อยแล้ว")
+    if entry_newwaterrate_waterelec.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาระบุอัตราค่าบริการน้ำที่ต้องการปรับ")
+    else:
+        sql = "UPDATE room SET water_rate = ?"
+        cursor.execute(sql, [newwaterrate_waterelec.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าน้ำเรียบร้อยแล้ว")
     entry_waterrate_waterelec.delete(0, END)
     waterelectricrate_fn()
 
 def electricrate_save_backend() : #เสร็จแล้ว โดย Haris
-    sql = "UPDATE room SET electric_rate = ?"
-    cursor.execute(sql, [newelectricrate_waterelec.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าไฟเรียบร้อยแล้ว")
-    entry_electricrate_waterelec.delete(0, END)
-    waterelectricrate_fn()
+    if entry_newelectricrate_waterelec.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาระบุอัตราค่าบริการไฟฟ้าที่ต้องการปรับ")
+    else:
+        sql = "UPDATE room SET electric_rate = ?"
+        cursor.execute(sql, [newelectricrate_waterelec.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "อัพเดทค่าไฟเรียบร้อยแล้ว")
+        entry_electricrate_waterelec.delete(0, END)
+        waterelectricrate_fn()
 
 def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023
     global entry_phone_payment, entry_name_payment, entry_roomtype_payment, entry_rent_payment, entry_electric_payment, entry_water_payment, entry_total_payment, treepayment
