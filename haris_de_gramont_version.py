@@ -1414,12 +1414,10 @@ def addRoom_backend() : #เสร็จแล้ว เนื่องจาก
             sql = '''INSERT INTO room (room_number, floor, room_type, price, unit, status) VALUES (?,?,?,?,?,?)'''
             cursor.execute(sql, [roomnumber_addroom.get(), floor_addroom.get(), roomtype_addroom.get(), roomtype_price, unit, room_status])
             conn.commit()
-            retrivedata()
             messagebox.showinfo("Cryptonite : Successfully", "เพิ่มข้อมูลห้องพักเสร็จสิ้น")
             entry_roomnumber_addRoom.delete(0, END)
             entry_floor_addRoom.delete(0, END)
             roomtype_addroom.set('ประเภทห้อง')
-        
     addRoom_fn()
 
 def editRoom_fn(): #เสร็จแล้ว โดย Haris #แก้ไขห้องพัก #โค้ดนี้กำลังแก้ไขโดย บูม 07/04/2023 เวลา 18:05
@@ -1427,6 +1425,8 @@ def editRoom_fn(): #เสร็จแล้ว โดย Haris #แก้ไข
     root.title("Riski Apartment : แก้ไขห้องพัก")
     frm_main_editRoom = Frame(root, bg='black')
     frm_main_editRoom.place(x=0, y=0, width = w, height = h)
+    roomnumber_editroom.set("")
+    floor_editroom.set("")
 
     #FRAME LEFT
     frm_left_editRoom = Frame(frm_main_editRoom, bg='#084235')
