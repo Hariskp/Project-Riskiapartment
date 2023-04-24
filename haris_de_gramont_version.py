@@ -1776,6 +1776,13 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     root.title("Riski Apartment : ชำระค่าบริการ")
     frm_main_payment = Frame(root, bg='black')
     frm_main_payment.place(x=0, y=0, width = w, height = h) 
+    phone_payment.set("")
+    name_payment.set("")
+    roomtype_payment.set("")
+    rent_payment.set("")
+    electric_payment.set("")
+    water_payment.set("")
+    total_payment.set("")
 
     #FRAME LEFT 
     frm_left_payment = Frame(frm_main_payment, bg='#084235')
@@ -1806,7 +1813,6 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     Label(frm_right_payment_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
     entry_phone_payment = Entry(frm_right_payment_bg, textvariable=phone_payment, state='readonly') #Spy
     entry_phone_payment.place(x=270, y=60)
-    #Button(frm_right_payment_bg, image=btn_search, bd=0, bg='#DDDDDD', command=payment_search_backend).place(x=600, y=60) #ลบด้วย
     Label(frm_right_payment_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
     entry_name_payment = Entry(frm_right_payment_bg, textvariable=name_payment, state='readonly') #Spy
     entry_name_payment.place(x=270, y=120)
@@ -1827,13 +1833,6 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     entry_total_payment.place(x=270, y=420)
     Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=470)
     Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=470)
-    phone_payment.set("")
-    name_payment.set("")
-    roomtype_payment.set("")
-    rent_payment.set("")
-    electric_payment.set("")
-    water_payment.set("")
-    total_payment.set("")
 
     #Create Treeview
     treepayment = ttk.Treeview(root)
@@ -1886,101 +1885,108 @@ def payment_search_backend(event) : #เสร็จแล้ว โดย Haris
 
 def paymentstatus_fn() : #เสร็จแล้ว #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     global entry_phone_paymentstatus, entry_name_paymentstatus
-    #MAIN
-    root.title("Riski Apartment : สถานะการชำระเงิน")
-    frm_main_paymentstatus = Frame(root, bg='black')
-    frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
+    if phone_payment.get() == '' :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณาเลือกลูกค้าเพื่อชำระเงิน')
+        payment_fn()
+    else :
+        #MAIN
+        root.title("Riski Apartment : สถานะการชำระเงิน")
+        frm_main_paymentstatus = Frame(root, bg='black')
+        frm_main_paymentstatus.place(x=0, y=0, width = w, height = h) 
 
-    #FRAME LEFT 
-    frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
-    frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
+        #FRAME LEFT 
+        frm_left_paymentstatus = Frame(frm_main_paymentstatus, bg='#084235')
+        frm_left_paymentstatus.place(x=0, y=0, width=650, height=1080)
 
-    #LOGO
-    Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+        #LOGO
+        Button(frm_left_paymentstatus, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
 
-    #FRAME RIGHT
-    frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
-    frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
+        #FRAME RIGHT
+        frm_right_paymentstatus = Frame(frm_main_paymentstatus, bg='white')
+        frm_right_paymentstatus.place(x=651,y=0, width= 1269, height=1080)
 
-    #LEFT
-    if db_user[5] == "A" :
-        Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
-        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
-        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
-        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-    if db_user[5] == "U" :
-        Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
-        Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
-        Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+        #LEFT
+        if db_user[5] == "A" :
+            Button(frm_left_paymentstatus, image=btn_ratemanage, bd=0, bg='#084235', command=ratemanage_fn).place(x=180, y=180)
+            Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=280)
+            Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=380)
+            Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+        if db_user[5] == "U" :
+            Button(frm_left_paymentstatus, image=btn_payment, bd=0, bg='#084235',command=payment_fn).place(x=180, y=180)
+            Button(frm_left_paymentstatus, image=btn_help, bd=0, bg='#084235',command=help_fn).place(x=180, y=280)
+            Button(frm_left_paymentstatus, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-    #RIGHT
-    Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
-    frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
-    frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
-    Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
-    entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=phone_paymentstatus) #Spy
-    entry_phone_paymentstatus.place(x=270, y=60)
-    Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
-    entry_name_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=name_paymentstatus) #Spy
-    entry_name_paymentstatus.place(x=270, y=120)
-    Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180)
-    payment_status = ["ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
-    paymentstatus = OptionMenu(frm_right_paymentstatus_bg, status_paymentstatus, *payment_status).place(x=270, y=180, width=310) #Spy
-    status_paymentstatus.set("สถานะการชำระเงิน")
+        #RIGHT
+        Label(frm_right_paymentstatus, text='สถานะการชำระเงิน', bg='white', fg='#376957', font = 'Calibri 40 bold').place(x=430, y=30)
+        frm_right_paymentstatus_bg = Frame(frm_right_paymentstatus, bg='#DDDDDD')
+        frm_right_paymentstatus_bg.place(x=276, y=158, width=750, height=400)
+        Label(frm_right_paymentstatus_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=100, y=60)
+        entry_phone_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=phone_paymentstatus, state='readonly') #Spy
+        entry_phone_paymentstatus.place(x=270, y=60)
+        Label(frm_right_paymentstatus_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=105, y=120)
+        entry_name_paymentstatus = Entry(frm_right_paymentstatus_bg, textvariable=name_paymentstatus, state='readonly') #Spy
+        entry_name_paymentstatus.place(x=270, y=120)
+        Label(frm_right_paymentstatus_bg, text='สถานะการชำระเงิน : ', bg='#DDDDDD').place(x=52, y=180)
+        payment_status = ["ชำระเงินแล้ว", "ยังไม่ได้ชำระเงิน"]
+        paymentstatus = OptionMenu(frm_right_paymentstatus_bg, status_paymentstatus, *payment_status).place(x=270, y=180, width=310) #Spy
+        status_paymentstatus.set("สถานะการชำระเงิน")
 
-    Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
-    Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' , command=paymentstatus_backend).place(x=450, y=280)
-    #Insert Data
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_payment.get()])
-    db_customer = cursor.fetchone()
+        Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
+        Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' , command=paymentstatus_backend).place(x=450, y=280)
+        #Insert Data
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_payment.get()])
+        db_customer = cursor.fetchone()
 
-    sql = 'SELECT * FROM service_log WHERE phonenumber=?'
-    cursor.execute(sql, [db_customer[0]])
-    db_log = cursor.fetchone()
+        sql = 'SELECT * FROM service_log WHERE phonenumber=?'
+        cursor.execute(sql, [db_customer[0]])
+        db_log = cursor.fetchone()
 
-    phone_paymentstatus.set(db_log[0])
-    name_paymentstatus.set(db_log[7])
+        phone_paymentstatus.set(db_log[0])
+        name_paymentstatus.set(db_log[7])
 
 def paymentstatus_backend() : #เสร็จแล้ว โดย Haris
-    #Fetch customer
-    db_log_insert = conn.execute('SELECT * FROM service_log')
-    for i in db_log_insert : 
-        i = treepayment.item(treepayment.focus(), "values")
-        round = i[1] 
-        phone = i[4]
-    #Fetch service_log
-    sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=?'
-    cursor.execute(sql, [phone, round])
-    db_log = cursor.fetchone()
-    sql = '''
-            UPDATE service_log
-            SET payment_status=?
-            WHERE phonenumber=?
-    '''
-    cursor.execute(sql, [status_paymentstatus.get(), db_log[0]])
-    conn.commit()
-    if status_paymentstatus.get() == 'ชำระเงินแล้ว' :
-        now = datetime.now()
-        current_date = now.strftime("%d/%m/%Y")
-        date = current_date
-        bill = int(rent_payment.get())
-        other = int(electric_payment.get()) + int(water_payment.get())
-        total = bill + other
-        type = "I"
-        sql = '''INSERT INTO financial (date, bill, other, total, type) VALUES(?,?,?,?,?)'''
-        cursor.execute(sql, [date, bill, other, total, type])
+    if status_paymentstatus.get() == 'สถานะการชำระเงิน' :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณาเลือกสถานะการชำระเงิน')
+    else :
+        #Fetch customer
+        db_log_insert = conn.execute('SELECT * FROM service_log')
+        for i in db_log_insert : 
+            i = treepayment.item(treepayment.focus(), "values")
+            round = i[1] 
+            phone = i[4]
+        #Fetch service_log
+        sql = 'SELECT * FROM service_log WHERE phonenumber=? AND round=?'
+        cursor.execute(sql, [phone, round])
+        db_log = cursor.fetchone()
+        sql = '''
+                UPDATE service_log
+                SET payment_status=?
+                WHERE phonenumber=?
+        '''
+        cursor.execute(sql, [status_paymentstatus.get(), db_log[0]])
         conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "อัพเดทสถานะการชำระเงิน")
+        if status_paymentstatus.get() == 'ชำระเงินแล้ว' :
+            now = datetime.now()
+            current_date = now.strftime("%d/%m/%Y")
+            date = current_date
+            bill = int(rent_payment.get())
+            other = int(electric_payment.get()) + int(water_payment.get())
+            total = bill + other
+            type = "I"
+            sql = '''INSERT INTO financial (date, bill, other, total, type) VALUES(?,?,?,?,?)'''
+            cursor.execute(sql, [date, bill, other, total, type])
+            conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "อัพเดทสถานะการชำระเงิน")
 
-    entry_phone_payment.delete(0, END)
-    name_payment.set("")
-    roomtype_payment.set("")
-    rent_payment.set("")
-    electric_payment.set("")
-    water_payment.set("")
-    total_payment.set("")
-    payment_fn()
+        entry_phone_payment.delete(0, END)
+        name_payment.set("")
+        roomtype_payment.set("")
+        rent_payment.set("")
+        electric_payment.set("")
+        water_payment.set("")
+        total_payment.set("")
+        payment_fn()
 
 def help_fn() : #เสร็จแล้ว #หน้า Rate manage #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 15:11 07/04/2023 เพิ่มเติมโดย บูม
     global entry_date_help, entry_inform_help, entry_adminname_help
