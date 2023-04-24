@@ -279,99 +279,105 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
         name_checkin.set(db_customer[2] + ' ' + db_customer[3])
 
 def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
-    name_user = db_user[3] + " " + db_user[4]
-    global calendar1, calendar2, entry_user_in, btn_logic
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_checkin.get()])
-    db_customer = cursor.fetchone()
-    btn_logic = 'F'
-    #MAIN
-    root.title("Riski Apartment : เช็คอิน")
-    frm_main_checkindate = Frame(root, bg='black')
-    frm_main_checkindate.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_checkindate = Frame(frm_main_checkindate, bg='#084235')
-    frm_left_checkindate.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_checkindate = Frame(frm_main_checkindate, bg='white')
-    frm_right_checkindate.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_checkindate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-
-    #LEFT
-    Button(frm_left_checkindate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
-    Button(frm_left_checkindate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
-    Button(frm_left_checkindate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
-    Button(frm_left_checkindate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-    if roomtype_checkin.get() == 'รายวันแอร์' :
-        #RIGHT
-        Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
-        frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-        frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
-        Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-        calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-        calendar1.place(x=250, y=60)
-        Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-        calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-        calendar2.place(x=250, y=120)
-        Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
-        entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
-        entry_cus_in.place(x=250, y=180)
-        name_checkindate.set(db_customer[2] + " " + db_customer[3])
-        Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
-        roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
-        roomnumber.place(x=250, y=240)
-        roomnum_checkindate.set(number_checkin.get())
-        Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
-        floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
-        floor.place(x=250, y=300)
-        floor_checkindate.set(floor_checkin.get())
-        Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=360)
-        entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate)
-        entry_user_in.place(x=250, y=360)
-        employee_checkindate.set(name_user)
-        Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=450)
-        Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=450)
-        Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=540)
+    if phone_checkin.get() == "" :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกเบอร์โทรศัพท์')
+        checkin_fn()
+    elif number_checkin.get() == "" :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณาเลือกห้องพัก')
     else :
-        #RIGHT
-        Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
-        frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-        frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
-        Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-        calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-        calendar1.place(x=250, y=60)
-        Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-        calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-        calendar2.place(x=250, y=120)
-        Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
-        entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
-        entry_cus_in.place(x=250, y=180)
-        name_checkindate.set(db_customer[2] + " " + db_customer[3])
-        Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
-        roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
-        roomnumber.place(x=250, y=240)
-        roomnum_checkindate.set(number_checkin.get())
-        Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
-        floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
-        floor.place(x=250, y=300)
-        floor_checkindate.set(floor_checkin.get())
-        Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
-        water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
-        water_meter_checkindate.place(x=330, y=360)
-        Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
-        electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
-        electric_meter_checkindate.place(x=330, y=420)
-        Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
-        entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
-        entry_user_in.place(x=250, y=480)
-        employee_checkindate.set(name_user)
-        Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
-        Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
-        Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
+        name_user = db_user[3] + " " + db_user[4]
+        global calendar1, calendar2, entry_user_in, btn_logic
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_checkin.get()])
+        db_customer = cursor.fetchone()
+        btn_logic = 'F'
+        #MAIN
+        root.title("Riski Apartment : เช็คอิน")
+        frm_main_checkindate = Frame(root, bg='black')
+        frm_main_checkindate.place(x=0, y=0, width = w, height = h)
+
+        #FRAME LEFT
+        frm_left_checkindate = Frame(frm_main_checkindate, bg='#084235')
+        frm_left_checkindate.place(x=0, y=0, width=650, height=1080)
+
+        #FRAME RIGHT
+        frm_right_checkindate = Frame(frm_main_checkindate, bg='white')
+        frm_right_checkindate.place(x=651,y=0, width= 1269, height=1080)
+
+        #LOGO
+        Button(frm_left_checkindate, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+
+        #LEFT
+        Button(frm_left_checkindate, image=btn_checkinout, bd=0 , bg='#084235').place(x=180, y=180)
+        Button(frm_left_checkindate, image=btn_checkin, bd=0, bg='#084235', command=checkin_fn).place(x=198, y=280)
+        Button(frm_left_checkindate, image=btn_checkout, bd=0, bg='#084235', command=checkout_fn).place(x=198, y=380)
+        Button(frm_left_checkindate, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+        if roomtype_checkin.get() == 'รายวันแอร์' :
+            #RIGHT
+            Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+            frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
+            frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
+            Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+            calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            calendar1.place(x=250, y=60)
+            Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+            calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            calendar2.place(x=250, y=120)
+            Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+            entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
+            entry_cus_in.place(x=250, y=180)
+            name_checkindate.set(db_customer[2] + " " + db_customer[3])
+            Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+            roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
+            roomnumber.place(x=250, y=240)
+            roomnum_checkindate.set(number_checkin.get())
+            Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+            floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
+            floor.place(x=250, y=300)
+            floor_checkindate.set(floor_checkin.get())
+            Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=360)
+            entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate)
+            entry_user_in.place(x=250, y=360)
+            employee_checkindate.set(name_user)
+            Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=450)
+            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=450)
+            Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=540)
+        else :
+            #RIGHT
+            Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
+            frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
+            frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
+            Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
+            calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            calendar1.place(x=250, y=60)
+            Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
+            calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            calendar2.place(x=250, y=120)
+            Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
+            entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
+            entry_cus_in.place(x=250, y=180)
+            name_checkindate.set(db_customer[2] + " " + db_customer[3])
+            Label(frm_right_checkindate_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=136, y=240)
+            roomnumber = Entry(frm_right_checkindate_bg, textvariable=roomnum_checkindate) #Spy
+            roomnumber.place(x=250, y=240)
+            roomnum_checkindate.set(number_checkin.get())
+            Label(frm_right_checkindate_bg, text='ชั้น : ', bg='#DDDDDD').place(x=178, y=300)
+            floor = Entry(frm_right_checkindate_bg, textvariable=floor_checkindate) #Spy
+            floor.place(x=250, y=300)
+            floor_checkindate.set(floor_checkin.get())
+            Label(frm_right_checkindate_bg, text='เลขมิเตอร์น้ำปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=360)
+            water_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=watermeter_checkindate) #Spy
+            water_meter_checkindate.place(x=330, y=360)
+            Label(frm_right_checkindate_bg, text='เลขมิเตอร์ไฟปัจจุบัน : ', bg='#DDDDDD').place(x=121, y=420)
+            electric_meter_checkindate = Entry(frm_right_checkindate_bg, textvariable=electricmeter_checkindate) #Spy
+            electric_meter_checkindate.place(x=330, y=420)
+            Label(frm_right_checkindate_bg, text='เจ้าหน้าที่ : ', bg='#DDDDDD').place(x=121, y=480)
+            entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
+            entry_user_in.place(x=250, y=480)
+            employee_checkindate.set(name_user)
+            Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
+            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
+            Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
 
 def get_date() : #เสร็จแล้ว โดย Haris
     global btn_logic
