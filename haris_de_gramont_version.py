@@ -1662,26 +1662,39 @@ def roomrate_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
 
 def roomrate_search_backend() : #เสร็จแล้ว โดย Haris
     #INSERT DATA
-    room_execute = conn.execute('SELECT * FROM room')
-    for db_room in room_execute :
-        if db_room[2] == roomtype_roomrate.get() :
-            roomtype_price = db_room[3]
-            oldrate_roomrate.set(roomtype_price)
+    if roomtype_roomrate.get() == "ประเภทห้อง":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาเลือกประเภทห้องที่ต้องการปรับราคา")
+    else:
+        room_execute = conn.execute('SELECT * FROM room')
+        for db_room in room_execute :
+            if db_room[2] == roomtype_roomrate.get() :
+                roomtype_price = db_room[3]
+                oldrate_roomrate.set(roomtype_price)
 
 def roomrate_backend() : #เสร็จแล้ว โดย Haris
-    room_execute = conn.execute('SELECT * FROM room')
-    for db_room in room_execute :
-        if db_room[2] == roomtype_roomrate.get() :
-            roomtype_price = int(newrate_roomrate.get())
-            break
-    sql = '''
-            UPDATE room
-            SET price=?
-            WHERE room_type=?    
-    '''
-    cursor.execute(sql, [roomtype_price, roomtype_roomrate.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "แก้ไขราคาห้อง %s เรียบร้อยแล้ว" % (roomtype_roomrate.get()))
+    if roomtype_roomrate.get() == "ประเภทห้อง":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาเลือกประเภทห้องที่ต้องการปรับราคา")
+    elif entry_oldrate_roomrate.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณากดค้นหาเพื่อดูราคาปัจจุบัน")
+    elif entry_newrate_roomrate.get() == "":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาระบุราคาที่ต้องการปรับ")
+    else:
+        room_execute = conn.execute('SELECT * FROM room')
+        for db_room in room_execute :
+            if db_room[2] == roomtype_roomrate.get() :
+                roomtype_price = int(newrate_roomrate.get())
+                break
+        sql = '''
+                UPDATE room
+                SET price=?
+                WHERE room_type=?    
+        '''
+        cursor.execute(sql, [roomtype_price, roomtype_roomrate.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "แก้ไขราคาห้อง %s เรียบร้อยแล้ว" % (roomtype_roomrate.get()))
+    roomtype_roomrate.set("ประเภทห้อง")
+    entry_oldrate_roomrate.delete(0,END)
+    entry_newrate_roomrate.delete(0,END)
     roomrate_fn()
 
 def waterelectricrate_fn() : #เสร็จแล้ว #หน้า กำหนดค่าน้ำค่าไฟต่อหน่วย #โค้ดนี้กำลังแก้ไขโดย Haris เวลา 17:06 07/04/2023
