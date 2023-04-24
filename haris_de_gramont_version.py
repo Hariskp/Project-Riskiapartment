@@ -484,6 +484,24 @@ def checkout_fn() : #เสร็จแล้ว #หน้า Check Out #โค
     entry_floor_checkout.place(x=350, y=300)
     Button(frm_right_checkout_bg, image=btn_confirm,bd=0, bg='#DDDDDD', command=checkout_date).place(x=480, y=450)   #ไม่แน่ใจว่ากดยืนยันแล้วจะไปหน้าเลือกวันที่มั้ยแต่ผูกไว้ก่อนนะ
 
+    entry_phonenum_checkout.delete(0,END)
+
+    entry_name_checkout["state"] = "normal"
+    entry_name_checkout.delete(0,END)
+    entry_name_checkout["state"] = "readonly"
+
+    entry_roomnum_checkout["state"] = "normal"
+    entry_roomnum_checkout.delete(0,END)
+    entry_roomnum_checkout["state"] = "readonly"
+
+    entry_roomtype_checkout["state"] = "normal"
+    entry_roomtype_checkout.delete(0,END)
+    entry_roomtype_checkout["state"] = "readonly"
+
+    entry_floor_checkout["state"] = "normal"
+    entry_floor_checkout.delete(0,END)
+    entry_floor_checkout["state"] = "readonly"
+
 def checkout_date() :#เสร็จแล้ว #หน้า Check Out ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 3:09
     global checkout_logic
     #date1, date2 = get_date()
