@@ -673,6 +673,13 @@ def accountmanage_fn() : #เสร็จแล้ว #หน้า Main จั�
 def addempaccount_fn() : #เสร็จแล้ว #หน้าเพิ่มบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global db_employee, entry_name_addempaccount, entry_surname_addempaccount, entry_username_addempaccount, entry_password_addempaccount, entry_phone_addempaccount
     #MAIN
+    name_addemp.set("")
+    lastname_addemp.set("")
+    username_addemp.set("")
+    password_addemp.set("")
+    phone_addemp.set("")
+    roleSelect.set("-")
+
     root.title("Riski Apartment : เพิ่มบัญชีพนักงาน")
     frm_main_addempaccount = Frame(root, bg='black')
     frm_main_addempaccount.place(x=0, y=0, width = w, height = h)
