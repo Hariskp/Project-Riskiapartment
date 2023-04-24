@@ -2124,117 +2124,125 @@ def servicelog_fn() : #เสร็จแล้ว โดย Haris # หน้�
     entry_floor_servicelog.place(x=350, y=300)
     Button(frm_right_servicelog_bg, image=btn_next,bd=0, bg='#DDDDDD', command=servicelogsave_fn).place(x=480, y=450)
 
-def servicelog_search_fn() : #เสร็จแล้ว โดย Haris 
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_servicelog.get()])
-    db_customer = cursor.fetchone()
-    sql = 'SELECT * FROM room WHERE room_number=?'
-    cursor.execute(sql, [db_customer[1]])
-    db_room = cursor.fetchone()
-    if db_customer is None or phone_servicelog.get() != db_customer[0] :
-        messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า หรือเบอร์โทรศัพท์ไม่ถูกต้อง')
-    else : 
-        name_servicelog.set(db_customer[2] + ' ' + db_customer[3])
-    if db_customer[1] == '-' :
-        messagebox.showwarning('Riski Apartment : Warning', 'ลูกค้ายังไม่ได้ Check In หรือว่า ลูกค้าทำการ Check Out ไปแล้ว')
-        entry_phonenum_servicelog.delete(0, END)
-        entry_name_servicelog.delete(0, END)
-    else :
-        number_servicelog.set(db_customer[1])
+def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
+    if entry_phonenum_servicelog.get() == "":
+        messagebox.showwarning("Riski Apartment", "กรุณากรอกเบอร์โทรศัพท์ลูกค้า")
+    else:
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_servicelog.get()])
+        db_customer = cursor.fetchone()
         sql = 'SELECT * FROM room WHERE room_number=?'
         cursor.execute(sql, [db_customer[1]])
         db_room = cursor.fetchone()
-        roomtype_servicelog.set(db_room[2])
-        floor_servicelog.set(db_room[1])
+        if db_customer is None or phone_servicelog.get() != db_customer[0] :
+            messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า หรือเบอร์โทรศัพท์ไม่ถูกต้อง')
+        else : 
+            name_servicelog.set(db_customer[2] + ' ' + db_customer[3])
+        if db_customer[1] == '-' :
+            messagebox.showwarning('Riski Apartment : Warning', 'ลูกค้ายังไม่ได้ Check In หรือว่า ลูกค้าทำการ Check Out ไปแล้ว')
+            entry_phonenum_servicelog.delete(0, END)
+            entry_name_servicelog.delete(0, END)
+        else :
+            number_servicelog.set(db_customer[1])
+            sql = 'SELECT * FROM room WHERE room_number=?'
+            cursor.execute(sql, [db_customer[1]])
+            db_room = cursor.fetchone()
+            roomtype_servicelog.set(db_room[2])
+            floor_servicelog.set(db_room[1])
 
 def servicelogsave_fn() : #เสร็จแล้ว# บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_roomnum_servicelogsave, entry_electric_servicelogsave, entry_water_servicelogsave, entry_watermeter_servicelogsave, entry_electricmeter_servicelogsave, servicelog_logic
-    servicelog_logic = "F"
-    now = datetime.now()
-    current_date = now.strftime("%d/%m/%Y")
-    #Insert data
-    sql = 'SELECT * FROM customer WHERE phonenumber=?'
-    cursor.execute(sql, [phone_servicelog.get()])
-    db_customer = cursor.fetchone()
-    number_servicelogsave.set(db_customer[1])
-    sql = 'SELECT * FROM room WHERE room_number=?'
-    cursor.execute(sql, [db_customer[1]])
-    db_room = cursor.fetchone()
-    #MAIN
-    root.title("Riski Apartment : บันทึกการใช้บริการ")
-    frm_main_servicelogsave = Frame(root, bg='black')
-    frm_main_servicelogsave.place(x=0, y=0, width = w, height = h)
+    if entry_phonenum_servicelog.get() == "":
+        messagebox.showwarning("Riski Apartment", "กรุณากรอกเบอร์โทรศัพท์ลูกค้า")
+    elif entry_name_servicelog.get() == "":
+        messagebox.showwarning("Riski Apartment", "กรุณากดค้นหา")
+    else:
+        servicelog_logic = "F"
+        now = datetime.now()
+        current_date = now.strftime("%d/%m/%Y")
+        #Insert data
+        sql = 'SELECT * FROM customer WHERE phonenumber=?'
+        cursor.execute(sql, [phone_servicelog.get()])
+        db_customer = cursor.fetchone()
+        number_servicelogsave.set(db_customer[1])
+        sql = 'SELECT * FROM room WHERE room_number=?'
+        cursor.execute(sql, [db_customer[1]])
+        db_room = cursor.fetchone()
+        #MAIN
+        root.title("Riski Apartment : บันทึกการใช้บริการ")
+        frm_main_servicelogsave = Frame(root, bg='black')
+        frm_main_servicelogsave.place(x=0, y=0, width = w, height = h)
 
-    #FRAME LEFT
-    frm_left_servicelogsave = Frame(frm_main_servicelogsave, bg='#084235')
-    frm_left_servicelogsave.place(x=0, y=0, width=650, height=1080)
+        #FRAME LEFT
+        frm_left_servicelogsave = Frame(frm_main_servicelogsave, bg='#084235')
+        frm_left_servicelogsave.place(x=0, y=0, width=650, height=1080)
 
-    #FRAME RIGHT
-    frm_right_servicelogsave = Frame(frm_main_servicelogsave, bg='white')
-    frm_right_servicelogsave.place(x=651,y=0, width= 1269, height=1080)
+        #FRAME RIGHT
+        frm_right_servicelogsave = Frame(frm_main_servicelogsave, bg='white')
+        frm_right_servicelogsave.place(x=651,y=0, width= 1269, height=1080)
 
-    #LOGO
-    Button(frm_left_servicelogsave, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-    
-    #LEFT
-    Button(frm_left_servicelogsave, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
-    Button(frm_left_servicelogsave, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-    if db_room[2] == 'รายวันแอร์' :
-        #RIGHT
-        Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
-        frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
-        frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
-        Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
-        entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
-        entry_roomnum_servicelogsave.place(x=270, y=60)
-        number_servicelogsave.set(db_room[0])
-        Label(frm_right_servicelogsave_bg, text='ชั้น : ', bg='#DDDDDD').place(x=190, y=120)
-        entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=floor_servicelogsave, state='readonly') #Spy
-        entry_electric_servicelogsave.place(x=270, y=120)
-        floor_servicelogsave.set(db_room[1])
-        Label(frm_right_servicelogsave_bg, text='ประเภทห้องพัก : ', bg='#DDDDDD').place(x=92, y=180)
-        entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=roomtype_servicelogsave, state='readonly') #Spy
-        entry_water_servicelogsave.place(x=270, y=180)
-        roomtype_servicelogsave.set(db_room[2])
-        Label(frm_right_servicelogsave_bg, text='ราคาห้องพักต่อวัน : ', bg='#DDDDDD').place(x=60, y=240)
-        entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=price_servicelogsave, state='readonly') #Spy
-        entry_watermeter_servicelogsave.place(x=270, y=240)
-        price_servicelogsave.set(db_room[3])
-        Label(frm_right_servicelogsave_bg, text='จำนวนวันที่เข้าพัก : ', bg='#DDDDDD').place(x=60, y=300)
-        spin_date = Spinbox(frm_right_servicelogsave_bg, textvariable=staydate_servicelogsave, from_=1, to=14, width=8, justify=RIGHT) #Spy
-        spin_date.place(x=270, y=300)
-        Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-        entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
-        entry_date_servicelogsave.place(x=270, y=360)
-        date_servicelogsave.set(current_date)
-        Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
-    else :
-        #RIGHT
-        Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
-        frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
-        frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
-        Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
-        entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
-        entry_roomnum_servicelogsave.place(x=270, y=60)
-        Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
-        entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electric_servicelogsave, state='readonly') #Spy
-        entry_electric_servicelogsave.place(x=270, y=120)
-        Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
-        entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=water_servicelogsave, state='readonly') #Spy
-        entry_water_servicelogsave.place(x=270, y=180)
-        Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
-        entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=watermeter_servicelogsave) #Spy
-        entry_watermeter_servicelogsave.place(x=270, y=240)
-        Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
-        entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
-        entry_electricmeter_servicelogsave.place(x=270, y=300)
-        Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
-        entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
-        entry_date_servicelogsave.place(x=270, y=360)
-        date_servicelogsave.set(current_date)
-        Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
-        electric_servicelogsave.set(db_room[7])
-        water_servicelogsave.set(db_room[6])
+        #LOGO
+        Button(frm_left_servicelogsave, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
+        
+        #LEFT
+        Button(frm_left_servicelogsave, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
+        Button(frm_left_servicelogsave, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
+        if db_room[2] == 'รายวันแอร์' :
+            #RIGHT
+            Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+            frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
+            frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
+            Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+            entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
+            entry_roomnum_servicelogsave.place(x=270, y=60)
+            number_servicelogsave.set(db_room[0])
+            Label(frm_right_servicelogsave_bg, text='ชั้น : ', bg='#DDDDDD').place(x=190, y=120)
+            entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=floor_servicelogsave, state='readonly') #Spy
+            entry_electric_servicelogsave.place(x=270, y=120)
+            floor_servicelogsave.set(db_room[1])
+            Label(frm_right_servicelogsave_bg, text='ประเภทห้องพัก : ', bg='#DDDDDD').place(x=92, y=180)
+            entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=roomtype_servicelogsave, state='readonly') #Spy
+            entry_water_servicelogsave.place(x=270, y=180)
+            roomtype_servicelogsave.set(db_room[2])
+            Label(frm_right_servicelogsave_bg, text='ราคาห้องพักต่อวัน : ', bg='#DDDDDD').place(x=60, y=240)
+            entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=price_servicelogsave, state='readonly') #Spy
+            entry_watermeter_servicelogsave.place(x=270, y=240)
+            price_servicelogsave.set(db_room[3])
+            Label(frm_right_servicelogsave_bg, text='จำนวนวันที่เข้าพัก : ', bg='#DDDDDD').place(x=60, y=300)
+            spin_date = Spinbox(frm_right_servicelogsave_bg, textvariable=staydate_servicelogsave, from_=1, to=14, width=8, justify=RIGHT) #Spy
+            spin_date.place(x=270, y=300)
+            Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
+            entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+            entry_date_servicelogsave.place(x=270, y=360)
+            date_servicelogsave.set(current_date)
+            Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
+        else :
+            #RIGHT
+            Label(frm_right_servicelogsave, text='บันทึกการใช้บริการ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=480, y=80)
+            frm_right_servicelogsave_bg = Frame(frm_right_servicelogsave, bg='#DDDDDD')
+            frm_right_servicelogsave_bg.place(x=256, y=228, width=800, height=650)
+            Label(frm_right_servicelogsave_bg, text='เลขห้อง : ', bg='#DDDDDD').place(x=150, y=60)
+            entry_roomnum_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=number_servicelogsave, state='readonly') #Spy
+            entry_roomnum_servicelogsave.place(x=270, y=60)
+            Label(frm_right_servicelogsave_bg, text='ค่าไฟ / หน่วย : ', bg='#DDDDDD').place(x=90, y=120)
+            entry_electric_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electric_servicelogsave, state='readonly') #Spy
+            entry_electric_servicelogsave.place(x=270, y=120)
+            Label(frm_right_servicelogsave_bg, text='ค่าน้ำ / หน่วย : ', bg='#DDDDDD').place(x=92, y=180)
+            entry_water_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=water_servicelogsave, state='readonly') #Spy
+            entry_water_servicelogsave.place(x=270, y=180)
+            Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์น้ำ : ', bg='#DDDDDD').place(x=108, y=240)
+            entry_watermeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=watermeter_servicelogsave) #Spy
+            entry_watermeter_servicelogsave.place(x=270, y=240)
+            Label(frm_right_servicelogsave_bg, text='เลขมิเตอร์ไฟฟ้า : ', bg='#DDDDDD').place(x=82, y=300)
+            entry_electricmeter_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=electricmeter_servicelogsave) #Spy
+            entry_electricmeter_servicelogsave.place(x=270, y=300)
+            Label(frm_right_servicelogsave_bg, text='วันที่บันทึก : ', bg='#DDDDDD').place(x=130, y=360)
+            entry_date_servicelogsave = Entry(frm_right_servicelogsave_bg, textvariable=date_servicelogsave, state='readonly') #Spy
+            entry_date_servicelogsave.place(x=270, y=360)
+            date_servicelogsave.set(current_date)
+            Button(frm_right_servicelogsave_bg, image=btn_save,bd=0, bg='#DDDDDD', command=servicelogsave_backend).place(x=300, y=500)
+            electric_servicelogsave.set(db_room[7])
+            water_servicelogsave.set(db_room[6])
 
 def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
     now = datetime.now()
