@@ -2463,8 +2463,11 @@ def servicelogsave_backend() : #เสร็จแล้ว โดย Haris
                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
                 cursor.execute(sql, [phonenumber, date, round, calculate, floor, roomnumber, roomtype, name, electric_meter, water_meter, electric_bill, water_bill, room_bill, total, payment_status])
                 conn.commit()
+                messagebox.showinfo("Riski Apartment : Successfull", "บันทึกข้อมูลเรียบร้อย")
 
 def income_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+    startdate_income.set("")
+    enddate_income.set("")
     #MAIN
     root.title("Riski Apartment : รายรับ")
     frm_main_income = Frame(root, bg='black')
@@ -2527,68 +2530,33 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     for i in db_financial :
         mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
 
-def income_search_backend() :
+def income_search_backend():
+    try:
+        startdate = datetime.strptime(startdate_income.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+        enddate = datetime.strptime(enddate_income.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    except ValueError:
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกวันที่ให้ถูกต้องตามรูปแบบ dd/mm/yyyy')
+        return
+    if startdate_income.get() == '':
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกวันที่เริ่มต้น')
+        income_fn()
+    elif enddate_income.get() == '':
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกวันที่สิ้นสุด')
+        income_fn()
     for i in mypaytree.get_children():
         mypaytree.delete(i)
-    startdate = datetime.strptime(startdate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
-    enddate = datetime.strptime(enddate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
     sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
     cursor.execute(sql, [startdate, enddate, "I"])
     db_financial = cursor.fetchall()
-    #Insert Data to tree
-    for i in db_financial :
+    # Insert Data to tree
+    for i in db_financial:
         mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
-    
-def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
-    #MAIN
-    root.title("Riski Apartment : รายรับ")
-    frm_main_incometable = Frame(root, bg='black')
-    frm_main_incometable.place(x=0, y=0, width = w, height = h)
-
-    #FRAME LEFT
-    frm_left_incometable = Frame(frm_main_incometable, bg='#084235')
-    frm_left_incometable.place(x=0, y=0, width=650, height=1080)
-
-    #FRAME RIGHT
-    frm_right_incometable = Frame(frm_main_incometable, bg='white')
-    frm_right_incometable.place(x=651,y=0, width= 1269, height=1080)
-
-    #LOGO
-    Button(frm_left_incometable, image=img_riskilogos, bd=0 , bg='#084235', command=home_fn).place(x=30, y=30)
-    
-    #LEFT
-    Button(frm_left_incometable, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
-    Button(frm_left_incometable, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
-
-    #RIGHT
-    Label(frm_right_incometable, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
-    Button(frm_right_incometable, image=btn_back, bd=0, bg='white', command=income_fn).place(x=550, y=880)
-    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
-
-    #Button(frm_right_incometable, image=btn_printincome, bd=0, bg='white').place(x=850, y=880)
-
-    #CALL TREEVIEW
-    my_tree = ttk.Treeview(frm_right_incometable,column=("date_","roomnum_","rentroom_","water&electric_","total_"), height=2)
-    
-    #CREATE HEADING
-    my_tree.heading("#0",text='',anchor=W)
-    my_tree.heading("date_",text='วันที่',anchor=CENTER)
-    my_tree.heading("roomnum_",text='เลขที่ห้อง',anchor=CENTER)
-    my_tree.heading("rentroom_",text='ค่าเช่าห้อง',anchor=CENTER)
-    my_tree.heading("water&electric_",text='ค่าน้ำ+ค่าไฟ',anchor=CENTER)
-    my_tree.heading("total_",text='รวม',anchor=CENTER)
-    my_tree.place(x=100,y=190,height=650,width=1052)
-
-    #FORMAT COLUMNS
-    my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("date_",anchor=CENTER,width=250)
-    my_tree.column("roomnum_",anchor=CENTER,width=200)
-    my_tree.column("rentroom_",anchor=CENTER,width=170)
-    my_tree.column("water&electric_",anchor=CENTER,width=170)
-    my_tree.column("total_",anchor=CENTER,width=250)
 
 def pay_fn() : #เสร็จแล้วโดย Haris
     global mypaytree
+    startdate_pay.set("")
+    enddate_pay.set("")
+
     #MAIN
     root.title("Riski Apartment : รายจ่าย")
     frm_main_pay = Frame(root, bg='black')
@@ -2651,17 +2619,36 @@ def pay_fn() : #เสร็จแล้วโดย Haris
     for i in db_financial :
         mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3], i[4]))
 
-def pay_search_backend() : #เสร็จแล้วโดย Haris
+def pay_search_backend():
+    startdate_str = startdate_pay.get()
+    enddate_str = enddate_pay.get()
+
+    # ตรวจสอบรูปแบบวันที่
+    try:
+        startdate = datetime.strptime(startdate_str, '%d/%m/%Y').strftime('%d/%m/%Y')
+        enddate = datetime.strptime(enddate_str, '%d/%m/%Y').strftime('%d/%m/%Y')
+    except ValueError:
+        messagebox.showwarning('Riski Apartment : Warning', 'รูปแบบวันที่ไม่ถูกต้อง (dd/mm/yyyy)')
+        return
+
+    # ตรวจสอบว่าวันที่เริ่มต้นมาก่อนวันที่สิ้นสุดหรือไม่
+    if datetime.strptime(startdate_str, '%d/%m/%Y') > datetime.strptime(enddate_str, '%d/%m/%Y'):
+        messagebox.showwarning('Riski Apartment : Warning', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด')
+        return
+
+    # ลบข้อมูลใน Treeview
     for i in mypaytree.get_children():
         mypaytree.delete(i)
-    startdate = datetime.strptime(startdate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
-    enddate = datetime.strptime(enddate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+
+    # ค้นหาข้อมูลในฐานข้อมูล
     sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
     cursor.execute(sql, [startdate, enddate, "P"])
     db_financial = cursor.fetchall()
-    #Insert Data to tree
-    for i in db_financial :
+
+    # เพิ่มข้อมูลลงใน Treeview
+    for i in db_financial:
         mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
+
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     global my_tree
