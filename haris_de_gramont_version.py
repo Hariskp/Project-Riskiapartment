@@ -452,6 +452,11 @@ def checkout_fn() : #เสร็จแล้ว #หน้า Check Out #โค
     global checkout_logic
     checkout_logic = "F"
     global entry_phonenum_checkout, entry_name_checkout,  entry_roomnum_checkout, entry_floor_checkout, entry_roomtype_checkout
+    phone_checkout.set("")
+    name_checkout.set("")
+    number_checkout.set("")
+    roomtype_checkout.set("")
+    floor_checkout.set("")
     #MAIN
     root.title("Riski Apartment : เช็คเอ้าท์")
     frm_main_checkout = Frame(root, bg='black')
