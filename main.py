@@ -1946,14 +1946,17 @@ def help_fn() : #เสร็จแล้ว #หน้า Rate manage #โค�
     admin_help.set(name_user)
     Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0, command=help_backend).place(x=360, y=240)
 
-def help_backend() : #เสร็จแล้ว โดย Haris
+def help_backend() : #เสร็จแล้ว โดย Haris #Modify by Ford at 24/04/2566 10:06 AM
     name_user = db_user[3] + " " + db_user[4]
     now = datetime.now()
     current_date = now.strftime("%d/%m/%Y")
-    sql = '''INSERT INTO report_problem (date, employee_name, report_details) VALUES (?,?,?)'''
-    cursor.execute(sql, [current_date, name_user, request_help.get()])
-    conn.commit()
-    messagebox.showinfo("Riski Apartment : Success", "รับเรื่องเรียบร้อย")
+    if entry_inform_help.get() == "":
+        messagebox.showinfo("Riski Apartment : Warning", "กรุณาใส่เรื่องที่แจ้ง")
+    else:
+        sql = '''INSERT INTO report_problem (date, employee_name, report_details) VALUES (?,?,?)'''
+        cursor.execute(sql, [current_date, name_user, request_help.get()])
+        conn.commit()
+        messagebox.showinfo("Riski Apartment : Success", "รับเรื่องเรียบร้อย")
     date_help.set("")
     help_fn()
 
