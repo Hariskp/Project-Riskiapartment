@@ -2649,9 +2649,10 @@ def pay_search_backend():
     for i in db_financial:
         mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
 
-
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
     global my_tree
+    startdate_totalamt.set("")
+    enddate_totalamt.set("")
     #MAIN
     root.title("Riski Apartment : รายได้สุทธิ")
     frm_main_totalamt = Frame(root, bg='black')
@@ -2709,11 +2710,15 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     my_tree.column("expenses_",anchor=CENTER,width=100)
     my_tree.column("totalamt_",anchor=CENTER,width=100)
 
-def total_search_backend() :
-    for i in my_tree.get_children():
-        my_tree.delete(i)
-    startdate = datetime.strptime(startdate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
-    enddate = datetime.strptime(enddate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+def total_search_backend():
+    try:
+        for i in my_tree.get_children():
+            my_tree.delete(i)
+        startdate = datetime.strptime(startdate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+        enddate = datetime.strptime(enddate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    except ValueError:
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกวันที่ในรูปแบบวัน/เดือน/ปี เช่น 01/01/2022')
+        return
     sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
     cursor.execute(sql, [startdate, enddate, "P"])
     db_payment = cursor.fetchall()
@@ -2722,19 +2727,15 @@ def total_search_backend() :
     db_income = cursor.fetchall()
     total_payment = 0
     total_income = 0
-    for row in db_payment :
+    for row in db_payment:
         total_payment += int(row[3])
 
-    for row in db_income :
+    for row in db_income:
         total_income += int(row[3])
 
     totalincome = total_income - total_payment
     my_tree.insert("", 'end', values=(startdate, enddate, total_income, total_payment, totalincome))
-    # #Insert Data to tree
-    # for i in db_financial :
-    #     mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
     
-
 def receivenoti_fn() : #เสร็จแล้ว โดย Haris #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
     root.title("Riski Apartment : เรื่องที่รับแจ้ง")
@@ -2786,6 +2787,9 @@ def receivenoti_fn() : #เสร็จแล้ว โดย Haris #โค้�
 def savepayment_fn() :
     now = datetime.now()
     current_date = now.strftime("%d/%m/%Y")
+    waterelectric_savepayment.set("")
+    date_savepayment.set("")
+    other_savepayment.set("")
     #MAIN
     root.title("Riski Apartment : บันทึกรายจ่าย")
     frm_main_savepayment = Frame(root, bg='black')
@@ -2823,6 +2827,12 @@ def savepayment_fn() :
     Button(frm_right_savepayment_bg, image=btn_save, bg='#DDDDDD', bd=0, command=savepayment_backend).place(x=385, y=350)
 
 def savepayment_backend() :
+    if waterelectric_savepayment.get() == '' :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกค่าน้ำ / ค่าไฟ')
+        savepayment_fn()
+    elif other_savepayment.get() == '' :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกค่าใช้จ่ายอื่น ๆ')
+        savepayment_fn()
     date = date_savepayment.get()
     bill = waterelectric_savepayment.get()
     other = other_savepayment.get()
