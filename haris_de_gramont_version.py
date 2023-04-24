@@ -2036,7 +2036,7 @@ def help_backend() : #เสร็จแล้ว โดย Haris #Modify by For
     now = datetime.now()
     current_date = now.strftime("%d/%m/%Y")
     if entry_inform_help.get() == "":
-        messagebox.showinfo("Riski Apartment : Warning", "กรุณาใส่เรื่องที่แจ้ง")
+        messagebox.showinfo("Riski Apartment : Warning", "กรุณาระบุเรื่องที่แจ้ง")
     else:
         sql = '''INSERT INTO report_problem (date, employee_name, report_details) VALUES (?,?,?)'''
         cursor.execute(sql, [current_date, name_user, request_help.get()])
