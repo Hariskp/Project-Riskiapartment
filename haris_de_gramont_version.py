@@ -2146,6 +2146,12 @@ def datareport_fn() : #เสร็จแล้ว โดย น้องนั�
 
 def servicelog_fn() : #เสร็จแล้ว โดย Haris # หน้าบันทึกการใช้บริการ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_phonenum_servicelog, entry_name_servicelog, entry_roomnum_servicelog, entry_roomtype_servicelog, entry_floor_servicelog
+    phone_servicelog.set("")
+    name_servicelog.set("")
+    number_servicelog.set("")
+    roomtype_servicelog.set("")
+    floor_servicelog.set("")
+
     #MAIN
     root.title("Riski Apartment : บันทึกการใช้บริการ")
     frm_main_servicelog = Frame(root, bg='black')
