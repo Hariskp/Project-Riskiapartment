@@ -279,6 +279,8 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
         name_checkin.set(db_customer[2] + ' ' + db_customer[3])
 
 def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
+    now = datetime.now()
+    date = now.strftime("%d/%m/%Y")
     if phone_checkin.get() == "" :
         messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกเบอร์โทรศัพท์')
         checkin_fn()
@@ -290,7 +292,7 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
         sql = 'SELECT * FROM customer WHERE phonenumber=?'
         cursor.execute(sql, [phone_checkin.get()])
         db_customer = cursor.fetchone()
-        btn_logic = 'F'
+        btn_logic = 'T'
         #MAIN
         root.title("Riski Apartment : เช็คอิน")
         frm_main_checkindate = Frame(root, bg='black')
@@ -318,11 +320,19 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
             frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
             frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
             Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-            calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-            calendar1.place(x=250, y=60)
+            entry_startdate_checkindate = Entry(frm_right_checkindate_bg, textvariable=startdate_checkindate) #Spy
+            entry_startdate_checkindate.place(x=250, y=60)
+            startdate_checkindate.set(date)
+            Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=560, y=60)
+            # calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            # calendar1.place(x=250, y=60)
             Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-            calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-            calendar2.place(x=250, y=120)
+            entry_enddate_checkindate = Entry(frm_right_checkindate_bg, textvariable=enddate_checkindate) #Spy
+            entry_enddate_checkindate.place(x=250, y=120)
+            # calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            # calendar2.place(x=250, y=120)
+            enddate_checkindate.set(date)
+            Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=560, y=120)
             Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
             entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
             entry_cus_in.place(x=250, y=180)
@@ -339,19 +349,26 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
             entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate)
             entry_user_in.place(x=250, y=360)
             employee_checkindate.set(name_user)
-            Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=450)
-            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=450)
+            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=300, y=550)
         else :
             #RIGHT
             Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
             frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
             frm_right_checkindate_bg.place(x=272, y=220, width=750, height=700)
             Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
-            calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-            calendar1.place(x=250, y=60)
+            entry_startdate_checkindate = Entry(frm_right_checkindate_bg, textvariable=startdate_checkindate) #Spy
+            entry_startdate_checkindate.place(x=250, y=60)
+            startdate_checkindate.set(date)
+            Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=560, y=60)
+            # calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            # calendar1.place(x=250, y=60)
             Label(frm_right_checkindate_bg, text='สิ้นสุดวันที่ : ', bg='#DDDDDD').place(x=109, y=120)
-            calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
-            calendar2.place(x=250, y=120)
+            entry_enddate_checkindate = Entry(frm_right_checkindate_bg, textvariable=enddate_checkindate) #Spy
+            entry_enddate_checkindate.place(x=250, y=120)
+            enddate_checkindate.set(date)
+            Label(frm_right_checkindate_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=560, y=120)
+            # calendar2 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
+            # calendar2.place(x=250, y=120)
             Label(frm_right_checkindate_bg, text='ชื่อ-นามสกุล : ', bg='#DDDDDD').place(x=121, y=180)
             entry_cus_in = Entry(frm_right_checkindate_bg, textvariable=name_checkindate) #Spy
             entry_cus_in.place(x=250, y=180)
@@ -374,21 +391,25 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
             entry_user_in = Entry(frm_right_checkindate_bg,textvariable=employee_checkindate) #Spy
             entry_user_in.place(x=250, y=480)
             employee_checkindate.set(name_user)
-            Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
-            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
-
-def get_date() : #เสร็จแล้ว โดย Haris
-    global btn_logic
-    btn_logic = 'T'
-    date = calendar1.get_date()
-    date_string1 = date.strftime("%d/%m/%Y")
-    date = calendar2.get_date()
-    date_string2 = date.strftime("%d/%m/%Y")   
-    return date_string1, date_string2
+            Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=300, y=550)
 
 def checkindate_backend() : #เสร็จแล้ว โดย Haris
     if btn_logic == "T" :
-        date1, date2 = get_date()
+        startdate_str = startdate_checkindate.get()
+        enddate_str = enddate_checkindate.get()
+
+        try:
+            startdate = datetime.strptime(startdate_str, '%d/%m/%Y').strftime('%d/%m/%Y')
+            enddate = datetime.strptime(enddate_str, '%d/%m/%Y').strftime('%d/%m/%Y')
+        except ValueError:
+            messagebox.showwarning('Riski Apartment : Warning', 'รูปแบบวันที่ไม่ถูกต้อง (dd/mm/yyyy)')
+            return
+
+        # ตรวจสอบว่าวันที่เริ่มต้นมาก่อนวันที่สิ้นสุดหรือไม่
+        if datetime.strptime(startdate_str, '%d/%m/%Y') > datetime.strptime(enddate_str, '%d/%m/%Y'):
+            messagebox.showwarning('Riski Apartment : Warning', 'วันที่เริ่มต้นต้องมาก่อนวันที่สิ้นสุด')
+            return
+        
         now = datetime.now()
         status = "ไม่ว่าง"
         #Fetch customer
@@ -409,7 +430,7 @@ def checkindate_backend() : #เสร็จแล้ว โดย Haris
                 SET customer_name=?, check_in_date=?, status=?, check_out_date=?
                 WHERE room_number=?
         '''    
-        cursor.execute(sql, [db_customer[2] + " " + db_customer[3], date1, status, date2,number_checkin.get()])
+        cursor.execute(sql, [db_customer[2] + " " + db_customer[3], startdate, status, enddate,number_checkin.get()])
         conn.commit()
         checkin_date()
         messagebox.showinfo("Riski Apartment : Success", "เช็คอินลูกค้า %s เรียบร้อย"%(db_customer[2]))
@@ -578,11 +599,6 @@ def checkout_search_backend() : #เสร็จแล้ว โดย Haris
         db_room = cursor.fetchone()
         roomtype_checkout.set(db_room[2])
         floor_checkout.set(db_room[1])
-
-def checkoutdate_insert_backend() : #เสร็จแล้ว โดย Haris
-    date1, date2 = get_date()
-    startdate_checkoutdate.set(date1)
-    enddate_checkoutdate.set(date2)
 
 def checkoutdate_backend() : #เสร็จแล้ว โดย Haris
     sql = 'SELECT * FROM customer WHERE phonenumber=?'
@@ -2939,6 +2955,8 @@ electricmeter_checkindate = StringVar()
 name_checkindate = StringVar()
 roomnum_checkindate = StringVar()
 floor_checkindate = StringVar()
+startdate_checkindate = StringVar()
+enddate_checkindate = StringVar()
 #servicelog
 phone_servicelog = StringVar()
 name_servicelog = StringVar()
