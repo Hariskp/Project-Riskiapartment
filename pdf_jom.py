@@ -7,11 +7,8 @@ def createconnection() :
     cursor = conn.cursor()
 
 def payreceipt_pdf():
-    sql = 'SELECT * FROM customer WHERE phonenumber=0805847716'
-    cursor.execute(sql)
-    db_customer = cursor.fetchone()
-
-    renter_name = db_customer[0] #data base customer
+    
+    renter_name = "Haris Kirdpakdee" #data base customer
     room_number = "101" #data base customer & room
     rent_amount = 1000
     deposit_amount = 500
@@ -24,8 +21,11 @@ def payreceipt_pdf():
 
     pdf = FPDF()
     pdf.add_page()
-
-    pdf.set_font("Arial", size=22, style="B")
+    
+    pdf.add_font('angsana','','angsana.ttf',uni=True)
+    
+    pdf.set_font("angsana", size=22, style="B")
+    pdf.encoding = 'utf-8'
     pdf.cell(0, 15, "RISKI APARTMENT RECEIPT", 0, 1, "C")
     pdf.cell(0, 10, "", 0, 1)
     pdf.line(10, 32, 200, 32)

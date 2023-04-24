@@ -1800,7 +1800,7 @@ def payment_search_backend(event) : #เสร็จแล้ว โดย Haris
     water_payment.set(db_log[11])
     total_payment.set(db_log[13])
 
-def paymentstatus_fn() : #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
+def paymentstatus_fn() : #เสร็จแล้ว #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 00:07
     global entry_phone_paymentstatus, entry_name_paymentstatus
     #MAIN
     root.title("Riski Apartment : สถานะการชำระเงิน")
@@ -1876,7 +1876,19 @@ def paymentstatus_backend() : #เสร็จแล้ว โดย Haris
     '''
     cursor.execute(sql, [status_paymentstatus.get(), db_log[0]])
     conn.commit()
+    if status_paymentstatus.get() == 'ชำระเงินแล้ว' :
+        now = datetime.now()
+        current_date = now.strftime("%d/%m/%Y")
+        date = current_date
+        bill = int(rent_payment.get())
+        other = int(electric_payment.get()) + int(water_payment.get())
+        total = bill + other
+        type = "I"
+        sql = '''INSERT INTO financial (date, bill, other, total, type) VALUES(?,?,?,?,?)'''
+        cursor.execute(sql, [date, bill, other, total, type])
+        conn.commit()
     messagebox.showinfo("Riski Apartment : Success", "อัพเดทสถานะการชำระเงิน")
+
     entry_phone_payment.delete(0, END)
     name_payment.set("")
     roomtype_payment.set("")
@@ -2104,7 +2116,7 @@ def servicelog_search_fn() : #เสร็จแล้ว โดย Haris
         roomtype_servicelog.set(db_room[2])
         floor_servicelog.set(db_room[1])
 
-def servicelogsave_fn() : # บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
+def servicelogsave_fn() : #เสร็จแล้ว# บันทึกการใช้บริการ ค่าน้ำ ค่าไฟ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 18:05
     global entry_roomnum_servicelogsave, entry_electric_servicelogsave, entry_water_servicelogsave, entry_watermeter_servicelogsave, entry_electricmeter_servicelogsave, servicelog_logic
     servicelog_logic = "F"
     now = datetime.now()
@@ -2338,18 +2350,59 @@ def income_fn() : #โค้ดนี้กำลังแก้ไขโดย 
     Button(frm_left_income, image=btn_datareport, bd=0, bg='#084235', command=datareport_fn).place(x=125, y=185)
     Button(frm_left_income, image=btn_home, bd=0, bg='#084235', command=home_fn).place(x=30, y=900)
 
-    #RIGHT
-    Label(frm_right_income, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=580, y=80)
-    frm_right_income_bg = Frame(frm_right_income, bg='#DDDDDD')
-    frm_right_income_bg.place(x=236, y=228, width=800, height=500)
-    Label(frm_right_income_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=60, y=35)
-    Label(frm_right_income_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=140, y=120)
-    entry_startdate_income = Entry(frm_right_income_bg).place(x=280, y=120)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=120)
-    Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=145, y=180)
-    entry_enddate_income = Entry(frm_right_income_bg).place(x=280, y=180)
-    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD').place(x=610, y=180)
-    Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=incometable_fn).place(x=330, y=350)
+    #RIGHT SIDE [ ช่องกรอกวันที่เริ่มต้น วันที่สิ้นสุด ]
+    Label(frm_right_income, text='รายรับ', font='Verdana 30 bold', bg='white', fg='#376957').place(x=550, y=20)
+    frm_right_income_bg= Frame(frm_right_income, bg='#DDDDDD')
+    frm_right_income_bg.place(x=236, y=110, width=800, height=870)
+
+    Label(frm_right_income_bg, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
+    Label(frm_right_income_bg, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
+    entry_startdate_income = Entry(frm_right_income_bg, textvariable=startdate_income) #Spy
+    entry_startdate_income.place(x=260, y=120) 
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
+    Label(frm_right_income_bg, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
+    entry_endate_income = Entry(frm_right_income_bg, textvariable=enddate_income) #Spy
+    entry_endate_income.place(x=260, y=180) 
+    Label(frm_right_income_bg, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
+    Button(frm_right_income_bg, image=btn_find,bd=0, bg='#DDDDDD', command=income_search_backend).place(x=330, y=250)
+    Button(frm_right_income_bg,image=btn_back, bd=0 ,  bg="#DDDDDD",command=income_fn).place(x=560,y=790) 
+
+    #CALL TREEVIEW [ วันที่ รายรับ รายจ่าย รายได้สุทธิ ]
+    mypaytree = ttk.Treeview(frm_right_income_bg,column=("date_","waterelectric_","other_", 'total_'), height=2)
+    
+    #CREATE HEADING
+    mypaytree.heading("#0",text='',anchor=W)
+    mypaytree.heading("date_",text='วันที่',anchor=CENTER)
+    mypaytree.heading("waterelectric_",text='ค่าน้ำ / ค่าไฟ',anchor=CENTER)
+    mypaytree.heading("other_",text='ค่าห้อง',anchor=CENTER)
+    mypaytree.heading("total_",text='รวม',anchor=CENTER)
+    mypaytree.place(x=82,y=330,height=450,width=650)
+
+    #FORMAT COLUMNS
+    mypaytree.column("#0",width=0,minwidth=25)
+    mypaytree.column("date_",anchor=CENTER,width=150)
+    mypaytree.column("waterelectric_",anchor=CENTER,width=150)
+    mypaytree.column("other_",anchor=CENTER,width=150)
+    mypaytree.column("total_",anchor=CENTER,width=150)
+    #Connect Database room table
+    sql = 'SELECT * FROM financial WHERE type=?'
+    cursor.execute(sql, ["I"])
+    db_financial = cursor.fetchall()
+    #Insert Data to tree
+    for i in db_financial :
+        mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
+
+def income_search_backend() :
+    for i in mypaytree.get_children():
+        mypaytree.delete(i)
+    startdate = datetime.strptime(startdate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    enddate = datetime.strptime(enddate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
+    cursor.execute(sql, [startdate, enddate, "I"])
+    db_financial = cursor.fetchall()
+    #Insert Data to tree
+    for i in db_financial :
+        mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
     
 def incometable_fn() : # ตารางรายรับ #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 22:07
     #MAIN
@@ -2399,7 +2452,8 @@ def incometable_fn() : # ตารางรายรับ #โค้ดนี�
     my_tree.column("water&electric_",anchor=CENTER,width=170)
     my_tree.column("total_",anchor=CENTER,width=250)
 
-def pay_fn() :
+def pay_fn() : #เสร็จแล้วโดย Haris
+    global mypaytree
     #MAIN
     root.title("Riski Apartment : รายจ่าย")
     frm_main_pay = Frame(root, bg='black')
@@ -2427,31 +2481,55 @@ def pay_fn() :
 
     Label(frm_right_pay, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
     Label(frm_right_pay, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
-    entry_startdate_pay = Entry(frm_right_pay).place(x=260, y=120) 
+    entry_startdate_pay = Entry(frm_right_pay, textvariable=startdate_pay) #Spy
+    entry_startdate_pay.place(x=260, y=120) 
     Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
     Label(frm_right_pay, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
-    entry_endate_pay = Entry(frm_right_pay).place(x=260, y=180) 
+    entry_endate_pay = Entry(frm_right_pay, textvariable=enddate_pay) #Spy
+    entry_endate_pay.place(x=260, y=180) 
     Label(frm_right_pay, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
-    Button(frm_right_pay, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
-    Button(frm_right_pay,image=btn_back, bd=0 ,  bg="#DDDDDD",command=datareport_fn).place(x=560,y=790) 
+    Button(frm_right_pay, image=btn_find,bd=0, bg='#DDDDDD', command=pay_search_backend).place(x=330, y=250)
+    Button(frm_right_pay,image=btn_back, bd=0 ,  bg="#DDDDDD",command=pay_fn).place(x=560,y=790) 
 
     #CALL TREEVIEW [ วันที่ รายรับ รายจ่าย รายได้สุทธิ ]
-    my_tree = ttk.Treeview(frm_right_pay,column=("date_","waterelectric_","amount_"), height=2)
+    mypaytree = ttk.Treeview(frm_right_pay,column=("date_","waterelectric_","other_", 'total_'), height=2)
     
     #CREATE HEADING
-    my_tree.heading("#0",text='',anchor=W)
-    my_tree.heading("date_",text='วันที่',anchor=CENTER)
-    my_tree.heading("waterelectric_",text='รายรับ',anchor=CENTER)
-    my_tree.heading("amount_",text='รายจ่าย',anchor=CENTER)
-    my_tree.place(x=82,y=330,height=450,width=650)
+    mypaytree.heading("#0",text='',anchor=W)
+    mypaytree.heading("date_",text='วันที่',anchor=CENTER)
+    mypaytree.heading("waterelectric_",text='ค่าน้ำ / ค่าไฟ',anchor=CENTER)
+    mypaytree.heading("other_",text='อื่น ๆ',anchor=CENTER)
+    mypaytree.heading("total_",text='รวม',anchor=CENTER)
+    mypaytree.place(x=82,y=330,height=450,width=650)
 
     #FORMAT COLUMNS
-    my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("date_",anchor=CENTER,width=216)
-    my_tree.column("waterelectric_",anchor=CENTER,width=216)
-    my_tree.column("amount_",anchor=CENTER,width=216)
+    mypaytree.column("#0",width=0,minwidth=25)
+    mypaytree.column("date_",anchor=CENTER,width=150)
+    mypaytree.column("waterelectric_",anchor=CENTER,width=150)
+    mypaytree.column("other_",anchor=CENTER,width=150)
+    mypaytree.column("total_",anchor=CENTER,width=150)
+    #Connect Database room table
+    sql = 'SELECT * FROM financial WHERE type=?'
+    cursor.execute(sql, ["P"])
+    db_financial = cursor.fetchall()
+    #Insert Data to tree
+    for i in db_financial :
+        mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3], i[4]))
+
+def pay_search_backend() : #เสร็จแล้วโดย Haris
+    for i in mypaytree.get_children():
+        mypaytree.delete(i)
+    startdate = datetime.strptime(startdate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    enddate = datetime.strptime(enddate_pay.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
+    cursor.execute(sql, [startdate, enddate, "P"])
+    db_financial = cursor.fetchall()
+    #Insert Data to tree
+    for i in db_financial :
+        mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
 
 def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 21:46
+    global my_tree
     #MAIN
     root.title("Riski Apartment : รายได้สุทธิ")
     frm_main_totalamt = Frame(root, bg='black')
@@ -2479,20 +2557,23 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
 
     Label(frm_right_totalamt, text='เลือกช่วงวันที่ต้องการเช็ค', bg='#DDDDDD', fg='#3F9878').place(x=20, y=20)
     Label(frm_right_totalamt, text='วันที่เริ่มต้น : ', bg='#DDDDDD').place(x=121, y=116)
-    entry_startdate_totalamt = Entry(frm_right_totalamt).place(x=260, y=120)
+    entry_startdate_totalamt = Entry(frm_right_totalamt, textvariable=startdate_totalamt) #Spy
+    entry_startdate_totalamt.place(x=260, y=120)
     Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=116)
     Label(frm_right_totalamt, text='วันที่สิ้นสุด : ', bg='#DDDDDD').place(x=125, y=176)
-    entry_endate_totalamt = Entry(frm_right_totalamt).place(x=260, y=180)
+    entry_endate_totalamt = Entry(frm_right_totalamt, textvariable=enddate_totalamt) #Spy
+    entry_endate_totalamt.place(x=260, y=180)
     Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
-    Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD').place(x=330, y=250)
+    Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD', command=total_search_backend).place(x=330, y=250)
     Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
 
     #CALL TREEVIEW
-    my_tree = ttk.Treeview(frm_right_totalamt,column=("date_","revenue_","expenses_","totalamt_"), height=2)
+    my_tree = ttk.Treeview(frm_right_totalamt,column=("datestart_", "dateend_","revenue_","expenses_","totalamt_"), height=2)
     
     #CREATE HEADING
     my_tree.heading("#0",text='',anchor=W)
-    my_tree.heading("date_",text='วันที่',anchor=CENTER)
+    my_tree.heading("datestart_",text='วันที่เริ่ม',anchor=CENTER)
+    my_tree.heading("dateend_",text='วันที่สิ้นสุด',anchor=CENTER)
     my_tree.heading("revenue_",text='รายรับ',anchor=CENTER)
     my_tree.heading("expenses_",text='รายจ่าย',anchor=CENTER)
     my_tree.heading("totalamt_",text='รายได้สุทธิ',anchor=CENTER)
@@ -2500,10 +2581,37 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
 
     #FORMAT COLUMNS
     my_tree.column("#0",width=0,minwidth=25)
-    my_tree.column("date_",anchor=CENTER,width=150)
-    my_tree.column("revenue_",anchor=CENTER,width=150)
-    my_tree.column("expenses_",anchor=CENTER,width=150)
-    my_tree.column("totalamt_",anchor=CENTER,width=150)
+    my_tree.column("datestart_",anchor=CENTER,width=100)
+    my_tree.column("dateend_",anchor=CENTER,width=100)
+    my_tree.column("revenue_",anchor=CENTER,width=100)
+    my_tree.column("expenses_",anchor=CENTER,width=100)
+    my_tree.column("totalamt_",anchor=CENTER,width=100)
+
+def total_search_backend() :
+    for i in my_tree.get_children():
+        my_tree.delete(i)
+    startdate = datetime.strptime(startdate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    enddate = datetime.strptime(enddate_totalamt.get(), '%d/%m/%Y').strftime('%d/%m/%Y')
+    sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
+    cursor.execute(sql, [startdate, enddate, "P"])
+    db_payment = cursor.fetchall()
+    sql = 'SELECT * FROM financial WHERE date BETWEEN ? AND ? AND type=?'
+    cursor.execute(sql, [startdate, enddate, "I"])
+    db_income = cursor.fetchall()
+    total_payment = 0
+    total_income = 0
+    for row in db_payment :
+        total_payment += int(row[3])
+
+    for row in db_income :
+        total_income += int(row[3])
+
+    totalincome = total_income - total_payment
+    my_tree.insert("", 'end', values=(startdate, enddate, total_income, total_payment, totalincome))
+    # #Insert Data to tree
+    # for i in db_financial :
+    #     mypaytree.insert("", 'end', values=(i[0], i[1], i[2], i[3]))
+    
 
 def receivenoti_fn() : #เสร็จแล้ว โดย Haris #โค้ดนี้กำลงแก้ไขโดย จอม 07/04/2023 เวลา 00:37
     #MAIN
@@ -2597,8 +2705,9 @@ def savepayment_backend() :
     bill = waterelectric_savepayment.get()
     other = other_savepayment.get()
     total = float(bill) + float(other)
-    sql = '''INSERT INTO financial (date, bill, other, total) VALUES(?,?,?,?)'''
-    cursor.execute(sql, [date, bill, other, total])
+    type = 'P'
+    sql = '''INSERT INTO financial (date, bill, other, total, type) VALUES(?,?,?,?,?)'''
+    cursor.execute(sql, [date, bill, other, total, type])
     conn.commit()
     messagebox.showinfo('Riski Apartment : Successfully', 'บันทึกรายจ่ายเรียบร้อย')
 
@@ -2741,6 +2850,15 @@ date_savepayment = StringVar()
 date_help = StringVar()
 request_help = StringVar()
 admin_help = StringVar()
+#pay
+startdate_pay = StringVar()
+enddate_pay = StringVar()
+#income
+startdate_income = StringVar()
+enddate_income = StringVar()
+#totalamt
+startdate_totalamt = StringVar()
+enddate_totalamt = StringVar()
 #Image import
 img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
