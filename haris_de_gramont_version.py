@@ -578,6 +578,7 @@ def checkout_search_backend() : #เสร็จแล้ว โดย Haris
 
     if db_customer is None or phone_checkout.get() != db_customer[0] :
         messagebox.showwarning('Riski Apartment : Warning', 'ไม่พบลูกค้า')
+        entry_phonenum_checkout.delete(0,END)
     else :
         name_checkout.set(db_customer[2] + ' ' + db_customer[3])
     if db_customer[1] == '-' :
