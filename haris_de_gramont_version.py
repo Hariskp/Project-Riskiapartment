@@ -225,8 +225,8 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=230, y= 360)
     entry_price_checkin = Entry(frm_right_checkin_bg, textvariable=price_checkin, state='readonly') #Spy
     entry_price_checkin.place(x=350, y=360)
-    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
-    
+    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkingDataForCheckIn).place(x=480, y=450)
+
     #Create Treeview
     treecheckin = ttk.Treeview(root)
     treecheckin= ttk.Treeview(frm_right_checkin, columns=("floor_", "roomnum_", "roomtype_", "roomrate_"), height=2)
@@ -271,6 +271,16 @@ def checkin_search_backend() : #เสร็จแล้ว โดย Haris
         entry_phonenum_checkin.delete(0, END)
     else : 
         name_checkin.set(db_customer[2] + ' ' + db_customer[3])
+
+def checkingDataForCheckIn():
+    if entry_phonenum_checkin.get() == "" :
+        messagebox.showwarning('Riski Apartment : Warning', 'กรูณาใส่เบอร์โทรลูกค้า')
+    elif entry_name_checkin.get() == "":
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากดปุ่มค้นหาเพื่อดูข้อมูลลูกค้า')
+    elif entry_roomtype_checkin.get() == "":
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณาเลือกห้องที่ต้องการลงทะเบียน')
+    else:
+        checkin_date()
 
 def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า Check In ที่ 2 #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     name_user = db_user[3] + " " + db_user[4]
