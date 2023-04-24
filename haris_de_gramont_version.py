@@ -776,6 +776,8 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
     roleSelect.get()
     if roleSelect.get() == "Admin" :
         status = "A"
+    elif roleSelect.get() == "-":
+        messagebox.showwarning("Riski Apartment : Warning", "กรุณาเลือกตำแหน่ง")
     else :
         status = "U"
     #Existence Check
@@ -801,7 +803,7 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
         messagebox.showwarning("Riski Apartment : Warning", "กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว")
     elif db_phonecheck is not None and phone_addemp.get() == db_phonecheck[0]:
         messagebox.showerror("Riski Apartment : Error", "เบอร์โทรศัพท์นี้ถูกใช้ไปแล้ว")
-        entry_phone_addempaccount.focus_force() 
+        entry_phone_addempaccount.focus_force()
     else :
         sql = '''INSERT INTO user (phonenumber, username, password, name, lastname, status) VALUES (?,?,?,?,?,?)'''
         cursor.execute(sql, [phone_addemp.get(), username_addemp.get().lower(), password_addemp.get().lower(), name_addemp.get(), lastname_addemp.get(), status])
