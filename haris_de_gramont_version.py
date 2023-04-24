@@ -17,6 +17,7 @@ def mainwindow() :
     #root.resizable(False, False)
     root.rowconfigure((0,1,2,3), weight=1)
     root.columnconfigure((0,1,2,3),weight=1)
+    
     return root
 #CREATE CONNECTION WITH SQLITE3
 def createconnection() : 
@@ -2796,6 +2797,8 @@ btn_invoices = PhotoImage(file='button/btn_invoices.png')
 btn_paystat = PhotoImage(file='button/btn_paystat.png')
 btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 btn_savepayment = PhotoImage(file='button/btn_savepayment.png')
+#Icon import & setting
+root.iconbitmap('icon\icon_riski.ico')
 
 login_fn()
 root.mainloop()
