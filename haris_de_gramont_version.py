@@ -566,6 +566,8 @@ def checkout_date() :#เสร็จแล้ว #หน้า Check Out ที
 
         startdate_checkoutdate.set(db_room[9])
         enddate_checkoutdate.set(db_room[10])
+    elif entry_name_checkout.get() == "":
+        messagebox.showwarning('Riski Apartment : Warning', 'กรุณากดค้นหา')
     else :
         messagebox.showwarning('Riski Apartment : Warning', 'กรุณากรอกเบอร์ลูกค้า')
 
