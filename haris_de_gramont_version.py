@@ -810,6 +810,12 @@ def addempaccount_backend() : #เสร็จแล้ว โดย Haris
     
 def editempaccount_fn() : #เสร็จแล้ว #หน้าแก้ไขบัญชีพนักงาน #โค้ดนี้กำลังแก้ไขโดย นัท 07/04/2023 เวลา 2:30
     global entry_findphone_editempaccount, entry_name_editempaccount, entry_surname_editempaccount, entry_username_editempaccount, entry_password_editempaccount, entry_phone_editempaccount
+    findphone_editempaccount.set("")
+    name_editempaccount.set("")
+    lastname_editempaccount.set("")
+    username_editempaccount.set("")
+    password_editempaccount.set("")
+    phone_editempaccount.set("")
     #MAIN
     root.title("Riski Apartment : แก้ไขบัญชีพนักงาน")
     frm_main_editempaccount = Frame(root, bg='black')
