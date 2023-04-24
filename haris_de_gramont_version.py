@@ -231,7 +231,7 @@ def checkin_fn() : #เสร็จแล้ว #หน้า Check In #โค�
     Label(frm_right_checkin_bg, text='ราคา : ', bg='#DDDDDD').place(x=230, y= 360)
     entry_price_checkin = Entry(frm_right_checkin_bg, textvariable=price_checkin, state='readonly') #Spy
     entry_price_checkin.place(x=350, y=360)
-    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=450)
+    Button(frm_right_checkin_bg, image=btn_next,bd=0, bg='#DDDDDD', command=checkin_date).place(x=480, y=420)
     
     #Create Treeview
     treecheckin = ttk.Treeview(root)
@@ -341,12 +341,11 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
             employee_checkindate.set(name_user)
             Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=450)
             Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=450)
-            Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=540)
         else :
             #RIGHT
             Label(frm_right_checkindate, text='CHECK IN', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
             frm_right_checkindate_bg = Frame(frm_right_checkindate, bg='#DDDDDD')
-            frm_right_checkindate_bg.place(x=272, y=220, width=750, height=740)
+            frm_right_checkindate_bg.place(x=272, y=220, width=750, height=700)
             Label(frm_right_checkindate_bg, text='เริ่มวันที่ : ', bg='#DDDDDD').place(x=132, y=60)
             calendar1 = DateEntry(frm_right_checkindate_bg, selectmode='day', date_pattern='dd/mm/yyyy')
             calendar1.place(x=250, y=60)
@@ -377,7 +376,6 @@ def checkin_date() : #เสร็จแล้ว โดย Haris #หน้า 
             employee_checkindate.set(name_user)
             Button(frm_right_checkindate_bg, image=btn_save,bd=0, bg='#DDDDDD', command=get_date).place(x=150, y=550)
             Button(frm_right_checkindate_bg, image=btn_finish,bd=0, bg='#DDDDDD', command=checkindate_backend).place(x=450, y=550)
-            Button(frm_right_checkindate_bg, image=btn_paperform,bd=0, bg='#DDDDDD').place(x=280, y=640)
 
 def get_date() : #เสร็จแล้ว โดย Haris
     global btn_logic
@@ -482,7 +480,7 @@ def checkout_fn() : #เสร็จแล้ว #หน้า Check Out #โค
     #RIGHT
     Label(frm_right_checkout, text='CHECK OUT', bg='white', font = 'Calibri 55 bold', fg='#376957').place(x=500, y=100)
     frm_right_checkout_bg = Frame(frm_right_checkout, bg='#DDDDDD')
-    frm_right_checkout_bg.place(x=276, y=258, width=750, height=600)
+    frm_right_checkout_bg.place(x=276, y=258, width=750, height=570)
     Label(frm_right_checkout_bg, text='เบอร์โทรศัพท์ : ', bg='#DDDDDD').place(x=180, y=60)
     entry_phonenum_checkout = Entry(frm_right_checkout_bg, textvariable=phone_checkout) #Spy
     entry_phonenum_checkout.place(x=350, y=60)
@@ -1837,8 +1835,7 @@ def payment_fn() : #เสร็จแล้ว #หน้า Rate manage #โ�
     Label(frm_right_payment_bg, text='รวม : ', bg='#DDDDDD').place(x=190, y=420)
     entry_total_payment = Entry(frm_right_payment_bg, textvariable=total_payment) #Spy
     entry_total_payment.place(x=270, y=420)
-    Button(frm_right_payment_bg, image=btn_invoices, bd=0, bg='#DDDDDD').place(x=150, y=470)
-    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=400, y=470)
+    Button(frm_right_payment_bg, image=btn_paystat, bd=0, bg='#DDDDDD', command=paymentstatus_fn).place(x=280, y=470)
 
     #Create Treeview
     treepayment = ttk.Treeview(root)
@@ -1937,7 +1934,6 @@ def paymentstatus_fn() : #เสร็จแล้ว #โค้ดนี้ก�
         paymentstatus = OptionMenu(frm_right_paymentstatus_bg, status_paymentstatus, *payment_status).place(x=270, y=180, width=310) #Spy
         status_paymentstatus.set("สถานะการชำระเงิน")
 
-        Button(frm_right_paymentstatus_bg, image=btn_printreceipt, bd=0, bg='#DDDDDD' ).place(x=150, y=280)
         Button(frm_right_paymentstatus_bg, image=btn_finish, bd=0, bg='#DDDDDD' , command=paymentstatus_backend).place(x=450, y=280)
         #Insert Data
         sql = 'SELECT * FROM customer WHERE phonenumber=?'
@@ -2041,7 +2037,7 @@ def help_fn() : #เสร็จแล้ว #หน้า Rate manage #โค�
     entry_adminname_help = Entry(frm_right_help_bg, textvariable=admin_help, state='readonly') #Spy
     entry_adminname_help.place(x=230, y=170)
     admin_help.set(name_user)
-    Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0, command=help_backend).place(x=360, y=240)
+    Button(frm_right_help_bg, image=btn_finish, bg='#DDDDDD', bd=0, command=help_backend).place(x=300, y=235)
 
 def help_backend() : #เสร็จแล้ว โดย Haris #Modify by Ford at 24/04/2566 10:06 AM
     name_user = db_user[3] + " " + db_user[4]
@@ -2688,7 +2684,7 @@ def totalamt_fn() : #โค้ดนี้กำลงแก้ไขโดย �
     entry_endate_totalamt.place(x=260, y=180)
     Label(frm_right_totalamt, text='(วว/ดด/ปปปป)', bg='#DDDDDD',fg="#969696").place(x=570, y=178)
     Button(frm_right_totalamt, image=btn_find,bd=0, bg='#DDDDDD', command=total_search_backend).place(x=330, y=250)
-    Button(frm_right_totalamt,image=btn_printtotalamt, bd=0 ,  bg="#DDDDDD").place(x=570,y=790)
+
 
     #CALL TREEVIEW
     my_tree = ttk.Treeview(frm_right_totalamt,column=("datestart_", "dateend_","revenue_","expenses_","totalamt_"), height=2)
@@ -2996,7 +2992,6 @@ img_riskilogo = PhotoImage(file='img/img_riskilogo.png')
 img_phonenumber = PhotoImage(file='img/img_phonenumber.png')
 img_riskilogos = PhotoImage(file='img/img_riskilogo.png').subsample(2,2)
 #Button import
-btn_printtotalamt = PhotoImage(file='button/btn_printtotalamt.png')
 btn_login = PhotoImage(file='button/btn_login.png')
 btn_checkinout = PhotoImage(file='button/btn_check-in-out.png')
 btn_inforeport = PhotoImage(file='button/btn_info-report.png')
@@ -3010,7 +3005,6 @@ btn_home = PhotoImage(file='button/btn_home.png')
 btn_next = PhotoImage(file='button/btn_next.png')
 btn_back = PhotoImage(file='button/btn_back.png')
 btn_finish = PhotoImage(file='button/btn_finish.png')
-btn_paperform = PhotoImage(file='button/btn_paperform.png')
 btn_confirm = PhotoImage(file='button/btn_confirm.png')
 btn_empmanage = PhotoImage(file='button/btn_empmanage.png')
 btn_addempacc = PhotoImage(file='button/btn_addempacc.png')
@@ -3042,10 +3036,7 @@ btn_pay = PhotoImage(file='button/btn_pay.png')
 btn_totalamt = PhotoImage(file='button/btn_totalamt.png')
 btn_information = PhotoImage(file='button/btn_information.png')
 btn_find = PhotoImage(file='button/btn_find.png')
-btn_printincome = PhotoImage(file='button/btn_printincome.png')
-btn_invoices = PhotoImage(file='button/btn_invoices.png')
 btn_paystat = PhotoImage(file='button/btn_paystat.png')
-btn_printreceipt = PhotoImage(file='button/btn_printreceipt.png')
 btn_savepayment = PhotoImage(file='button/btn_savepayment.png')
 #Icon import & setting
 root.iconbitmap('icon\icon_riski.ico')
